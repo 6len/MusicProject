@@ -1,0 +1,47 @@
+<html>
+<head>
+    <title>Music Project</title>
+    <link rel="stylesheet" href="index.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pizzicato/0.6.4/Pizzicato.js"></script>
+</head>
+<body>
+<div class="DrumKit">
+
+</div>
+<div id="drumSpecification">
+    <button id="kick" onclick="changeMode('kick')">Kick</button>
+    <button id="snare" onclick="changeMode('snare')">snare</button>
+    <button id="clap" onclick="changeMode('clap')">clap</button>
+    <button id="crash" onclick="changeMode('crash')">crash</button>
+
+
+</div>
+<div class="BeatButtons">
+    <button id="play" class="playButton" onclick="playTrack()">Play</button>
+    <button id="pause" class="stopButton" onclick="stopTrack()">Stop</button>
+    <button id="b1" class="drumButton" value=0>1</button>
+    <button id="b2" class="drumButton" value=1>2</button>
+    <button id="b3" class="drumButton" value=2>3</button>
+    <button id="b4" class="drumButton" value=3>4</button>
+    <button id="b5" class="drumButton" value=4>5</button>
+    <button id="b6" class="drumButton" value=5>6</button>
+    <button id="b7" class="drumButton" value=6>7</button>
+    <button id="b8" class="drumButton" value=7>8</button>
+    <button id="b9" class="drumButton" value=8>9</button>
+    <button id="b10" class="drumButton" value=9>10</button>
+    <button id="b11" class="drumButton" value=10>11</button>
+    <button id="b12" class="drumButton" value=11>12</button>
+    <button id="b13" class="drumButton" value=12>13</button>
+    <button id="b14" class="drumButton" value=13>14</button>
+    <button id="b15" class="drumButton" value=14>15</button>
+    <button id="b16" class="drumButton" value=15>16</button>
+</div>
+<div class="slidecontainer">
+    <p>Tempo</p>
+    <input type="range" min="200" max="1000" value="500" class="slider" id="tempoSlider">
+    <p id="sliderValue"></p>
+</div>
+</body>
+</html>
+<script src="index.js"></script>
