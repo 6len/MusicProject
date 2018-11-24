@@ -43,18 +43,33 @@
         <i class="white play icon"></i>
     </button>
 </div>
-<div class="ui compact menu">
-    <div class="ui simple dropdown item">
-        Kit
-        <i class="dropdown icon"></i>
-        <div class="menu" id="kits">
-        </div>
+<div class="ui selection dropdown" id="kitsDropdown">
+    <input type="hidden" name="drum">
+    <i class="dropdown icon"></i>
+    <div class="default text">Kits</div>
+    <div class="menu" id="kits">
+    </div>
+</div>
+<div class="ui selection dropdown" id="drumsDropdown">
+    <input type="hidden" name="drum">
+    <i class="dropdown icon"></i>
+    <div class="default text">Drum</div>
+    <div class="menu">
+        <div class="item" data-value="kick">Kick</div>
+        <div class="item" data-value="clap">Clap</div>
+        <div class="item" data-value="hihat">Hihat</div>
+        <div class="item" data-value="snare">Snare</div>
     </div>
 </div>
 <div class="slidecontainer">
     <p>Pitch</p>
-    <input type="range" min="1" max="200" value="100" class="slider" id="tempoSlider">
-    <p id="sliderValue">1</p>
+    <input type="range" min="1" max="200" value="100" class="slider" id="pitchSlider">
+    <p id="pitchSliderValue">1</p>
+</div>
+<div class="slidecontainer">
+    <p>Tempo</p>
+    <input type="range" min="60" max="200" value="120" class="slider" id="tempoSlider">
+    <p id="tempoSliderValue">120</p>
 </div>
 </body>
 </html>
