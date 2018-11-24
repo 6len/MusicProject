@@ -1,0 +1,17 @@
+{
+  "drumkits": {
+    "electribe": {
+      "snare": "SoundSamples/KORG-ER-1/SD-ER1-70sSnareNice.wav",
+      "hat": "SoundSamples/KORG-ER-1/HH-ER-GrimpyHat.wav"
+    },
+    "acoustic": {
+
+    },
+    "house" : {
+
+    },
+    "chill" : {
+
+    }
+  }
+}
