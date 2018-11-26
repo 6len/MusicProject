@@ -30,7 +30,9 @@
 .sequencerButton.active {
     background-color: blue;
 }
-
+.sequencerButton.cycle {
+    background-color: green;
+}
 .playbackButton {
     background-color: black ;
     border-radius: 10px;

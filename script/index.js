@@ -2,24 +2,26 @@ let kicks = new Array(16).fill(0);
 let claps = new Array(16).fill(0);
 let hihats = new Array(16).fill(0);
 let snares = new Array(16).fill(0);
-
+let buttons = new Array(16).fill(1);
+let buttonValues = $(".sequencerButton");
+let index = 0;
 let pitchSlider = document.getElementById("pitchSlider");
 let tempoSlider = document.getElementById("tempoSlider");
 let part;
 let pitch = 1;
 let BPM = 120;
 
-let kickSound, clapSound, hihatSound, snareSound;
+let kickSound, clapSound, hihatSound, snareSound, buttonsSound;
 $(document).ready(function() {
     $.getJSON("drumkits/drumkits.json", function (data) {
         let drumKits = data.drumkits;
         jQuery.each(Object.keys(drumKits), function() {
             addDropdownItem(this)
-        })
+        });
         preload();
         console.log(kicks);
     });
-})
+});
 
 function addDropdownItem(item){
     $("#kits").append("<div class='item'>"+item+"</div>");
@@ -38,6 +40,7 @@ function setup() {
     part.addPhrase('clap', playClap, claps);
     part.addPhrase('snare', playSnare, snares);
     part.addPhrase('hat', playHat, hihats);
+    part.addPhrase('buttons', cycleButton, buttons);
     part.setBPM(BPM);
     part.loop();
 }
@@ -58,40 +61,70 @@ function playSnare() {
     snareSound.rate(pitch);
     snareSound.play();
 }
-function changeSound(index) {
+function cycleButton() {
+    $(".sequencerButton").removeClass("cycle");
+    $(buttonValues[index]).addClass("cycle");
+    index++;
+    if (index === 16) {
+        index = 0;
+    }
+}
+function changeSound(button) {
+    let index = button.getAttribute("index");
     let kitValue = $("#drumsDropdown").dropdown('get value');
-    console.log(kitValue);
-
-    if(kitValue == "kick") {
-        (kicks[index] == 1) ? kicks[index] = 0: kicks[index] = 1;
-    } else if(kitValue == "clap") {
-        (claps[index] == 1) ? claps[index] = 0: claps[index] = 1;
-    } else if(kitValue == "snare") {
-        (snares[index] == 1) ? snares[index] = 0: snares[index] = 1;
-    } else if(kitValue == "hihat") {
-        (hihats[index] == 1) ? hihats[index] = 0: hihats[index] = 1;
+    $(button).hasClass("active") ? $(button).removeClass("active"): $(button).addClass("active");
+    if(kitValue === "kick") {
+        (kicks[index] === 1) ? kicks[index] = 0: kicks[index] = 1;
+    } else if(kitValue === "clap") {
+        (claps[index] === 1) ? claps[index] = 0: claps[index] = 1;
+    } else if(kitValue === "snare") {
+        (snares[index] === 1) ? snares[index] = 0: snares[index] = 1;
+    } else if(kitValue === "hihat") {
+        (hihats[index] === 1) ? hihats[index] = 0: hihats[index] = 1;
     } else {
+        $(button).hasClass("active") ? $(button).removeClass("active"): $(button).addClass("active");
         alert("Please select a drum");
-    }console.log(kicks);
+    }
+}
+
+function toggleActiveBySound(drum) {
+    $(".sequencerButton").removeClass("active");
+    for (var i = 0 ; i<buttonValues.length ; i++) {
+        if(drum[i] === 1) {
+            $(buttonValues[i]).addClass("active");
+        }
+    }
 }
 
 $(".sequencerButton").click(function() {
-    console.log(this.getAttribute("index"));
-    changeSound(this.getAttribute("index"));
-})
+    changeSound(this);
+});
+
+$("#drumsDropdown").change(function() {
+    let kitValue = $("#drumsDropdown").dropdown('get value');
+    if(kitValue === "kick") {
+        toggleActiveBySound(kicks);
+    } else if(kitValue === "clap") {
+        toggleActiveBySound(claps);
+    } else if(kitValue === "snare") {
+        toggleActiveBySound(snares);
+    } else if(kitValue === "hihat") {
+        toggleActiveBySound(hihats);
+    }
+});
 
 pitchSlider.oninput = function() {
     pitch = this.value/100;
     pitchSliderValue.innerHTML = pitch;
     console.log(this.value);
-}
+};
 
 tempoSlider.oninput = function() {
     BPM = this.value;
     part.setBPM(BPM);
     tempoSliderValue.innerHTML = BPM;
     console.log(this.value);
-}
+};
 
 $('.ui.dropdown')
     .dropdown()
