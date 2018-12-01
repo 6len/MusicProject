@@ -1,27 +1,12 @@
-.drumButton {
-    background-color: #dacfce;
-    border-radius:10px;
-    border:1px solid #000000;
-    display:inline-block;
-    width: 60px;
-    padding-bottom: 50px;
-    cursor: pointer;
-    font-size: 25px;
-    height: 100px;
+body {
+    background-color: darkgrey !important;
+    margin-right: 70px !important;
+    margin-left: 70px !important;
 }
-.drumButton.active {
-    background-color: #ff2457;
-}
-.drumButton.selected {
-    background-color: green;
-}
-.drumButton.selected.active {
-    background-color: #ff2457;
-}
-
 .sequencerButton {
     background-color: black ;
     border-radius: 10px;
+    border-color: gray;
     display: inline-block;
     width: 80px;
     height: 80px;
@@ -36,8 +21,25 @@
 .playbackButton {
     background-color: black ;
     border-radius: 10px;
+    border-color: gray;
     display: inline-block;
     width: 60px;
     height: 60px;
     cursor: pointer;
+}
+.sequenceContainer {
+    position: absolute;
+    bottom: 50px;
+    right: 50px;
+}
+.drumMachine {
+    background-color: rgba(0, 0, 0, 0.75);
+    width: 100%;
+    height: 600px;
+    padding: 50px;
+    margin-top: 150px;
+    position: relative;
+}
+#visualSound {
+    display: inline-block;
 }

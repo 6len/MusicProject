@@ -10,66 +10,73 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
 </head>
 <body>
-<div class="sequencer">
-    <div class="sequencerRow1">
-        <button class="sequencerButton" index="0"></button>
-        <button class="sequencerButton" index="1"></button>
-        <button class="sequencerButton" index="2"></button>
-        <button class="sequencerButton" index="3"></button>
-        <button class="sequencerButton" index="4"></button>
-        <button class="sequencerButton" index="5"></button>
-        <button class="sequencerButton" index="6"></button>
-        <button class="sequencerButton" index="7"></button>
+<div class="drumMachine" id="drumMachine">
+    <div id="visualSound">
+
     </div>
-    <div class="sequencerRow2">
-        <button class="sequencerButton" index="8"></button>
-        <button class="sequencerButton" index="9"></button>
-        <button class="sequencerButton" index="10"></button>
-        <button class="sequencerButton" index="11"></button>
-        <button class="sequencerButton" index="12"></button>
-        <button class="sequencerButton" index="13"></button>
-        <button class="sequencerButton" index="14"></button>
-        <button class="sequencerButton" index="15"></button>
+    <div class="sequenceContainer">
+        <div class="sequencer">
+            <div class="sequencerRow1">
+                <button class="sequencerButton" index="0"></button>
+                <button class="sequencerButton" index="1"></button>
+                <button class="sequencerButton" index="2"></button>
+                <button class="sequencerButton" index="3"></button>
+                <button class="sequencerButton" index="4"></button>
+                <button class="sequencerButton" index="5"></button>
+                <button class="sequencerButton" index="6"></button>
+                <button class="sequencerButton" index="7"></button>
+            </div>
+            <div class="sequencerRow2">
+                <button class="sequencerButton" index="8"></button>
+                <button class="sequencerButton" index="9"></button>
+                <button class="sequencerButton" index="10"></button>
+                <button class="sequencerButton" index="11"></button>
+                <button class="sequencerButton" index="12"></button>
+                <button class="sequencerButton" index="13"></button>
+                <button class="sequencerButton" index="14"></button>
+                <button class="sequencerButton" index="15"></button>
+            </div>
+        </div>
     </div>
-</div>
-<div class="playback">
-    <button class="playbackButton">
-        <i class="white circle icon"></i>
-    </button>
-    <button class="playbackButton">
-        <i class="white stop icon"></i>
-    </button>
-    <button class="playbackButton">
-        <i class="white play icon"></i>
-    </button>
-</div>
-<div class="ui selection dropdown" id="kitsDropdown">
-    <input type="hidden" name="drum">
-    <i class="dropdown icon"></i>
-    <div class="default text">Kits</div>
-    <div class="menu" id="kits">
+    <div class="playback">
+        <button class="playbackButton">
+            <i class="white circle icon"></i>
+        </button>
+        <button class="playbackButton" id="stopButton">
+            <i class="white stop icon"></i>
+        </button>
+        <button class="playbackButton" id="playButton">
+            <i class="white play icon"></i>
+        </button>
     </div>
-</div>
-<div class="ui selection dropdown" id="drumsDropdown">
-    <input type="hidden" name="drum">
-    <i class="dropdown icon"></i>
-    <div class="default text">Drum</div>
-    <div class="menu">
-        <div class="item" data-value="kick">Kick</div>
-        <div class="item" data-value="clap">Clap</div>
-        <div class="item" data-value="hihat">Hihat</div>
-        <div class="item" data-value="snare">Snare</div>
+    <div class="ui selection dropdown" id="kitsDropdown">
+        <input type="hidden" name="drum">
+        <i class="dropdown icon"></i>
+        <div class="default text">Kits</div>
+        <div class="menu" id="kits">
+        </div>
     </div>
-</div>
-<div class="slidecontainer">
-    <p>Pitch</p>
-    <input type="range" min="1" max="200" value="100" class="slider" id="pitchSlider">
-    <p id="pitchSliderValue">1</p>
-</div>
-<div class="slidecontainer">
-    <p>Tempo</p>
-    <input type="range" min="60" max="200" value="120" class="slider" id="tempoSlider">
-    <p id="tempoSliderValue">120</p>
+    <div class="ui selection dropdown" id="drumsDropdown">
+        <input type="hidden" name="drum">
+        <i class="dropdown icon"></i>
+        <div class="default text">Drum</div>
+        <div class="menu">
+            <div class="item" data-value="kick">Kick</div>
+            <div class="item" data-value="clap">Clap</div>
+            <div class="item" data-value="hihat">Hihat</div>
+            <div class="item" data-value="snare">Snare</div>
+        </div>
+    </div>
+    <div class="slidecontainer">
+        <p>Pitch</p>
+        <input type="range" min="1" max="200" value="100" class="slider" id="pitchSlider">
+        <p id="pitchSliderValue">1</p>
+    </div>
+    <div class="slidecontainer">
+        <p>Tempo</p>
+        <input type="range" min="60" max="200" value="120" class="slider" id="tempoSlider">
+        <p id="tempoSliderValue">120</p>
+    </div>
 </div>
 </body>
 </html>
