@@ -4,13 +4,15 @@
       "snare": "SoundSamples/KORG-ER-1/SD-ER1-70sSnareNice.wav",
       "hihat": "SoundSamples/KORG-ER-1/HH-ER-GrimpyHat.wav",
       "kick" : "SoundSamples/KORG-ER-1/BD-ER1-GoaKick.wav",
-      "clap" : "SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav"
+      "clap" : "SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav",
+      "closed" : "SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav"
     },
     "johnnysDrums": {
       "kick" : "SoundSamples/Johnny_Samples/Big Kick.wav",
       "snare" : "SoundSamples/Johnny_Samples/Grumpy Snare.wav",
       "hihat" : "SoundSamples/Johnny_Samples/Sci-Fi Bleep.wav",
-      "clap" : "SoundSamples/Johnny_Samples/Laser.wav"
+      "clap" : "SoundSamples/Johnny_Samples/Laser.wav",
+      "closed" : "SoundSamples/KORG-ER-1/HH-ER1-ClosedHardHatz.wav"
     },
     "house" : {
 

@@ -2,6 +2,7 @@ let kicks = new Array(16).fill(0);
 let claps = new Array(16).fill(0);
 let hihats = new Array(16).fill(0);
 let snares = new Array(16).fill(0);
+let closed = new Array(16).fill(0);
 let buttons = new Array(16).fill(1);
 let buttonValues = $(".sequencerButton");
 let index = 0;
@@ -12,7 +13,7 @@ let part;
 let pitch = 1;
 let BPM = 120;
 
-let kickSound, clapSound, hihatSound, snareSound;
+let kickSound, clapSound, hihatSound, snareSound, closedSound;
 $(document).ready(function () {
     $.getJSON("drumkits/drumkits.json", function (data) {
         let drumKits = data.drumkits;
@@ -36,7 +37,7 @@ function preload() {
     clapSound = loadSound("SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav");
     snareSound = loadSound("SoundSamples/KORG-ER-1/SD-ER1-70sSnareNice.wav");
     hihatSound = loadSound("SoundSamples/KORG-ER-1/HH-ER1-MicroHat.wav");
-
+    closedSound = loadSound("SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav");
 }
 
 function setup() {
@@ -46,11 +47,12 @@ function setup() {
     fft.setInput(part);
     soundCanvas.parent('visualSound');
 
-    part = new p5.Part(8, 1 / 16);
+    part = new p5.Part();
     part.addPhrase('kick', playKick, kicks);
     part.addPhrase('clap', playClap, claps);
     part.addPhrase('snare', playSnare, snares);
     part.addPhrase('hat', playHat, hihats);
+    part.addPhrase('closed', playClosed, closed);
     part.addPhrase('buttons', cycleButton, buttons);
     part.setBPM(BPM);
 }
@@ -75,6 +77,11 @@ function playSnare() {
     snareSound.play();
 }
 
+function playClosed() {
+    closedSound.rate(pitch);
+    closedSound.play();
+}
+
 function cycleButton() {
     $(".sequencerButton").removeClass("cycle");
     $(buttonValues[index]).addClass("cycle");
@@ -97,6 +104,8 @@ function changeSound(button) {
         (snares[index] === 1) ? snares[index] = 0 : snares[index] = 1;
     } else if (kitValue === "hihat") {
         (hihats[index] === 1) ? hihats[index] = 0 : hihats[index] = 1;
+    } else if (kitValue === "closed") {
+        (closed[index] === 1) ? closed[index] = 0 : closed[index] = 1;
     } else {
         $(button).hasClass("active") ? $(button).removeClass("active") : $(button).addClass("active");
         alert("Please select a drum");
@@ -134,6 +143,8 @@ $("#drumsDropdown").change(function () {
         toggleActiveBySound(snares);
     } else if (kitValue === "hihat") {
         toggleActiveBySound(hihats);
+    } else if (kitValue === "closed") {
+        toggleActiveBySound(closed);
     }
 });
 
@@ -143,6 +154,7 @@ $("#kitsDropdown").change(function () {
     clapSound = loadSound(kits[kitValue].clap);
     snareSound = loadSound(kits[kitValue].snare);
     hihatSound = loadSound(kits[kitValue].hihat);
+    closedSound = loadSound(kits[kitValue].closed);
 });
 
 pitchSlider.oninput = function () {
@@ -169,8 +181,8 @@ function draw() {
     var spectrum = fft.analyze();
 
     beginShape();
-    for (i = 0; i<spectrum.length; i++) {
-        vertex(i, map(spectrum[i], 0, 255, height, 0) );
+    for (i = 0; i < spectrum.length; i++) {
+        vertex(i, map(spectrum[i], 0, 255, height, 0));
     }
     endShape();
 }

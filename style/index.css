@@ -4,7 +4,8 @@ body {
     margin-left: 70px !important;
 }
 .sequencerButton {
-    background-color: black ;
+    color : white;
+    background-color: #1d1d1d;
     border-radius: 10px;
     border-color: gray;
     display: inline-block;
@@ -12,8 +13,21 @@ body {
     height: 80px;
     cursor: pointer;
 }
+.sequencerButton:hover {
+    color : white;
+    background-color: #3d3d3d;
+    border-radius: 10px;
+    border-color: #696969;
+    display: inline-block;
+    width: 80px;
+    height: 80px;
+    cursor: pointer;
+}
 .sequencerButton.active {
     background-color: blue;
+}
+.sequencerButton.active:hover {
+    background-color: #4535b4;
 }
 .sequencerButton.cycle {
     background-color: green;
@@ -34,6 +48,7 @@ body {
 }
 .drumMachine {
     background-color: rgba(0, 0, 0, 0.75);
+    border-radius: 15px;
     width: 100%;
     height: 600px;
     padding: 50px;
