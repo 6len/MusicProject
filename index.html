@@ -2,8 +2,10 @@
 <head>
     <title>Drum Machine</title>
     <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="p5/p5.js"></script>
     <script src="p5/addons/p5.dom.js"></script>
     <script src="p5/addons/p5.sound.js"></script>
@@ -15,27 +17,118 @@
 
     </div>
     <div class="sequenceContainer">
-        <div class="sequencer">
-            <div class="sequencerRow">
-                <button class="sequencerButton" index="0">1</button>
-                <button class="sequencerButton" index="1">2</button>
-                <button class="sequencerButton" index="2">3</button>
-                <button class="sequencerButton" index="3">4</button>
-                <button class="sequencerButton" index="4">5</button>
-                <button class="sequencerButton" index="5">6</button>
-                <button class="sequencerButton" index="6">7</button>
-                <button class="sequencerButton" index="7">8</button>
-            </div>
-            <div class="sequencerRow">
-                <button class="sequencerButton" index="8">9</button>
-                <button class="sequencerButton" index="9">10</button>
-                <button class="sequencerButton" index="10">11</button>
-                <button class="sequencerButton" index="11">12</button>
-                <button class="sequencerButton" index="12">13</button>
-                <button class="sequencerButton" index="13">14</button>
-                <button class="sequencerButton" index="14">15</button>
-                <button class="sequencerButton" index="15">16</button>
-            </div>
+        <div class="steps">
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+            <div class="led-blue"></div>
+        </div>
+        <div class="sequencer" value="kick">
+                <button class="optionButton" value="kick">Kick</button>
+                <button class="sequencerButton" index="0"></button>
+                <button class="sequencerButton" index="1"></button>
+                <button class="sequencerButton" index="2"></button>
+                <button class="sequencerButton" index="3"></button>
+                <button class="sequencerButton" index="4"></button>
+                <button class="sequencerButton" index="5"></button>
+                <button class="sequencerButton" index="6"></button>
+                <button class="sequencerButton" index="7"></button>
+                <button class="sequencerButton" index="8"></button>
+                <button class="sequencerButton" index="9"></button>
+                <button class="sequencerButton" index="10"></button>
+                <button class="sequencerButton" index="11"></button>
+                <button class="sequencerButton" index="12"></button>
+                <button class="sequencerButton" index="13"></button>
+                <button class="sequencerButton" index="14"></button>
+                <button class="sequencerButton" index="15"></button>
+        </div>
+        <div class="sequencer" value="snare">
+            <button class="optionButton" value="snare">Snare</button>
+            <button class="sequencerButton" index="0"></button>
+            <button class="sequencerButton" index="1"></button>
+            <button class="sequencerButton" index="2"></button>
+            <button class="sequencerButton" index="3"></button>
+            <button class="sequencerButton" index="4"></button>
+            <button class="sequencerButton" index="5"></button>
+            <button class="sequencerButton" index="6"></button>
+            <button class="sequencerButton" index="7"></button>
+            <button class="sequencerButton" index="8"></button>
+            <button class="sequencerButton" index="9"></button>
+            <button class="sequencerButton" index="10"></button>
+            <button class="sequencerButton" index="11"></button>
+            <button class="sequencerButton" index="12"></button>
+            <button class="sequencerButton" index="13"></button>
+            <button class="sequencerButton" index="14"></button>
+            <button class="sequencerButton" index="15"></button>
+        </div>
+        <div class="sequencer" value="hihat">
+            <button class="optionButton" value="hihat">HiHat</button>
+            <button class="sequencerButton" index="0"></button>
+            <button class="sequencerButton" index="1"></button>
+            <button class="sequencerButton" index="2"></button>
+            <button class="sequencerButton" index="3"></button>
+            <button class="sequencerButton" index="4"></button>
+            <button class="sequencerButton" index="5"></button>
+            <button class="sequencerButton" index="6"></button>
+            <button class="sequencerButton" index="7"></button>
+            <button class="sequencerButton" index="8"></button>
+            <button class="sequencerButton" index="9"></button>
+            <button class="sequencerButton" index="10"></button>
+            <button class="sequencerButton" index="11"></button>
+            <button class="sequencerButton" index="12"></button>
+            <button class="sequencerButton" index="13"></button>
+            <button class="sequencerButton" index="14"></button>
+            <button class="sequencerButton" index="15"></button>
+        </div>
+        <div class="sequencer" value="clap">
+            <button class="optionButton" value="clap">Clap</button>
+            <button class="sequencerButton" index="0"></button>
+            <button class="sequencerButton" index="1"></button>
+            <button class="sequencerButton" index="2"></button>
+            <button class="sequencerButton" index="3"></button>
+            <button class="sequencerButton" index="4"></button>
+            <button class="sequencerButton" index="5"></button>
+            <button class="sequencerButton" index="6"></button>
+            <button class="sequencerButton" index="7"></button>
+            <button class="sequencerButton" index="8"></button>
+            <button class="sequencerButton" index="9"></button>
+            <button class="sequencerButton" index="10"></button>
+            <button class="sequencerButton" index="11"></button>
+            <button class="sequencerButton" index="12"></button>
+            <button class="sequencerButton" index="13"></button>
+            <button class="sequencerButton" index="14"></button>
+            <button class="sequencerButton" index="15"></button>
+        </div>
+        <div class="sequencer" value="closed">
+            <button class="optionButton" value="closed">Closed</button>
+            <button class="sequencerButton" index="0"></button>
+            <button class="sequencerButton" index="1"></button>
+            <button class="sequencerButton" index="2"></button>
+            <button class="sequencerButton" index="3"></button>
+            <button class="sequencerButton" index="4"></button>
+            <button class="sequencerButton" index="5"></button>
+            <button class="sequencerButton" index="6"></button>
+            <button class="sequencerButton" index="7"></button>
+            <button class="sequencerButton" index="8"></button>
+            <button class="sequencerButton" index="9"></button>
+            <button class="sequencerButton" index="10"></button>
+            <button class="sequencerButton" index="11"></button>
+            <button class="sequencerButton" index="12"></button>
+            <button class="sequencerButton" index="13"></button>
+            <button class="sequencerButton" index="14"></button>
+            <button class="sequencerButton" index="15"></button>
         </div>
     </div>
     <div class="playback">
@@ -56,27 +149,18 @@
         <div class="menu" id="kits">
         </div>
     </div>
-    <div class="ui selection dropdown" id="drumsDropdown">
-        <input type="hidden" name="drum">
-        <i class="dropdown icon"></i>
-        <div class="default text">Drum</div>
-        <div class="menu">
-            <div class="item" data-value="kick">Kick</div>
-            <div class="item" data-value="clap">Clap</div>
-            <div class="item" data-value="hihat">Hihat</div>
-            <div class="item" data-value="snare">Snare</div>
-            <div class="item" data-value = "closed">Closed</div>
-        </div>
+    <div id="tempoSlider">
+        <div id="tempo-handle" class="ui-slider-handle"></div>
     </div>
-    <div class="slidecontainer">
-        <p>Pitch</p>
-        <input type="range" min="1" max="200" value="100" class="slider" id="pitchSlider">
-        <p id="pitchSliderValue">1</p>
-    </div>
-    <div class="slidecontainer">
-        <p>Tempo</p>
-        <input type="range" min="60" max="200" value="120" class="slider" id="tempoSlider">
-        <p id="tempoSliderValue">120</p>
+</div>
+
+<div class="ui modal">
+    <div class="header" id="modalHeader"></div>
+    <div class = "content" id="modalcontent">
+            <p>Pitch</p>
+            <div id="pitchSlider">
+                <div id="custom-handle" class="ui-slider-handle"></div>
+            </div>
     </div>
 </div>
 </body>

@@ -4,15 +4,20 @@ let hihats = new Array(16).fill(0);
 let snares = new Array(16).fill(0);
 let closed = new Array(16).fill(0);
 let buttons = new Array(16).fill(1);
-let buttonValues = $(".sequencerButton");
+let buttonValues = $(".led-blue");
 let index = 0;
 let kits;
-let pitchSlider = document.getElementById("pitchSlider");
-let tempoSlider = document.getElementById("tempoSlider");
 let part;
-let pitch = 1;
+let pitch = 0;
 let BPM = 120;
 
+let pitches = {
+    "clap" : 1,
+    "snare" : 1,
+    "hihat" : 1,
+    "kick" : 1,
+    "closed" : 1
+};
 let kickSound, clapSound, hihatSound, snareSound, closedSound;
 $(document).ready(function () {
     $.getJSON("drumkits/drumkits.json", function (data) {
@@ -58,33 +63,33 @@ function setup() {
 }
 
 function playKick() {
-    kickSound.rate(pitch);
+    kickSound.rate(pitches["kick"]);
     kickSound.play();
 }
 
 function playClap() {
-    clapSound.rate(pitch);
+    clapSound.rate(pitches["clap"]);
     clapSound.play();
 }
 
 function playHat() {
-    hihatSound.rate(pitch);
+    hihatSound.rate(pitches["hihat"]);
     hihatSound.play();
 }
 
 function playSnare() {
-    snareSound.rate(pitch);
+    snareSound.rate(pitches["snare"]);
     snareSound.play();
 }
 
 function playClosed() {
-    closedSound.rate(pitch);
+    closedSound.rate(pitches["closed"]);
     closedSound.play();
 }
 
 function cycleButton() {
-    $(".sequencerButton").removeClass("cycle");
-    $(buttonValues[index]).addClass("cycle");
+    $(".led-blue").removeClass("on");
+    $(buttonValues[index]).addClass("on");
     index++;
     if (index === 16) {
         index = 0;
@@ -94,7 +99,7 @@ function cycleButton() {
 
 function changeSound(button) {
     let index = button.getAttribute("index");
-    let kitValue = $("#drumsDropdown").dropdown('get value');
+    let kitValue = $(button).parent('div').attr('value');
     $(button).hasClass("active") ? $(button).removeClass("active") : $(button).addClass("active");
     if (kitValue === "kick") {
         (kicks[index] === 1) ? kicks[index] = 0 : kicks[index] = 1;
@@ -113,6 +118,7 @@ function changeSound(button) {
 }
 
 $("#playButton").click(function () {
+    getAudioContext().resume();
     part.loop();
 });
 
@@ -120,14 +126,6 @@ $("#stopButton").click(function () {
     part.stop();
 });
 
-function toggleActiveBySound(drum) {
-    $(".sequencerButton").removeClass("active");
-    for (var i = 0; i < buttonValues.length; i++) {
-        if (drum[i] === 1) {
-            $(buttonValues[i]).addClass("active");
-        }
-    }
-}
 
 $(".sequencerButton").click(function () {
     changeSound(this);
@@ -157,18 +155,6 @@ $("#kitsDropdown").change(function () {
     closedSound = loadSound(kits[kitValue].closed);
 });
 
-pitchSlider.oninput = function () {
-    pitch = this.value / 100;
-    pitchSliderValue.innerHTML = pitch;
-    console.log(this.value);
-};
-
-tempoSlider.oninput = function () {
-    BPM = this.value;
-    part.setBPM(BPM);
-    tempoSliderValue.innerHTML = BPM;
-    console.log(this.value);
-};
 
 $('.ui.dropdown')
     .dropdown()
@@ -186,7 +172,43 @@ function draw() {
     }
     endShape();
 }
+$(".optionButton").click(function() {
+    let drumOptions = $(this).attr('value');
+    let pitchValue = pitches[drumOptions];
+    var handle = $( "#custom-handle" );
+    handle.text(pitchValue);
+    $( "#pitchSlider" ).slider({
+        range: "max",
+        min: 0,
+        max: 200,
+        value: pitchValue*100,
+        create: function() {
+            handle.text(pitchValue);
+        },
+        slide: function( event, ui ) {
+            handle.text( ui.value/100 );
+            pitches[drumOptions] = ui.value/100;
+        }
+    });
+    $("#modalHeader").text((drumOptions +' options').toUpperCase());
+    $(".ui.modal").modal('show');
+});
 
+var tempoHandle = $( "#tempo-handle" );
+tempoHandle.text(BPM);
 
-
+$( "#tempoSlider" ).slider({
+    range: "max",
+    min: 60,
+    max: 200,
+    value: BPM,
+    create: function() {
+        tempoHandle.text(BPM);
+    },
+    slide: function( event, ui ) {
+        tempoHandle.text( ui.value );
+        BPM = ui.value;
+        part.setBPM(BPM);
+    }
+});
 
