@@ -157,3 +157,26 @@ body {
     border-radius: 10px;
     border-color: palevioletred;
 }
+
+.oscillatorContainer {
+    color: white;
+    width: 350px;
+    height: 200px;
+    border-radius: 20px;
+    border: 1px solid white;
+}
+.knobRow {
+    margin-top: 5px;
+    display: flex;
+}
+
+.oscillatorKnob {
+    align-content: center;
+    text-align: center;
+}
+
+.knob {
+    width: 50px;
+    margin: 10px;
+}
+

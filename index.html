@@ -1,20 +1,20 @@
 <html>
 <head>
     <title>Drum Blaster</title>
-    <link rel="stylesheet" href="style/index.css">
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="script/jqueryKnob/jquery.rotaryswitch.css"/>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
     <link rel="shortcut icon"
           href="https://www.clipartmax.com/png/middle/274-2744152_snare-drum-clipart-marching-band-icon-png.png"
           type="image/x-icon"/>
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script src="script/jqueryKnob/jquery.rotaryswitch.js"></script>
+    <script src="script/jquery.knob.js"></script>
     <script src="p5/p5.js"></script>
     <script src="p5/addons/p5.dom.js"></script>
     <script src="p5/addons/p5.sound.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/13.3.11/Tone.js"></script>
 </head>
 <body>
 <div class="drumMachine" id="drumMachine">
@@ -136,6 +136,62 @@
             <button class="sequencerButton" index="15"></button>
         </div>
     </div>
+    <div class="oscillatorContainer">
+        <div class="knobRow">
+            <div class="oscillatorKnob">
+                <h4>Pitch</h4>
+                <div id="frequencyKnob" class="knob" data-type="pan" effect="freq">
+                </div>
+            </div>
+            <div class="oscillatorKnob">
+                <h4>Attack</h4>
+                <div id="attackKnob" class="knob" data-type="pan" effect="attack">
+                </div>
+            </div>
+            <div class="oscillatorKnob">
+                <h4>Decay</h4>
+                <div id="decayKnob" class="knob" data-type="pan" effect="decay">
+                </div>
+            </div>
+            <div class="oscillatorKnob">
+                <h4>Sustain</h4>
+                <div id="sustainKnob" class="knob" data-type="pan" effect="sustain">
+                </div>
+            </div>
+            <div class="oscillatorKnob">
+                <h4>Release</h4>
+                <div id="releaseKnob" class="knob" data-type="pan" effect="release">
+                </div>
+            </div>
+        </div>
+        <div class="knobRow">
+            <div class="oscillatorKnob">
+                <h4>Filter</h4>
+                <div id="filterKnob" class="knob" data-type="pan" effect="filter">
+                </div>
+            </div>
+            <div class="oscillatorKnob">
+                <h4>FilterBlast</h4>
+                <div id="filterBlastKnob" class="knob" data-type="pan" effect="blast">
+                </div>
+            </div>
+            <div class="oscillatorKnob">
+                <h4>FilterDirt</h4>
+                <div id="filterDirtKnob" class="knob" data-type="pan" effect="dirt">
+                </div>
+            </div>
+            <div class="oscillatorKnob">
+                <h4>Resonance</h4>
+                <div id="resonanceKnob" class="knob" data-type="pan" effect="resonance">
+                </div>
+            </div>
+            <div class="oscillatorKnob">
+                <h4>LFO</h4>
+                <div id="lfoKnob" class="knob" data-type="pan" effect="lfo">
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="playbackContainer">
         <button class="playbackButton">
             <i class="white circle icon"></i>
@@ -190,7 +246,7 @@
             <div id="reverb-decay-handle" class="ui-slider-handle"></div>
         </div>
     </div>
-    </div>
+</div>
 </div>
 
 </body>

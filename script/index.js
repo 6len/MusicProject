@@ -11,6 +11,16 @@ let part;
 let pitch = 0;
 let BPM = 120;
 
+Tone.Transport.bpm.value = BPM;
+
+let tonePlayer = new Tone.Loop(function (time) {
+    playKick();
+    playHat();
+    playClap();
+    playClosed();
+    playSnare();
+    cycleButton();
+}, "16n");
 let drumEffects = {
     "pitches": {
         "clap": 1,
@@ -58,14 +68,16 @@ let drumEffects = {
             "closed": 0
         }
     },
-    "oscillator" : {
-        "freq" : 220,
-        "wave" : "sine",
-        "attack" : 0.01,
-        "decay" : 0.3,
-        "sustain" : 0.1,
-        "release" : 0.1,
-        "volume" : 0.9
+    "oscillator": {
+        "freq": 220,
+        "wave": "sine",
+        "attack": 0,
+        "decay": 0,
+        "sustain": 0,
+        "release": 0,
+        "blast" : 1,
+        "dirt" : 0,
+        "filter" : 0
     }
 };
 let kickSound, clapSound, hihatSound, snareSound, closedSound;
@@ -97,25 +109,31 @@ function preload() {
 
 function setup() {
     //Canvas creation for sound analysis
-    let soundCanvas = createCanvas(400, 250);
-    noFill();
-    fft = new p5.FFT();
-    fft.setInput(part);
-    soundCanvas.parent('visualSound');
+    // let soundCanvas = createCanvas(400, 250);
+    // noFill();
+    // fft = new p5.FFT();
+    // fft.setInput(part);
+    // soundCanvas.parent('visualSound');
 
     oscillatorParams = drumEffects.oscillator;
     oscillatorEnvelope = new p5.Envelope();
     oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
-    oscillatorEnvelope.setRange(oscillatorParams.volume, 0);
-
+    oscillatorEnvelope.setRange(1,0);
     oscillator = new p5.Oscillator(oscillatorParams.wave);
-    oscillator.freq(oscillatorParams.freq);
     oscillator.start();
+    oscillator.freq(drumEffects.oscillator.freq);
     oscillator.amp(oscillatorEnvelope);
 
+    frequencyEnvelope = new p5.Envelope();
+    frequencyEnvelope.setADSR(0.01, drumEffects.oscillator.filter, 0, 0.0001);
+    frequencyEnvelope.setRange(drumEffects.oscillator.blast, drumEffects.oscillator.dirt);
 
+    bpFilter = new p5.Filter('BandPass');
+    oscillator.connect(bpFilter);
+    bpFilter.freq(frequencyEnvelope);
+    bpFilter.res(25);
     //Part creation for drum loop
-    part = new p5.Part();
+    /*part = new p5.Part(16, 1/16);
     part.addPhrase('kick', playKick, kicks);
     part.addPhrase('clap', playClap, claps);
     part.addPhrase('snare', playSnare, snares);
@@ -123,7 +141,7 @@ function setup() {
     part.addPhrase('closed', playClosed, closed);
     part.addPhrase('buttons', cycleButton, buttons);
     part.setBPM(BPM);
-
+*/
     kickDelay = new p5.Delay();
     clapDelay = new p5.Delay();
     hatDelay = new p5.Delay();
@@ -135,49 +153,56 @@ function setup() {
     hatReverb = new p5.Reverb();
     snareReverb = new p5.Reverb();
     closedReverb = new p5.Reverb();
-
-
-
 }
 
 function playKick() {
-    kickDelay.process(kickSound, drumEffects.delay.time["kick"], drumEffects.delay.feedback["kick"], 2300);
-    kickReverb.process(kickSound, drumEffects.reverb.time["kick"], drumEffects.reverb.decay["kick"]);
-    kickSound.rate(drumEffects.pitches['kick']);
-    kickSound.amp(drumEffects.volumes['kick']);
-    kickSound.play();
+    if (kicks[index] === 1) {
+        kickDelay.process(kickSound, drumEffects.delay.time["kick"], drumEffects.delay.feedback["kick"], 2300);
+        kickReverb.process(kickSound, drumEffects.reverb.time["kick"], drumEffects.reverb.decay["kick"]);
+        kickSound.rate(drumEffects.pitches['kick']);
+        kickSound.amp(drumEffects.volumes['kick']);
+        kickSound.play();
+    }
 }
 
 function playClap() {
-    clapDelay.process(clapSound, drumEffects.delay.time["clap"], drumEffects.delay.feedback["clap"], 2300);
-    clapReverb.process(clapSound, drumEffects.reverb.time["clap"], drumEffects.reverb.decay["clap"]);
-    clapSound.rate(drumEffects.pitches['clap']);
-    clapSound.amp(drumEffects.volumes['clap']);
-    clapSound.play();
+    if (claps[index] === 1) {
+        clapDelay.process(clapSound, drumEffects.delay.time["clap"], drumEffects.delay.feedback["clap"], 2300);
+        clapReverb.process(clapSound, drumEffects.reverb.time["clap"], drumEffects.reverb.decay["clap"]);
+        clapSound.rate(drumEffects.pitches['clap']);
+        clapSound.amp(drumEffects.volumes['clap']);
+        clapSound.play();
+    }
 }
 
 function playHat() {
-    hatDelay.process(hihatSound, drumEffects.delay.time["hihat"], drumEffects.delay.feedback["hihat"], 2300);
-    hatReverb.process(hihatSound, drumEffects.reverb.time["hihat"], drumEffects.reverb.decay["hihat"]);
-    hihatSound.rate(drumEffects.pitches['hihat']);
-    hihatSound.amp(drumEffects.volumes['hihat']);
-    hihatSound.play();
+    if(hihats[index] === 1) {
+        hatDelay.process(hihatSound, drumEffects.delay.time["hihat"], drumEffects.delay.feedback["hihat"], 2300);
+        hatReverb.process(hihatSound, drumEffects.reverb.time["hihat"], drumEffects.reverb.decay["hihat"]);
+        hihatSound.rate(drumEffects.pitches['hihat']);
+        hihatSound.amp(drumEffects.volumes['hihat']);
+        hihatSound.play();
+    }
 }
 
 function playSnare() {
-    snareDelay.process(snareSound, drumEffects.delay.time["snare"], drumEffects.delay.feedback["snare"], 2300);
-    snareReverb.process(snareSound, drumEffects.reverb.time["snare"], drumEffects.reverb.decay["snare"]);
-    snareSound.rate(drumEffects.pitches['snare']);
-    snareSound.amp(drumEffects.pitches['snare']);
-    snareSound.play();
+    if(snares[index] === 1) {
+        snareDelay.process(snareSound, drumEffects.delay.time["snare"], drumEffects.delay.feedback["snare"], 2300);
+        snareReverb.process(snareSound, drumEffects.reverb.time["snare"], drumEffects.reverb.decay["snare"]);
+        snareSound.rate(drumEffects.pitches['snare']);
+        snareSound.amp(drumEffects.pitches['snare']);
+        snareSound.play();
+    }
 }
 
 function playClosed() {
-    closedDelay.process(closedSound, drumEffects.delay.time["closed"], drumEffects.delay.feedback["closed"], 2300);
-    closedReverb.process(closedSound, drumEffects.reverb.time["closed"], drumEffects.reverb.decay["closed"]);
-    closedSound.rate(drumEffects.pitches['closed']);
-    closedSound.amp(drumEffects.volumes['closed']);
-    closedSound.play();
+    if(closed[index] === 1) {
+        closedDelay.process(closedSound, drumEffects.delay.time["closed"], drumEffects.delay.feedback["closed"], 2300);
+        closedReverb.process(closedSound, drumEffects.reverb.time["closed"], drumEffects.reverb.decay["closed"]);
+        closedSound.rate(drumEffects.pitches['closed']);
+        closedSound.amp(drumEffects.volumes['closed']);
+        closedSound.play();
+    }
 }
 
 function cycleButton() {
@@ -212,11 +237,12 @@ function changeSound(button) {
 
 $("#playButton").click(function () {
     getAudioContext().resume();
-    part.loop();
+    tonePlayer.start(0);
+    Tone.Transport.start();
 });
 
 $("#stopButton").click(function () {
-    part.stop();
+    tonePlayer.stop();
 });
 
 
@@ -254,16 +280,6 @@ $('.ui.dropdown')
 ;
 
 function draw() {
-    background(0);
-    stroke(255);
-
-    var spectrum = fft.analyze();
-
-    beginShape();
-    for (i = 0; i < spectrum.length; i++) {
-        vertex(i, map(spectrum[i], 0, 255, height, 0));
-    }
-    endShape();
 }
 
 $(".optionButton").click(function () {
@@ -381,7 +397,13 @@ $(".optionButton").click(function () {
 
 $(".effectsButton").click(function () {
     getAudioContext().resume();
+    let freq = parseInt(drumEffects.oscillator.freq);
+    oscillator.freq(freq);
+    oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
+    frequencyEnvelope.setADSR(0.01, drumEffects.oscillator.filter, 0, 0.0001);
+    frequencyEnvelope.setRange(drumEffects.oscillator.blast, drumEffects.oscillator.dirt);
     oscillatorEnvelope.play();
+    frequencyEnvelope.play();
 });
 
 var tempoHandle = $("#tempo-handle");
@@ -398,7 +420,127 @@ $("#tempoSlider").slider({
     slide: function (event, ui) {
         tempoHandle.text(ui.value);
         BPM = ui.value;
-        part.setBPM(BPM);
+        Tone.Transport.bpm.value = ui.value;
     }
 });
+
+$("#frequencyKnob").knob({
+    bgColor: "black",
+    fgColor: "silver",
+    type: "vol",
+    tooltip: true,
+    turnWith: null,
+    arc:    240,
+    steps:  240,
+    offset:   0,
+    min: 55,
+    max: 1760,
+    range: "auto",
+    invertRange: false,
+    round: true,
+    fineTuneFactor: 0.001,
+    value: 0,
+    resetValue: 0,
+    classPrefix: "knob"
+
+});
+
+$("#attackKnob, #releaseKnob").knob({
+    bgColor: "black",
+    fgColor: "silver",
+    type: "vol",
+    tooltip: true,
+    turnWith: null,
+    arc:    240,
+    steps:  240,
+    offset:   0,
+    min: 1,
+    max: 2000,
+    range: "auto",
+    invertRange: false,
+    round: true,
+    fineTuneFactor: 0.001,
+    value: 10,
+    resetValue: 1,
+    classPrefix: "knob"
+
+});
+
+$("#decayKnob, #sustainKnob").knob({
+    bgColor: "black",
+    fgColor: "silver",
+    type: "vol",
+    tooltip: true,
+    turnWith: null,
+    arc:    240,
+    steps:  1000,
+    offset:   0,
+    min: 1,
+    max: 1000,
+    range: "auto",
+    invertRange: false,
+    round: true,
+    fineTuneFactor: 1,
+    value: 1,
+    resetValue: 1,
+    classPrefix: "knob"
+
+});
+
+$("#filterKnob").knob({
+    bgColor: "black",
+    fgColor: "silver",
+    type: "vol",
+    tooltip: true,
+    turnWith: null,
+    arc:    240,
+    steps:  400,
+    offset:   0,
+    min: 1,
+    max: 400,
+    range: "auto",
+    invertRange: false,
+    round: true,
+    fineTuneFactor: 1,
+    value: 1,
+    resetValue: 1,
+    classPrefix: "knob"
+
+});
+
+$("#filterBlastKnob, #filterDirtKnob").knob({
+    bgColor: "black",
+    fgColor: "silver",
+    type: "vol",
+    tooltip: true,
+    turnWith: null,
+    arc:    240,
+    steps:  10000,
+    offset:   0,
+    min: 1,
+    max: 10000,
+    range: "auto",
+    invertRange: false,
+    round: true,
+    fineTuneFactor: 1,
+    value: 1,
+    resetValue: 1,
+    classPrefix: "knob"
+
+});
+
+$("#frequencyKnob, #filterBlastKnob, #filterDirtKnob").knob().on('turn', function() {
+    let effect = $(this).attr('effect');
+    let knobValue = this.innerText;
+    drumEffects.oscillator[effect] = knobValue;
+});
+
+$("#attackKnob, #decayKnob, #sustainKnob, #releaseKnob, #filterKnob").knob().on('turn', function() {
+    let effect = $(this).attr('effect');
+    let knobValue = this.innerText;
+    drumEffects.oscillator[effect] = parseInt(knobValue)/1000;
+});
+
+
+
 
