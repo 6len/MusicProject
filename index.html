@@ -1,9 +1,12 @@
 <html>
 <head>
-    <title>Drum Machine</title>
+    <title>Drum Blaster</title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="shortcut icon"
+          href="https://www.clipartmax.com/png/middle/274-2744152_snare-drum-clipart-marching-band-icon-png.png"
+          type="image/x-icon"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="p5/p5.js"></script>
@@ -36,23 +39,23 @@
             <div class="led-blue"></div>
         </div>
         <div class="sequencer" value="kick">
-                <button class="optionButton" value="kick">Kick</button>
-                <button class="sequencerButton" index="0"></button>
-                <button class="sequencerButton" index="1"></button>
-                <button class="sequencerButton" index="2"></button>
-                <button class="sequencerButton" index="3"></button>
-                <button class="sequencerButton" index="4"></button>
-                <button class="sequencerButton" index="5"></button>
-                <button class="sequencerButton" index="6"></button>
-                <button class="sequencerButton" index="7"></button>
-                <button class="sequencerButton" index="8"></button>
-                <button class="sequencerButton" index="9"></button>
-                <button class="sequencerButton" index="10"></button>
-                <button class="sequencerButton" index="11"></button>
-                <button class="sequencerButton" index="12"></button>
-                <button class="sequencerButton" index="13"></button>
-                <button class="sequencerButton" index="14"></button>
-                <button class="sequencerButton" index="15"></button>
+            <button class="optionButton" value="kick">Kick</button>
+            <button class="sequencerButton" index="0"></button>
+            <button class="sequencerButton" index="1"></button>
+            <button class="sequencerButton" index="2"></button>
+            <button class="sequencerButton" index="3"></button>
+            <button class="sequencerButton" index="4"></button>
+            <button class="sequencerButton" index="5"></button>
+            <button class="sequencerButton" index="6"></button>
+            <button class="sequencerButton" index="7"></button>
+            <button class="sequencerButton" index="8"></button>
+            <button class="sequencerButton" index="9"></button>
+            <button class="sequencerButton" index="10"></button>
+            <button class="sequencerButton" index="11"></button>
+            <button class="sequencerButton" index="12"></button>
+            <button class="sequencerButton" index="13"></button>
+            <button class="sequencerButton" index="14"></button>
+            <button class="sequencerButton" index="15"></button>
         </div>
         <div class="sequencer" value="snare">
             <button class="optionButton" value="snare">Snare</button>
@@ -131,7 +134,7 @@
             <button class="sequencerButton" index="15"></button>
         </div>
     </div>
-    <div class="playback">
+    <div class="playbackContainer">
         <button class="playbackButton">
             <i class="white circle icon"></i>
         </button>
@@ -152,17 +155,33 @@
     <div id="tempoSlider">
         <div id="tempo-handle" class="ui-slider-handle"></div>
     </div>
+    <button class="effectsButton">Effects</button>
 </div>
 
-<div class="ui modal">
-    <div class="header" id="modalHeader"></div>
-    <div class = "content" id="modalcontent">
-            <p>Pitch</p>
-            <div id="pitchSlider">
-                <div id="custom-handle" class="ui-slider-handle"></div>
-            </div>
+<div class="ui modal" id="optionsModal">
+    <div class="header" id="optionsModalHeader"></div>
+    <div class="content" id="optionsModalcontent">
+        <h3>Pitch</h3>
+        <div id="pitchSlider">
+            <div id="pitch-handle" class="ui-slider-handle"></div>
+        </div>
+        <h3>Volume</h3>
+        <div id="volumeSlider">
+            <div id="volume-handle" class="ui-slider-handle"></div>
+        </div>
+        <h3>Delay</h3>
+        <h4>Delay Time</h4>
+        <div id="delayTimeSlider">
+            <div id="delay-time-handle" class="ui-slider-handle"></div>
+        </div>
+        <h4>Delay Feedback</h4>
+        <div id="delayFeedbackSlider">
+            <div id="delay-feedback-handle" class="ui-slider-handle"></div>
+        </div>
+    </div>
     </div>
 </div>
+
 </body>
 </html>
 <script src="script/index.js"></script>

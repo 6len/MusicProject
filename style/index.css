@@ -3,8 +3,9 @@ body {
     margin-right: 70px !important;
     margin-left: 70px !important;
 }
+
 .sequencerButton {
-    color : white;
+    color: white;
     background-color: #1d1d1d;
     border-radius: 10px;
     border-color: gray;
@@ -14,8 +15,9 @@ body {
     display: inline-block;
     vertical-align: bottom;
 }
+
 .sequencerButton:hover {
-    color : white;
+    color: white;
     background-color: #3d3d3d;
     border-radius: 10px;
     border-color: #696969;
@@ -24,17 +26,23 @@ body {
     height: 40px;
     cursor: pointer;
 }
+
 .sequencerButton.active {
     background-color: blue;
 }
+
 .sequencerButton.active:hover {
     background-color: #4535b4;
 }
+
 .sequencerButton.cycle {
     background-color: green;
 }
+.playbackContainer {
+    margin-top: 10px;
+}
 .playbackButton {
-    background-color: black ;
+    background-color: black;
     border-radius: 10px;
     border-color: gray;
     display: inline-block;
@@ -42,11 +50,13 @@ body {
     height: 60px;
     cursor: pointer;
 }
+
 .sequenceContainer {
     position: absolute;
     bottom: 50px;
     right: 50px;
 }
+
 .drumMachine {
     background-color: rgba(0, 0, 0, 0.75);
     border-radius: 15px;
@@ -56,8 +66,9 @@ body {
     margin-top: 150px;
     position: relative;
 }
+
 .optionButton {
-    color : black;
+    color: black;
     background-color: antiquewhite;
     border-radius: 10px;
     border-color: black;
@@ -67,11 +78,12 @@ body {
     display: inline-block;
     vertical-align: bottom;
 }
+
 #visualSound {
     display: inline-block;
 }
 
-#custom-handle, #tempo-handle {
+#pitch-handle, #tempo-handle, #volume-handle, #delay-feedback-handle, #delay-time-handle {
     width: 3em;
     height: 1.6em;
     top: 50%;
@@ -85,8 +97,21 @@ body {
     background-color: coral;
     width: 200px;
 }
-#pitchSlider{
+
+#pitchSlider {
     background-color: #4535b4;
+}
+
+#volumeSlider {
+    background-color: limegreen;
+}
+
+#delayFeedbackSlider {
+    background-color: yellow;
+}
+
+#delayTimeSlider {
+    background-color: cyan;
 }
 
 .steps {
@@ -110,5 +135,13 @@ body {
 }
 
 #kitsDropdown {
-    margin-top : 10px;
+    margin-top: 10px;
+}
+
+.effectsButton {
+    margin-top: 10px;
+    height: 40px;
+    background-color: crimson;
+    border-radius: 10px;
+    border-color: palevioletred;
 }

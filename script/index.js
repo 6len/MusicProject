@@ -11,12 +11,37 @@ let part;
 let pitch = 0;
 let BPM = 120;
 
-let pitches = {
-    "clap" : 1,
-    "snare" : 1,
-    "hihat" : 1,
-    "kick" : 1,
-    "closed" : 1
+let drumEffects = {
+    "pitches": {
+        "clap": 1,
+        "snare": 1,
+        "hihat": 1,
+        "kick": 1,
+        "closed": 1
+    },
+    "volumes": {
+        "clap": 1,
+        "snare": 1,
+        "hihat": 1,
+        "kick": 1,
+        "closed": 1
+    },
+    "delay": {
+        "time": {
+            "clap": 0,
+            "snare": 0,
+            "hihat": 0,
+            "kick": 0,
+            "closed": 0
+        },
+        "feedback": {
+            "clap": 0,
+            "snare": 0,
+            "hihat": 0,
+            "kick": 0,
+            "closed": 0
+        }
+    }
 };
 let kickSound, clapSound, hihatSound, snareSound, closedSound;
 $(document).ready(function () {
@@ -46,12 +71,15 @@ function preload() {
 }
 
 function setup() {
+    //Canvas creation for sound analysis
     var soundCanvas = createCanvas(400, 250);
     noFill();
     fft = new p5.FFT();
     fft.setInput(part);
     soundCanvas.parent('visualSound');
 
+
+    //Part creation for drum loop
     part = new p5.Part();
     part.addPhrase('kick', playKick, kicks);
     part.addPhrase('clap', playClap, claps);
@@ -60,30 +88,48 @@ function setup() {
     part.addPhrase('closed', playClosed, closed);
     part.addPhrase('buttons', cycleButton, buttons);
     part.setBPM(BPM);
+
+    kickDelay = new p5.Delay();
+    clapDelay = new p5.Delay();
+    hatDelay = new p5.Delay();
+    snareDelay = new p5.Delay();
+    closedDelay = new p5.Delay();
+
+
 }
 
 function playKick() {
-    kickSound.rate(pitches["kick"]);
+    kickDelay.process(kickSound, drumEffects.delay.time["kick"], drumEffects.delay.feedback["kick"], 2300);
+    kickSound.rate(drumEffects.pitches['kick']);
+    kickSound.amp(drumEffects.volumes['kick']);
     kickSound.play();
 }
 
 function playClap() {
-    clapSound.rate(pitches["clap"]);
+    clapDelay.process(clapSound, drumEffects.delay.time["clap"], drumEffects.delay.feedback["clap"], 2300);
+    clapSound.rate(drumEffects.pitches['clap']);
+    clapSound.amp(drumEffects.volumes['clap']);
     clapSound.play();
 }
 
 function playHat() {
-    hihatSound.rate(pitches["hihat"]);
+    hatDelay.process(hihatSound, drumEffects.delay.time["hihat"], drumEffects.delay.feedback["hihat"], 2300);
+    hihatSound.rate(drumEffects.pitches['hihat']);
+    hihatSound.amp(drumEffects.volumes['hihat']);
     hihatSound.play();
 }
 
 function playSnare() {
-    snareSound.rate(pitches["snare"]);
+    snareDelay.process(snareSound, drumEffects.delay.time["snare"], drumEffects.delay.feedback["snare"], 2300);
+    snareSound.rate(drumEffects.pitches['snare']);
+    snareSound.amp(drumEffects.pitches['snare']);
     snareSound.play();
 }
 
 function playClosed() {
-    closedSound.rate(pitches["closed"]);
+    closedDelay.process(closedSound, drumEffects.delay.time["closed"], drumEffects.delay.feedback["closed"], 2300);
+    closedSound.rate(drumEffects.pitches['closed']);
+    closedSound.amp(drumEffects.volumes['closed']);
     closedSound.play();
 }
 
@@ -172,41 +218,102 @@ function draw() {
     }
     endShape();
 }
-$(".optionButton").click(function() {
+
+$(".optionButton").click(function () {
     let drumOptions = $(this).attr('value');
-    let pitchValue = pitches[drumOptions];
-    var handle = $( "#custom-handle" );
-    handle.text(pitchValue);
-    $( "#pitchSlider" ).slider({
+    $("#optionsModalHeader").text((drumOptions + ' options').toUpperCase());
+
+    let pitchValue = drumEffects.pitches[drumOptions];
+    let pitchHandle = $("#pitch-handle");
+    pitchHandle.text(pitchValue);
+    $("#pitchSlider").slider({
         range: "max",
         min: 0,
         max: 200,
-        value: pitchValue*100,
-        create: function() {
-            handle.text(pitchValue);
+        value: pitchValue * 100,
+        create: function () {
+            pitchHandle.text(pitchValue);
         },
-        slide: function( event, ui ) {
-            handle.text( ui.value/100 );
-            pitches[drumOptions] = ui.value/100;
+        slide: function (event, ui) {
+            pitchHandle.text(ui.value / 100);
+            drumEffects.pitches[drumOptions] = ui.value / 100;
         }
     });
-    $("#modalHeader").text((drumOptions +' options').toUpperCase());
-    $(".ui.modal").modal('show');
+
+    let volumeValue = drumEffects.volumes[drumOptions];
+    let volumeHandle = $("#volume-handle");
+    volumeHandle.text(volumeValue);
+    $("#volumeSlider").slider({
+        range: "max",
+        min: 0,
+        max: 100,
+        value: volumeValue * 100,
+        create: function () {
+            volumeHandle.text(volumeValue);
+        },
+        slide: function (event, ui) {
+            volumeHandle.text(ui.value / 100);
+            drumEffects.volumes[drumOptions] = ui.value / 100;
+        }
+    });
+
+    let delayTimeValue = drumEffects.delay.time[drumOptions];
+    let delayFeedbackValue = drumEffects.delay.feedback[drumOptions];
+
+    let delayTimeHandle = $("#delay-time-handle");
+    let delayFeedbackHandle = $("#delay-feedback-handle");
+
+    delayTimeHandle.text(delayTimeValue);
+    $("#delayTimeSlider").slider({
+        range: "max",
+        min: 0,
+        max: 50,
+        value: delayTimeValue * 100,
+        create: function () {
+            delayTimeHandle.text(delayTimeValue);
+        },
+        slide: function (event, ui) {
+            delayTimeHandle.text(ui.value / 100);
+            drumEffects.delay.time[drumOptions] = ui.value / 100;
+        }
+    });
+
+    delayFeedbackHandle.text(delayFeedbackValue);
+    $("#delayFeedbackSlider").slider({
+        range: "max",
+        min: 0,
+        max: 100,
+        value: delayFeedbackValue * 100,
+        create: function () {
+            delayFeedbackHandle.text(delayFeedbackValue);
+        },
+        slide: function (event, ui) {
+            delayFeedbackHandle.text(ui.value / 100);
+            drumEffects.delay.feedback[drumOptions] = ui.value / 100;
+        }
+    });
+
+    $("#optionsModal").modal('show');
 });
 
-var tempoHandle = $( "#tempo-handle" );
+$(".effectsButton").click(function () {
+    $("#effectsModal").modal('show');
+
+});
+
+var tempoHandle = $("#tempo-handle");
 tempoHandle.text(BPM);
 
-$( "#tempoSlider" ).slider({
+$("#tempoSlider").slider({
     range: "max",
     min: 60,
     max: 200,
     value: BPM,
-    create: function() {
+    create: function () {
         tempoHandle.text(BPM);
     },
-    slide: function( event, ui ) {
-        tempoHandle.text( ui.value );
+    slide: function (event, ui) {
+        tempoHandle.text(ui.value);
         BPM = ui.value;
         part.setBPM(BPM);
     }
