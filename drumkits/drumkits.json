@@ -15,9 +15,16 @@
       "closed" : "SoundSamples/KORG-ER-1/HH-ER1-ClosedHardHatz.wav"
     },
     "house" : {
-
+      "kick"  : "SoundSamples/909/909_kick_01.wav",
+      "snare" : "SoundSamples/909/909_snare_01.wav",
+      "clap" : "SoundSamples/909/909_clap.wav",
+      "hihat" : "SoundSamples/909/909_openhat_01.wav",
+      "olosed" : "SoundSamples/909/909_closedhat_01.wav",
+      "ride"   : "SoundSamples/909/909_ride_01.wav",
+      "rim"    : "SoundSamples/909/909_rimshot.wav"
     },
     "chill" : {
+
 
     }
   }
