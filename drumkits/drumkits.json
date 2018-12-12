@@ -3,29 +3,37 @@
     "electribe": {
       "snare": "SoundSamples/KORG-ER-1/SD-ER1-70sSnareNice.wav",
       "hihat": "SoundSamples/KORG-ER-1/HH-ER-GrimpyHat.wav",
-      "kick" : "SoundSamples/KORG-ER-1/BD-ER1-GoaKick.wav",
-      "clap" : "SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav",
-      "closed" : "SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav"
+      "kick": "SoundSamples/KORG-ER-1/BD-ER1-GoaKick.wav",
+      "clap": "SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav",
+      "closed": "SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav"
     },
     "johnnysDrums": {
-      "kick" : "SoundSamples/Johnny_Samples/Big Kick.wav",
-      "snare" : "SoundSamples/Johnny_Samples/Grumpy Snare.wav",
-      "hihat" : "SoundSamples/Johnny_Samples/Sci-Fi Bleep.wav",
-      "clap" : "SoundSamples/Johnny_Samples/Laser.wav",
-      "closed" : "SoundSamples/KORG-ER-1/HH-ER1-ClosedHardHatz.wav"
+      "kick": "SoundSamples/Johnny_Samples/Big Kick.wav",
+      "snare": "SoundSamples/Johnny_Samples/Grumpy Snare.wav",
+      "hihat": "SoundSamples/Johnny_Samples/Sci-Fi Bleep.wav",
+      "clap": "SoundSamples/Johnny_Samples/Laser.wav",
+      "closed": "SoundSamples/KORG-ER-1/HH-ER1-ClosedHardHatz.wav"
     },
-    "house" : {
-      "kick"  : "SoundSamples/909/909_kick_01.wav",
-      "snare" : "SoundSamples/909/909_snare_01.wav",
-      "clap" : "SoundSamples/909/909_clap.wav",
-      "hihat" : "SoundSamples/909/909_openhat_01.wav",
-      "olosed" : "SoundSamples/909/909_closedhat_01.wav",
-      "ride"   : "SoundSamples/909/909_ride_01.wav",
-      "rim"    : "SoundSamples/909/909_rimshot.wav"
+    "house": {
+      "kick": "SoundSamples/909/909_kick_01.wav",
+      "snare": "SoundSamples/909/909_snare_01.wav",
+      "clap": "SoundSamples/909/909_clap.wav",
+      "hihat": "SoundSamples/909/909_openhat_01.wav",
+      "olosed": "SoundSamples/909/909_closedhat_01.wav",
+      "ride": "SoundSamples/909/909_ride_01.wav",
+      "rim": "SoundSamples/909/909_rimshot.wav",
+      "tom": "SoundSamples/909/909_tom_01.wav"
     },
-    "chill" : {
-
-
+    "chill": {
+      "kick": "SoundSamples/Chill/DR660 Bassdrum Linndrumesque.wav",
+      "snare": "SoundSamples/Chill/DR660 Snare Big.wav",
+      "clap": "SoundSamples/Chill/DR660 Clap 1.wav",
+      "closed": "SoundSamples/Chill/DR660 CR78 Closed Hat 2.wav",
+      "hihat": "SoundSamples/Chill/DR660 CR78 Open Hat.wav",
+      "tom": "SoundSamples/Chill/DR660 Mid Tom.wav",
+      "shaker": "SoundSamples/Chill/DR660 Shaker.wav",
+      "conga": "SoundSamples/Chill/DR660 Conga.wav",
+      "congahi": "SoundSamples/Chill/DR660 Conga high.wav"
     }
   }
 }
