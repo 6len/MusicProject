@@ -3,12 +3,14 @@
     <title>Drum Blaster</title>
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="script/jqueryKnob/jquery.rotaryswitch.css"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
     <link rel="shortcut icon"
           href="https://www.clipartmax.com/png/middle/274-2744152_snare-drum-clipart-marching-band-icon-png.png"
           type="image/x-icon"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="script/jqueryKnob/jquery.rotaryswitch.js"></script>
     <script src="p5/p5.js"></script>
     <script src="p5/addons/p5.dom.js"></script>
     <script src="p5/addons/p5.sound.js"></script>
@@ -177,6 +179,15 @@
         <h4>Delay Feedback</h4>
         <div id="delayFeedbackSlider">
             <div id="delay-feedback-handle" class="ui-slider-handle"></div>
+        </div>
+        <h3>Reverb</h3>
+        <h4>Reverb Time</h4>
+        <div id="reverbTimeSlider">
+            <div id="reverb-time-handle" class="ui-slider-handle"></div>
+        </div>
+        <h4>Reverb Decay Rate</h4>
+        <div id="reverbDecaySlider">
+            <div id="reverb-decay-handle" class="ui-slider-handle"></div>
         </div>
     </div>
     </div>

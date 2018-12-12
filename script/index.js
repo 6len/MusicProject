@@ -20,11 +20,11 @@ let drumEffects = {
         "closed": 1
     },
     "volumes": {
-        "clap": 1,
-        "snare": 1,
-        "hihat": 1,
-        "kick": 1,
-        "closed": 1
+        "clap": .5,
+        "snare": .5,
+        "hihat": .5,
+        "kick": .5,
+        "closed": .5
     },
     "delay": {
         "time": {
@@ -41,6 +41,31 @@ let drumEffects = {
             "kick": 0,
             "closed": 0
         }
+    },
+    "reverb": {
+        "time": {
+            "clap": 0.001,
+            "snare": 0.001,
+            "hihat": 0.001,
+            "kick": 0.001,
+            "closed": 0.001
+        },
+        "decay": {
+            "clap": 0,
+            "snare": 0,
+            "hihat": 0,
+            "kick": 0,
+            "closed": 0
+        }
+    },
+    "oscillator" : {
+        "freq" : 220,
+        "wave" : "sine",
+        "attack" : 0.01,
+        "decay" : 0.3,
+        "sustain" : 0.1,
+        "release" : 0.1,
+        "volume" : 0.9
     }
 };
 let kickSound, clapSound, hihatSound, snareSound, closedSound;
@@ -72,11 +97,21 @@ function preload() {
 
 function setup() {
     //Canvas creation for sound analysis
-    var soundCanvas = createCanvas(400, 250);
+    let soundCanvas = createCanvas(400, 250);
     noFill();
     fft = new p5.FFT();
     fft.setInput(part);
     soundCanvas.parent('visualSound');
+
+    oscillatorParams = drumEffects.oscillator;
+    oscillatorEnvelope = new p5.Envelope();
+    oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
+    oscillatorEnvelope.setRange(oscillatorParams.volume, 0);
+
+    oscillator = new p5.Oscillator(oscillatorParams.wave);
+    oscillator.freq(oscillatorParams.freq);
+    oscillator.start();
+    oscillator.amp(oscillatorEnvelope);
 
 
     //Part creation for drum loop
@@ -95,11 +130,19 @@ function setup() {
     snareDelay = new p5.Delay();
     closedDelay = new p5.Delay();
 
+    kickReverb = new p5.Reverb();
+    clapReverb = new p5.Reverb();
+    hatReverb = new p5.Reverb();
+    snareReverb = new p5.Reverb();
+    closedReverb = new p5.Reverb();
+
+
 
 }
 
 function playKick() {
     kickDelay.process(kickSound, drumEffects.delay.time["kick"], drumEffects.delay.feedback["kick"], 2300);
+    kickReverb.process(kickSound, drumEffects.reverb.time["kick"], drumEffects.reverb.decay["kick"]);
     kickSound.rate(drumEffects.pitches['kick']);
     kickSound.amp(drumEffects.volumes['kick']);
     kickSound.play();
@@ -107,6 +150,7 @@ function playKick() {
 
 function playClap() {
     clapDelay.process(clapSound, drumEffects.delay.time["clap"], drumEffects.delay.feedback["clap"], 2300);
+    clapReverb.process(clapSound, drumEffects.reverb.time["clap"], drumEffects.reverb.decay["clap"]);
     clapSound.rate(drumEffects.pitches['clap']);
     clapSound.amp(drumEffects.volumes['clap']);
     clapSound.play();
@@ -114,6 +158,7 @@ function playClap() {
 
 function playHat() {
     hatDelay.process(hihatSound, drumEffects.delay.time["hihat"], drumEffects.delay.feedback["hihat"], 2300);
+    hatReverb.process(hihatSound, drumEffects.reverb.time["hihat"], drumEffects.reverb.decay["hihat"]);
     hihatSound.rate(drumEffects.pitches['hihat']);
     hihatSound.amp(drumEffects.volumes['hihat']);
     hihatSound.play();
@@ -121,6 +166,7 @@ function playHat() {
 
 function playSnare() {
     snareDelay.process(snareSound, drumEffects.delay.time["snare"], drumEffects.delay.feedback["snare"], 2300);
+    snareReverb.process(snareSound, drumEffects.reverb.time["snare"], drumEffects.reverb.decay["snare"]);
     snareSound.rate(drumEffects.pitches['snare']);
     snareSound.amp(drumEffects.pitches['snare']);
     snareSound.play();
@@ -128,6 +174,7 @@ function playSnare() {
 
 function playClosed() {
     closedDelay.process(closedSound, drumEffects.delay.time["closed"], drumEffects.delay.feedback["closed"], 2300);
+    closedReverb.process(closedSound, drumEffects.reverb.time["closed"], drumEffects.reverb.decay["closed"]);
     closedSound.rate(drumEffects.pitches['closed']);
     closedSound.amp(drumEffects.volumes['closed']);
     closedSound.play();
@@ -282,7 +329,7 @@ $(".optionButton").click(function () {
     $("#delayFeedbackSlider").slider({
         range: "max",
         min: 0,
-        max: 100,
+        max: 80,
         value: delayFeedbackValue * 100,
         create: function () {
             delayFeedbackHandle.text(delayFeedbackValue);
@@ -293,12 +340,48 @@ $(".optionButton").click(function () {
         }
     });
 
+    let reverbTimeValue = drumEffects.reverb.time[drumOptions];
+    let reverbTimeHandle = $("#reverb-time-handle");
+    reverbTimeHandle.text(reverbTimeValue);
+
+    $("#reverbTimeSlider").slider({
+        range: "max",
+        min: 0,
+        max: 200,
+        value: reverbTimeValue * 100,
+        create: function () {
+            reverbTimeHandle.text(reverbTimeValue);
+        },
+        slide: function (event, ui) {
+            reverbTimeHandle.text(ui.value / 100);
+            drumEffects.reverb.time[drumOptions] = ui.value / 100;
+        }
+    });
+
+    let reverbDecayValue = drumEffects.reverb.decay[drumOptions];
+    let reverbDecayHandle = $("#reverb-decay-handle");
+    reverbDecayHandle.text(reverbDecayValue);
+
+    $("#reverbDecaySlider").slider({
+        range: "max",
+        min: 0,
+        max: 500,
+        value: reverbDecayValue * 100,
+        create: function () {
+            reverbDecayHandle.text(reverbDecayValue);
+        },
+        slide: function (event, ui) {
+            reverbDecayHandle.text(ui.value / 100);
+            drumEffects.reverb.decay[drumOptions] = ui.value / 100;
+        }
+    });
+
     $("#optionsModal").modal('show');
 });
 
 $(".effectsButton").click(function () {
-    $("#effectsModal").modal('show');
-
+    getAudioContext().resume();
+    oscillatorEnvelope.play();
 });
 
 var tempoHandle = $("#tempo-handle");

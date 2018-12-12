@@ -83,7 +83,8 @@ body {
     display: inline-block;
 }
 
-#pitch-handle, #tempo-handle, #volume-handle, #delay-feedback-handle, #delay-time-handle {
+#pitch-handle, #tempo-handle, #volume-handle, #delay-feedback-handle, #delay-time-handle,
+#reverb-decay-handle, #reverb-time-handle {
     width: 3em;
     height: 1.6em;
     top: 50%;
@@ -113,6 +114,17 @@ body {
 #delayTimeSlider {
     background-color: cyan;
 }
+
+
+#reverbTimeSlider {
+    background-color: magenta;
+}
+
+
+#reverbDecaySlider {
+    background-color: darkcyan;
+}
+
 
 .steps {
     margin-left: 80px;
