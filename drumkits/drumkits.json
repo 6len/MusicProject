@@ -44,7 +44,17 @@
        "tom": "SoundSamples/808/808_tom_01.wav",
        "rim": "SoundSamples/808/808_rimshot.wav",
        "conga": "SoundSamples/808/808_conga_01.wav"
-     }
+     },
+    "DDM": {
+      "kick" : "SoundSamples/DDM/KickDDM.wav",
+      "snare" : "SoundSamples/DDM/SnareDDM.wav",
+      "clap" : "SoundSamples/DDM/ClapDDM.wav",
+      "closed" : "SoundSamples/DDM/ClosedDDM.wav",
+      "open" : "SoundSamples/DDM/OpenDDM.wav",
+      "tom" : "SoundSamples/DDM/TomDDM.wav",
+      "rim" : "SoundSamples/DDM/SideStickDDM.wav",
+      "crash" : "SoundSamples/DDM/CrashDDM.wav"
+    }
 
   }
 }
