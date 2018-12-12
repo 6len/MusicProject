@@ -19,7 +19,7 @@
       "snare": "SoundSamples/909/909_snare_01.wav",
       "clap": "SoundSamples/909/909_clap.wav",
       "hihat": "SoundSamples/909/909_openhat_01.wav",
-      "olosed": "SoundSamples/909/909_closedhat_01.wav",
+      "closed": "SoundSamples/909/909_closedhat_01.wav",
       "ride": "SoundSamples/909/909_ride_01.wav",
       "rim": "SoundSamples/909/909_rimshot.wav",
       "tom": "SoundSamples/909/909_tom_01.wav"
@@ -34,6 +34,17 @@
       "shaker": "SoundSamples/Chill/DR660 Shaker.wav",
       "conga": "SoundSamples/Chill/DR660 Conga.wav",
       "congahi": "SoundSamples/Chill/DR660 Conga high.wav"
-    }
+    },
+     "808": {
+       "kick": "SoundSamples/808/808_kick_01.wav",
+       "snare": "SoundSamples/808/808_snare_01.wav",
+       "clap": "SoundSamples/808/808_clap.wav",
+       "closed": "SoundSamples/808/808_closedhat_01.wav",
+       "hihat": "SoundSamples/808/808_openhat_01.wav",
+       "tom": "SoundSamples/808/808_tom_01.wav",
+       "rim": "SoundSamples/808/808_rimshot.wav",
+       "conga": "SoundSamples/808/808_conga_01.wav"
+     }
+
   }
 }
