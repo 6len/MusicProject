@@ -190,7 +190,7 @@ function playSnare() {
         snareDelay.process(snareSound, drumEffects.delay.time["snare"], drumEffects.delay.feedback["snare"], 2300);
         snareReverb.process(snareSound, drumEffects.reverb.time["snare"], drumEffects.reverb.decay["snare"]);
         snareSound.rate(drumEffects.pitches['snare']);
-        snareSound.amp(drumEffects.pitches['snare']);
+        snareSound.amp(drumEffects.volumes['snare']);
         snareSound.play();
     }
 }
