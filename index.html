@@ -171,18 +171,8 @@
                 </div>
             </div>
             <div class="oscillatorKnob">
-                <h4>FilterBlast</h4>
-                <div id="filterBlastKnob" class="knob" data-type="pan" effect="blast">
-                </div>
-            </div>
-            <div class="oscillatorKnob">
-                <h4>FilterDirt</h4>
-                <div id="filterDirtKnob" class="knob" data-type="pan" effect="dirt">
-                </div>
-            </div>
-            <div class="oscillatorKnob">
                 <h4>Resonance</h4>
-                <div id="resonanceKnob" class="knob" data-type="pan" effect="resonance">
+                <div id="resonanceKnob" class="knob" data-type="pan" effect="res">
                 </div>
             </div>
             <div class="oscillatorKnob">
@@ -190,7 +180,20 @@
                 <div id="lfoKnob" class="knob" data-type="pan" effect="lfo">
                 </div>
             </div>
+            <div class="ui left floated compact inverted segment">
+                <div class="ui toggle checkbox">
+                    <input type="checkbox">
+                    <label></label>
+                </div>
+                Filter Power
+            </div>
         </div>
+    </div>
+    <div class="ui vertical buttons" style="float: left; display: inline-block; margin-left: 10px;">
+        <button class="ui teal button wave" value="sine">Sine</button>
+        <button class="ui teal button wave" value="sawtooth">Saw</button>
+        <button class="ui teal button wave" value="square">Square</button>
+        <button class="ui teal button wave" value="triangle">Triangle</button>
     </div>
     <div class="playbackContainer">
         <button class="playbackButton">
@@ -202,18 +205,20 @@
         <button class="playbackButton" id="playButton">
             <i class="white play icon"></i>
         </button>
-    </div>
-    <div class="ui selection dropdown" id="kitsDropdown">
-        <input type="hidden" name="drum">
-        <i class="dropdown icon"></i>
-        <div class="default text">Kits</div>
-        <div class="menu" id="kits">
+        <br>
+        <div class="ui selection dropdown" id="kitsDropdown">
+            <input type="hidden" name="drum">
+            <i class="dropdown icon"></i>
+            <div class="default text">Kits</div>
+            <div class="menu" id="kits">
+            </div>
         </div>
+        <div id="tempoSlider">
+            <div id="tempo-handle" class="ui-slider-handle"></div>
+        </div>
+        <button class="effectsButton">Effects</button>
+        <button id="savePattern">Save Pattern</button>
     </div>
-    <div id="tempoSlider">
-        <div id="tempo-handle" class="ui-slider-handle"></div>
-    </div>
-    <button class="effectsButton">Effects</button>
 </div>
 
 <div class="ui modal" id="optionsModal">

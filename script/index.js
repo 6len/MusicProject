@@ -69,14 +69,13 @@ let drumEffects = {
         }
     },
     "oscillator": {
-        "freq": 220,
-        "wave": "sawtooth",
+        "freq": 55,
+        "wave": "sine",
         "attack": 0,
         "decay": 0,
         "sustain": 0,
         "release": 0,
-        "blast" : 1,
-        "dirt" : 0,
+        "res" : 25,
         "filter" : 20
     }
 };
@@ -109,11 +108,10 @@ function preload() {
 
 function setup() {
     //Canvas creation for sound analysis
-    // let soundCanvas = createCanvas(400, 250);
-    // noFill();
-    // fft = new p5.FFT();
-    // fft.setInput(part);
-    // soundCanvas.parent('visualSound');
+    let soundCanvas = createCanvas(400, 250);
+    noFill();
+    fft = new p5.FFT();
+    soundCanvas.parent('visualSound');
 
     oscillatorParams = drumEffects.oscillator;
     oscillatorEnvelope = new p5.Envelope();
@@ -126,12 +124,13 @@ function setup() {
 
     bpFilter = new p5.BandPass();
     bpFilter.freq(drumEffects.oscillator.filter);
-    bpFilter.res(25);
+    bpFilter.res(drumEffects.oscillator.res);
 
     oscillator.disconnect();
     bpFilter.process(oscillator);
     oscillator.amp(oscillatorEnvelope);
     oscillator.start();
+    bpFilter.toggle();
 
     kickDelay = new p5.Delay();
     clapDelay = new p5.Delay();
@@ -150,8 +149,10 @@ $(".effectsButton").click(function () {
     getAudioContext().resume();
     let freq = parseInt(drumEffects.oscillator.freq);
     let filterFreq = parseInt(drumEffects.oscillator.filter);
+    let filterRes = parseInt(drumEffects.oscillator.res);
     oscillator.freq(freq);
     bpFilter.freq(filterFreq);
+    bpFilter.res(filterRes);
     oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
     oscillatorEnvelope.play();
 });
@@ -282,6 +283,19 @@ $('.ui.dropdown')
 ;
 
 function draw() {
+    background(255);
+
+    var waveform = fft.waveform();
+    noFill();
+    beginShape();
+    stroke(255,0,0); // waveform is red
+    strokeWeight(1);
+    for (var i = 0; i< waveform.length; i++){
+        var x = map(i, 0, waveform.length, 0, width);
+        var y = map( waveform[i], -1, 1, 0, height);
+        vertex(x,y);
+    }
+    endShape();
 }
 
 $(".optionButton").click(function () {
@@ -499,28 +513,31 @@ $("#filterKnob").knob({
 
 });
 
-$("#filterBlastKnob, #filterDirtKnob").knob({
+$("#resonanceKnob").knob({
     bgColor: "black",
     fgColor: "silver",
     type: "vol",
     tooltip: true,
     turnWith: null,
     arc:    240,
-    steps:  10000,
+    steps:  400,
     offset:   0,
     min: 1,
-    max: 10000,
+    max: 100,
     range: "auto",
     invertRange: false,
     round: true,
     fineTuneFactor: 1,
-    value: 1,
+    value: 25,
     resetValue: 1,
     classPrefix: "knob"
 
 });
 
-$("#frequencyKnob, #filterBlastKnob, #filterDirtKnob, #filterKnob").knob().on('turn', function() {
+
+
+
+$("#frequencyKnob, #filterKnob, #resonanceKnob").knob().on('turn', function() {
     let effect = $(this).attr('effect');
     let knobValue = this.innerText;
     drumEffects.oscillator[effect] = knobValue;
@@ -532,6 +549,37 @@ $("#attackKnob, #decayKnob, #sustainKnob, #releaseKnob").knob().on('turn', funct
     drumEffects.oscillator[effect] = parseInt(knobValue)/1000;
 });
 
+$(".wave").click(function () {
+    let wave = $(this).attr('value');
+    drumEffects.oscillator.wave = wave;
+    oscillator.setType(drumEffects.oscillator.wave);
+});
 
+$('.ui.checkbox').checkbox({
+    onChange: (function () {
+        bpFilter.toggle();
+    })
+});
 
+$('#savePattern').click(function() {
+    let savedPattern = {
+        "drumPattern" : {
+            "kick" : kicks,
+            "snare" : snares,
+            "clap" : claps,
+            "hihat" : hihats,
+            "closed" : closed
+        },
+        "drumEffects" : {
+            drumEffects
+        }
+    };
 
+    $("<a />", {
+        "download": "drum-settings.json",
+        "href" : "data:application/json," + encodeURIComponent(JSON.stringify(savedPattern))
+    }).appendTo("body")
+        .click(function() {
+            $(this).remove()
+        })[0].click();
+});

@@ -39,7 +39,9 @@ body {
     background-color: green;
 }
 .playbackContainer {
-    margin-top: 10px;
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
 }
 .playbackButton {
     background-color: black;
@@ -81,6 +83,7 @@ body {
 
 #visualSound {
     display: inline-block;
+    float: right;
 }
 
 #pitch-handle, #tempo-handle, #volume-handle, #delay-feedback-handle, #delay-time-handle,
@@ -164,6 +167,7 @@ body {
     height: 200px;
     border-radius: 20px;
     border: 1px solid white;
+    float: left;
 }
 .knobRow {
     margin-top: 5px;
