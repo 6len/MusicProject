@@ -70,14 +70,14 @@ let drumEffects = {
     },
     "oscillator": {
         "freq": 220,
-        "wave": "sine",
+        "wave": "sawtooth",
         "attack": 0,
         "decay": 0,
         "sustain": 0,
         "release": 0,
         "blast" : 1,
         "dirt" : 0,
-        "filter" : 0
+        "filter" : 20
     }
 };
 let kickSound, clapSound, hihatSound, snareSound, closedSound;
@@ -119,29 +119,20 @@ function setup() {
     oscillatorEnvelope = new p5.Envelope();
     oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
     oscillatorEnvelope.setRange(1,0);
-    oscillator = new p5.Oscillator(oscillatorParams.wave);
-    oscillator.start();
+
+    oscillator = new p5.Oscillator();
+    oscillator.setType(oscillatorParams.wave);
     oscillator.freq(drumEffects.oscillator.freq);
-    oscillator.amp(oscillatorEnvelope);
 
-    frequencyEnvelope = new p5.Envelope();
-    frequencyEnvelope.setADSR(0.01, drumEffects.oscillator.filter, 0, 0.0001);
-    frequencyEnvelope.setRange(drumEffects.oscillator.blast, drumEffects.oscillator.dirt);
-
-    bpFilter = new p5.Filter('BandPass');
-    oscillator.connect(bpFilter);
-    bpFilter.freq(frequencyEnvelope);
+    bpFilter = new p5.BandPass();
+    bpFilter.freq(drumEffects.oscillator.filter);
     bpFilter.res(25);
-    //Part creation for drum loop
-    /*part = new p5.Part(16, 1/16);
-    part.addPhrase('kick', playKick, kicks);
-    part.addPhrase('clap', playClap, claps);
-    part.addPhrase('snare', playSnare, snares);
-    part.addPhrase('hat', playHat, hihats);
-    part.addPhrase('closed', playClosed, closed);
-    part.addPhrase('buttons', cycleButton, buttons);
-    part.setBPM(BPM);
-*/
+
+    oscillator.disconnect();
+    bpFilter.process(oscillator);
+    oscillator.amp(oscillatorEnvelope);
+    oscillator.start();
+
     kickDelay = new p5.Delay();
     clapDelay = new p5.Delay();
     hatDelay = new p5.Delay();
@@ -154,6 +145,17 @@ function setup() {
     snareReverb = new p5.Reverb();
     closedReverb = new p5.Reverb();
 }
+
+$(".effectsButton").click(function () {
+    getAudioContext().resume();
+    let freq = parseInt(drumEffects.oscillator.freq);
+    let filterFreq = parseInt(drumEffects.oscillator.filter);
+    oscillator.freq(freq);
+    bpFilter.freq(filterFreq);
+    oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
+    oscillatorEnvelope.play();
+});
+
 
 function playKick() {
     if (kicks[index] === 1) {
@@ -395,17 +397,6 @@ $(".optionButton").click(function () {
     $("#optionsModal").modal('show');
 });
 
-$(".effectsButton").click(function () {
-    getAudioContext().resume();
-    let freq = parseInt(drumEffects.oscillator.freq);
-    oscillator.freq(freq);
-    oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
-    frequencyEnvelope.setADSR(0.01, drumEffects.oscillator.filter, 0, 0.0001);
-    frequencyEnvelope.setRange(drumEffects.oscillator.blast, drumEffects.oscillator.dirt);
-    oscillatorEnvelope.play();
-    frequencyEnvelope.play();
-});
-
 var tempoHandle = $("#tempo-handle");
 tempoHandle.text(BPM);
 
@@ -496,8 +487,8 @@ $("#filterKnob").knob({
     arc:    240,
     steps:  400,
     offset:   0,
-    min: 1,
-    max: 400,
+    min: 20,
+    max: 10000,
     range: "auto",
     invertRange: false,
     round: true,
@@ -529,13 +520,13 @@ $("#filterBlastKnob, #filterDirtKnob").knob({
 
 });
 
-$("#frequencyKnob, #filterBlastKnob, #filterDirtKnob").knob().on('turn', function() {
+$("#frequencyKnob, #filterBlastKnob, #filterDirtKnob, #filterKnob").knob().on('turn', function() {
     let effect = $(this).attr('effect');
     let knobValue = this.innerText;
     drumEffects.oscillator[effect] = knobValue;
 });
 
-$("#attackKnob, #decayKnob, #sustainKnob, #releaseKnob, #filterKnob").knob().on('turn', function() {
+$("#attackKnob, #decayKnob, #sustainKnob, #releaseKnob").knob().on('turn', function() {
     let effect = $(this).attr('effect');
     let knobValue = this.innerText;
     drumEffects.oscillator[effect] = parseInt(knobValue)/1000;
