@@ -10,7 +10,7 @@ let kits;
 let part;
 let pitch = 0;
 let BPM = 120;
-
+let drumPatternImports;
 Tone.Transport.bpm.value = BPM;
 
 let tonePlayer = new Tone.Loop(function (time) {
@@ -77,7 +77,8 @@ let drumEffects = {
         "release": 0,
         "res" : 25,
         "filter" : 20
-    }
+    },
+    "bpm" : 120
 };
 let kickSound, clapSound, hihatSound, snareSound, closedSound;
 $(document).ready(function () {
@@ -411,20 +412,19 @@ $(".optionButton").click(function () {
     $("#optionsModal").modal('show');
 });
 
-var tempoHandle = $("#tempo-handle");
-tempoHandle.text(BPM);
+let tempoHandle = $("#tempo-handle");
 
 $("#tempoSlider").slider({
     range: "max",
     min: 60,
     max: 200,
-    value: BPM,
+    value: drumEffects.bpm,
     create: function () {
-        tempoHandle.text(BPM);
+        tempoHandle.text(drumEffects.bpm);
     },
     slide: function (event, ui) {
         tempoHandle.text(ui.value);
-        BPM = ui.value;
+        drumEffects.bpm = ui.value;
         Tone.Transport.bpm.value = ui.value;
     }
 });
@@ -566,8 +566,8 @@ $('#savePattern').click(function() {
         "drumPattern" : {
             "kick" : kicks,
             "snare" : snares,
-            "clap" : claps,
             "hihat" : hihats,
+            "clap" : claps,
             "closed" : closed
         },
         "drumEffects" : {
@@ -583,3 +583,67 @@ $('#savePattern').click(function() {
             $(this).remove()
         })[0].click();
 });
+
+
+$("#uploadButton").click(function () {
+    let file = document.getElementById('uploadPattern').files[0];
+    if(file.type === "application/json") {
+        var fileReader = new FileReader();
+        fileReader.readAsText(file, "UTF-8");
+        fileReader.onload = function (evt) {
+            processFile(JSON.parse(evt.target.result));
+        }
+        fileReader.onerror = function (evt) {
+            console.log("error");
+        }
+    } else {
+        alert("Wrong file format");
+    }
+});
+
+function processFile(file) {
+    drumPatternImports = file.drumPattern;
+    console.log(drumPatternImports);
+    kicks = drumPatternImports.kick;
+    snares = drumPatternImports.snare;
+    hihats = drumPatternImports.hihat;
+    closed = drumPatternImports.closed;
+    claps = drumPatternImports.clap;
+
+
+    drumEffects = file.drumEffects.drumEffects;
+
+    activateDrums();
+}
+
+function activateDrums() {
+    let lightIndex = 0;
+    $(".sequencerButton").removeClass('active');
+    $('.sequencerButton').each(function() {
+        let sequenceValue = $(this).parent().attr('value');
+        if(drumPatternImports[sequenceValue][lightIndex] === 1) {
+            $(this).addClass('active');
+        }
+        if(lightIndex === 15) {
+            lightIndex = 0;
+        } else {
+            lightIndex++;
+        }
+    });
+    tempoHandle.text(drumEffects.bpm);
+    $("#tempoSlider").slider({
+        range: "max",
+        min: 60,
+        max: 200,
+        value: drumEffects.bpm,
+        create: function () {
+            tempoHandle.text(drumEffects.bpm);
+        },
+        slide: function (event, ui) {
+            tempoHandle.text(ui.value);
+            drumEffects.bpm = ui.value;
+            Tone.Transport.bpm.value = ui.value;
+        }
+    });
+
+}
