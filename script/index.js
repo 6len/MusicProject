@@ -146,7 +146,7 @@ function setup() {
     closedReverb = new p5.Reverb();
 }
 
-$(".effectsButton").click(function () {
+$(".playOsc").click(function () {
     getAudioContext().resume();
     let freq = parseInt(drumEffects.oscillator.freq);
     let filterFreq = parseInt(drumEffects.oscillator.filter);
