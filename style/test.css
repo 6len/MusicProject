@@ -106,14 +106,14 @@ body {
 }
 
 .led-blue {
-    float: left;
-    margin-left: 15.3px;
-    margin-right: 15.3px;
     width: 13px;
     height: 13px;
     background-color: rgba(92, 233, 255, 0);
     border-radius: 50%;
     box-shadow: #000 0 -1px 7px 1px, inset #006 0 -1px 9px, #06F 0 2px 14px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
 }
 
 .led-blue.on {
@@ -194,6 +194,7 @@ body {
     height: 50px;
     background-color: whitesmoke;
     border-color: black;
+    position: relative;
 }
 
 .sequencerButton:hover {
@@ -213,7 +214,6 @@ body {
 
 .optionColumn {
     margin-top: -14px;
-    margin-bottom: -14px;
     position: fixed;
     height: 100%;
 }

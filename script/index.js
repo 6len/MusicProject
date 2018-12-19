@@ -130,13 +130,13 @@ function addDropdownItem(item) {
 let sound;
 
 function preload() {
-    kickSound = loadSound("SoundSamples/KORG-ER-1/BD-ER1-GoaKick.wav");
-    clapSound = loadSound("SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav");
-    snareSound = loadSound("SoundSamples/KORG-ER-1/SD-ER1-70sSnareNice.wav");
-    hihatSound = loadSound("SoundSamples/KORG-ER-1/HH-ER1-MicroHat.wav");
+    kickSound = loadSound("SoundSamples/KORG-ER-1/SD-ER1-Japanese70s.wav");
+    clapSound = loadSound("SoundSamples/KORG-ER-1/HH-ER1-Beatbox.wav");
+    snareSound = loadSound("SoundSamples/KORG-ER-1/BD-ER1-Hotmix95.wav");
+    hihatSound = loadSound("SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav");
     closedSound = loadSound("SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav");
-    perconeSound = loadSound("SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav");
-    perctwoSound = loadSound("SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav");
+    perconeSound = loadSound("SoundSamples/KORG-ER-1/CYM-ER1-CrashCymbal1.wav");
+    perctwoSound = loadSound("SoundSamples/KORG-ER-1/TOM-ER-MicroTom1.wav");
 }
 
 function setup() {
@@ -380,13 +380,13 @@ $('.ui.dropdown')
 ;
 
 function draw() {
-    background(255);
+    background(0);
 
     var waveform = fft.waveform();
     noFill();
     beginShape();
-    stroke(255, 0, 0); // waveform is red
-    strokeWeight(1);
+    stroke(255, 255, 255); // waveform is red
+    strokeWeight(3);
     for (var i = 0; i < waveform.length; i++) {
         var x = map(i, 0, waveform.length, 0, width);
         var y = map(waveform[i], -1, 1, 0, height);

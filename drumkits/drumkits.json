@@ -1,6 +1,6 @@
 {
   "drumkits": {
-    "electribe": {
+    "ELECTRIBE": {
       "snare": "SoundSamples/KORG-ER-1/SD-ER1-Japanese70s.wav",
       "hihat": "SoundSamples/KORG-ER-1/HH-ER1-Beatbox.wav",
       "kick": "SoundSamples/KORG-ER-1/BD-ER1-Hotmix95.wav",
@@ -9,7 +9,7 @@
       "percone" :"SoundSamples/KORG-ER-1/CYM-ER1-CrashCymbal1.wav",
       "perctwo" : "SoundSamples/KORG-ER-1/TOM-ER-MicroTom1.wav"
     },
-    "johnnysDrums": {
+    "ANALOG": {
       "kick": "SoundSamples/Johnny_Samples/Jkick.wav",
       "snare": "SoundSamples/Johnny_Samples/ASnare.wav",
       "hihat": "SoundSamples/Johnny_Samples/Bleep.wav",
@@ -18,7 +18,7 @@
       "percone" :"SoundSamples/Johnny_Samples/ElectroTom.wav",
       "perctwo" : "SoundSamples/Johnny_Samples/ChordChill.wav"
     },
-    "house": {
+    "HOUSE": {
       "kick": "SoundSamples/909/909_kick_01.wav",
       "snare": "SoundSamples/909/909_snare_01.wav",
       "clap": "SoundSamples/909/909_clap.wav",
@@ -27,7 +27,7 @@
       "percone": "SoundSamples/909/909_rimshot.wav",
       "perctwo": "SoundSamples/909/909_tom_01.wav"
     },
-    "chill": {
+    "CHILL": {
       "kick": "SoundSamples/Chill/DR660 Bassdrum Linndrumesque.wav",
       "snare": "SoundSamples/Chill/DR660 Snare Big.wav",
       "clap": "SoundSamples/Chill/DR660 Clap 1.wav",

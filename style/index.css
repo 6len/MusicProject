@@ -228,3 +228,8 @@ body {
 #banner {
     background-color: black;
 }
+
+.coreContainer {
+    background-color: white !important;
+    border: 1px solid black;
+}
