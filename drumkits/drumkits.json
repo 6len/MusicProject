@@ -5,14 +5,18 @@
       "hihat": "SoundSamples/KORG-ER-1/HH-ER-GrimpyHat.wav",
       "kick": "SoundSamples/KORG-ER-1/BD-ER1-GoaKick.wav",
       "clap": "SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav",
-      "closed": "SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav"
+      "closed": "SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav",
+      "percone" :"SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav",
+      "perctwo" : "SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav"
     },
     "johnnysDrums": {
       "kick": "SoundSamples/Johnny_Samples/Big Kick.wav",
       "snare": "SoundSamples/Johnny_Samples/Grumpy Snare.wav",
       "hihat": "SoundSamples/Johnny_Samples/Sci-Fi Bleep.wav",
       "clap": "SoundSamples/Johnny_Samples/Laser.wav",
-      "closed": "SoundSamples/KORG-ER-1/HH-ER1-ClosedHardHatz.wav"
+      "closed": "SoundSamples/KORG-ER-1/HH-ER1-ClosedHardHatz.wav",
+      "percone" :"SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav",
+      "perctwo" : "SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav"
     },
     "house": {
       "kick": "SoundSamples/909/909_kick_01.wav",
@@ -20,9 +24,8 @@
       "clap": "SoundSamples/909/909_clap.wav",
       "hihat": "SoundSamples/909/909_openhat_01.wav",
       "closed": "SoundSamples/909/909_closedhat_01.wav",
-      "ride": "SoundSamples/909/909_ride_01.wav",
-      "rim": "SoundSamples/909/909_rimshot.wav",
-      "tom": "SoundSamples/909/909_tom_01.wav"
+      "percone": "SoundSamples/909/909_rimshot.wav",
+      "perctwo": "SoundSamples/909/909_tom_01.wav"
     },
     "chill": {
       "kick": "SoundSamples/Chill/DR660 Bassdrum Linndrumesque.wav",
@@ -30,9 +33,8 @@
       "clap": "SoundSamples/Chill/DR660 Clap 1.wav",
       "closed": "SoundSamples/Chill/DR660 CR78 Closed Hat 2.wav",
       "hihat": "SoundSamples/Chill/DR660 CR78 Open Hat.wav",
-      "tom": "SoundSamples/Chill/DR660 Mid Tom.wav",
-      "conga": "SoundSamples/Chill/DR660 Conga.wav",
-      "congahi": "SoundSamples/Chill/DR660 Conga high.wav"
+      "percone": "SoundSamples/Chill/DR660 Mid Tom.wav",
+      "perctwo": "SoundSamples/Chill/DR660 Conga.wav"
     },
      "808": {
        "kick": "SoundSamples/808/808_kick_01.wav",
@@ -40,19 +42,17 @@
        "clap": "SoundSamples/808/808_clap.wav",
        "closed": "SoundSamples/808/808_closedhat_01.wav",
        "hihat": "SoundSamples/808/808_openhat_01.wav",
-       "tom": "SoundSamples/808/808_tom_01.wav",
-       "rim": "SoundSamples/808/808_rimshot.wav",
-       "conga": "SoundSamples/808/808_conga_01.wav"
+       "percone": "SoundSamples/808/808_tom_01.wav",
+       "perctwo": "SoundSamples/808/808_rimshot.wav"
      },
     "DDM": {
       "kick" : "SoundSamples/DDM/KickDDM.wav",
       "snare" : "SoundSamples/DDM/SnareDDM.wav",
       "clap" : "SoundSamples/DDM/ClapDDM.wav",
       "closed" : "SoundSamples/DDM/ClosedDDM.wav",
-      "open" : "SoundSamples/DDM/OpenDDM.wav",
-      "tom" : "SoundSamples/DDM/TomDDM.wav",
-      "rim" : "SoundSamples/DDM/SideStickDDM.wav",
-      "crash" : "SoundSamples/DDM/CrashDDM.wav"
+      "hihat" : "SoundSamples/DDM/OpenDDM.wav",
+      "percone" : "SoundSamples/DDM/TomDDM.wav",
+      "perctwo" : "SoundSamples/DDM/SideStickDDM.wav"
     }
 
   }
