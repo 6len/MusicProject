@@ -130,10 +130,10 @@ function addDropdownItem(item) {
 let sound;
 
 function preload() {
-    kickSound = loadSound("SoundSamples/KORG-ER-1/SD-ER1-Japanese70s.wav");
-    clapSound = loadSound("SoundSamples/KORG-ER-1/HH-ER1-Beatbox.wav");
-    snareSound = loadSound("SoundSamples/KORG-ER-1/BD-ER1-Hotmix95.wav");
-    hihatSound = loadSound("SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav");
+    snareSound = loadSound("SoundSamples/KORG-ER-1/SD-ER1-Japanese70s.wav");
+    hihatSound = loadSound("SoundSamples/KORG-ER-1/HH-ER1-Beatbox.wav");
+    kickSound = loadSound("SoundSamples/KORG-ER-1/BD-ER1-Hotmix95.wav");
+    clapSound = loadSound("SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav");
     closedSound = loadSound("SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav");
     perconeSound = loadSound("SoundSamples/KORG-ER-1/CYM-ER1-CrashCymbal1.wav");
     perctwoSound = loadSound("SoundSamples/KORG-ER-1/TOM-ER-MicroTom1.wav");
@@ -817,7 +817,7 @@ $("#resetButton").click(function () {
     perctwos = new Array(16).fill(0);
     oscillators = new Array(16).fill(0);
 
-    activateDrums();
+    $(".sequencerButton").removeClass('active');
 });
 
 
