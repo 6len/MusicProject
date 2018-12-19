@@ -627,12 +627,12 @@ function knobInit() {
         steps: 400,
         offset: 0,
         min: 1,
-        max: 100,
+        max: 25,
         range: "auto",
         invertRange: false,
         round: true,
         fineTuneFactor: 1,
-        value: 25,
+        value: 1,
         resetValue: 1,
         classPrefix: "knob"
 
