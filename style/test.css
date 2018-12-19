@@ -37,14 +37,14 @@ body {
 }
 
 .optionButton {
-    width: 100%;
+    width: 80px;
     height: 50px;
     background-color: #DDEDAA !important;
     border-color: black;
 }
 
 .optionButtonOsc {
-    width: 100%;
+    width: 80px;
     height: 50px;
     background-color: #DDEDAA !important;
     border-color: black;
@@ -179,6 +179,7 @@ body {
 #knobColumn {
     border-bottom: 1px solid black;
     border-left: 1px solid black;
+    border-top: 1px solid black;
     background-color: white !important;
 }
 
@@ -224,4 +225,11 @@ body {
 
 .sequencerButton.cycling {
     background-color: pink;
+}
+
+.dmTitle {
+    font-family: 'Geostar';
+    font-size: 40px;
+    font-weight: bold;
+
 }

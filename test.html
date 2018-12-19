@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="style/test.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Geostar" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="script/jquery.knob.js"></script>
@@ -34,7 +35,13 @@
             </div>
         </div>
     </div>
+
     <div class="ui four column grid">
+        <div class="ui column row">
+            <div class="column">
+                <p class="dmTitle">DB-40</p>
+            </div>
+        </div>
         <div class="ui eight wide column">
             <div class="ui center aligned five column grid" id="knobColumn">
                 <div class="ui column">
@@ -72,42 +79,68 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui column">
-                    <div class="oscillatorKnob">
-                        <h4>FILTER</h4>
-                        <div id="filterKnob" class="knob" data-type="pan" effect="filter">
+                <div class="ui five column row">
+                    <div class="ui column">
+                        <div class="oscillatorKnob">
+                            <h4>FILTER</h4>
+                            <div id="filterKnob" class="knob" data-type="pan" effect="filter">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui column">
+                        <div class="oscillatorKnob">
+                            <h4>RES</h4>
+                            <div id="resonanceKnob" class="knob" data-type="pan" effect="res">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui column">
+                        <div class="oscillatorKnob">
+                            <h4>MOD</h4>
+                            <div id="modKnob" class="knob" data-type="pan" effect="mod">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui column">
+                        <div class="oscillatorKnob">
+                            <h4>DEPTH</h4>
+                            <div id="modDepthKnob" class="knob" data-type="pan" effect="depth">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui column">
+                        <div class="ui left floated compact inverted segment">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                            </div>
+                            FILTER POW
                         </div>
                     </div>
                 </div>
-                <div class="ui column">
-                    <div class="oscillatorKnob">
-                        <h4>RES</h4>
-                        <div id="resonanceKnob" class="knob" data-type="pan" effect="res">
-                        </div>
+                <div class="ui five column row">
+                    <div class="ui column">
+                        <h4>MOD WAVES</h4>
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button modWave" value="sine">SINE</button>
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button modWave" value="sawtooth">SAW</button>
+
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button modWave" value="square">SQUARE</button>
+
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button modWave" value="triangle">TRIANGLE</button>
+
                     </div>
                 </div>
-                <div class="ui column">
-                    <div class="oscillatorKnob">
-                        <h4>MOD</h4>
-                        <div id="modKnob" class="knob" data-type="pan" effect="mod">
-                        </div>
+                <div class="ui six column row">
+                    <div class="ui column">
+                        <h4>OSCILLATOR WAVES</h4>
                     </div>
-                </div>
-                <div class="ui column">
-                    <div class="oscillatorKnob">
-                        <h4>DEPTH</h4>
-                        <div id="modDepthKnob" class="knob" data-type="pan" effect="depth">
-                        </div>
-                    </div>
-                </div>
-                <div class="ui column">
-                    <div class="ui left floated compact inverted segment">
-                        <div class="ui toggle checkbox">
-                            <input type="checkbox">
-                        </div>
-                        FILTER POW
-                    </div>
-                </div>
                     <div class="ui column">
                         <button class="ui custom button wave" value="sine">SINE</button>
                     </div>
@@ -127,6 +160,7 @@
                         <button class="ui playOsc button" id="playOsc">PLAY</button>
 
                     </div>
+                </div>
             </div>
         </div>
         <div class="ui eight wide column playbackGrid">

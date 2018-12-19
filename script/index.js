@@ -15,6 +15,9 @@ let BPM = 120;
 let drumPatternImports;
 Tone.Transport.bpm.value = BPM;
 
+let lowPassFilterOn = false;
+let highPassFilterOn = false;
+
 knobInit();
 
 let tonePlayer = new Tone.Loop(function (time) {
@@ -99,7 +102,8 @@ let drumEffects = {
         "res": 25,
         "filter": 20,
         "mod": 0,
-        "depth": 0
+        "depth": 0,
+        "modwave" : "sine"
     },
     "bpm": 120
 };
@@ -151,12 +155,12 @@ function setup() {
     oscillator.setType(oscillatorParams.wave);
     oscillator.freq(drumEffects.oscillator.freq);
 
-    bpFilter = new p5.LowPass();
-    bpFilter.freq(drumEffects.oscillator.filter);
-    bpFilter.res(drumEffects.oscillator.res);
+    filter = new p5.LowPass();
+    filter.freq(drumEffects.oscillator.filter);
+    filter.res(drumEffects.oscillator.res);
 
     mod = new p5.Oscillator();
-    mod.setType("sine");
+    mod.setType(oscillatorParams.modwave);
     mod.freq(oscillatorParams.mod);
     mod.amp(oscillatorParams.depth);
     mod.start();
@@ -164,18 +168,18 @@ function setup() {
     oscillator.freq(mod);
 
     oscillator.disconnect();
-    bpFilter.process(oscillator);
+    filter.process(oscillator);
     oscillator.amp(oscillatorEnvelope);
     oscillator.start();
-    bpFilter.toggle();
+    filter.toggle();
 
     kickDelay = new p5.Delay();
     clapDelay = new p5.Delay();
     hatDelay = new p5.Delay();
     snareDelay = new p5.Delay();
     closedDelay = new p5.Delay();
-    perconeDelay = new p5.Delay()
-    perctwoDelay = new p5.Delay()
+    perconeDelay = new p5.Delay();
+    perctwoDelay = new p5.Delay();
 
     kickReverb = new p5.Reverb();
     clapReverb = new p5.Reverb();
@@ -194,11 +198,12 @@ $("#playOsc").click(function () {
     let filterRes = parseInt(drumEffects.oscillator.res);
     let depth = parseInt(drumEffects.oscillator.depth);
     oscillator.freq(freq);
+    mod.setType(drumEffects.oscillator.modwave);
     mod.freq(modFreq);
     mod.amp(depth);
     oscillator.freq(mod);
-    bpFilter.freq(filterFreq);
-    bpFilter.res(filterRes);
+    filter.freq(filterFreq);
+    filter.res(filterRes);
     oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
     oscillatorEnvelope.play();
 });
@@ -283,11 +288,12 @@ function playOsc() {
         let filterRes = parseInt(drumEffects.oscillator.res);
         let depth = parseInt(drumEffects.oscillator.depth);
         oscillator.freq(freq);
+        mod.setType(drumEffects.oscillator.modwave);
         mod.freq(modFreq);
         mod.amp(depth);
         oscillator.freq(mod);
-        bpFilter.freq(filterFreq);
-        bpFilter.res(filterRes);
+        filter.freq(filterFreq);
+        filter.res(filterRes);
         oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
         oscillatorEnvelope.play();
     }
@@ -688,9 +694,16 @@ $(".wave").click(function () {
     oscillatorEffects = drumEffects.oscillator;
 });
 
+$(".modWave").click(function () {
+    let wave = $(this).attr('value');
+    drumEffects.oscillator.modwave = wave;
+    mod.setType(drumEffects.oscillator.modwave);
+    oscillatorEffects = drumEffects.oscillator;
+});
+
 $('.ui.checkbox').checkbox({
     onChange: (function () {
-        bpFilter.toggle();
+        filter.toggle();
     })
 });
 
@@ -799,3 +812,6 @@ $("#resetButton").click(function () {
 
     activateDrums();
 });
+
+
+
