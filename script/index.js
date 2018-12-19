@@ -141,7 +141,7 @@ function preload() {
 
 function setup() {
     //Canvas creation for sound analysis
-    let soundCanvas = createCanvas(300, 100);
+    let soundCanvas = createCanvas(400, 120);
     noFill();
     fft = new p5.FFT();
     soundCanvas.parent('visualSound');
@@ -393,6 +393,13 @@ function draw() {
         vertex(x, y);
     }
     endShape();
+
+    strokeWeight(1);
+    // add a note about what's happening
+    text('Modulator Frequency: ' + drumEffects.oscillator.mod.toFixed(3) + ' Hz', 20, 20);
+    text('Modulator Depth: ' + drumEffects.oscillator.depth.toFixed(3), 20, 40);
+    text('Oscillator Frequency: ' + drumEffects.oscillator.freq + ' Hz', width/2, 20);
+
 }
 
 $(".optionButton").click(function () {
