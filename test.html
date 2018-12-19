@@ -22,7 +22,7 @@
 <div class="ui container">
     <div class="ui inverted top fixed menu">
         <div class="item">
-            Drumblaster logo
+            <b>DB-40</b>
         </div>
         <div class="right menu">
             <div class="item">
@@ -39,49 +39,49 @@
             <div class="ui center aligned five column grid" id="knobColumn">
                 <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Pitch</h4>
+                        <h4>PITCH</h4>
                         <div id="frequencyKnob" class="knob" data-type="pan" effect="freq">
                         </div>
                     </div>
                 </div>
                 <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Attack</h4>
+                        <h4>ATTACK</h4>
                         <div id="attackKnob" class="knob" data-type="pan" effect="attack">
                         </div>
                     </div>
                 </div>
                 <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Decay</h4>
+                        <h4>DECAY</h4>
                         <div id="decayKnob" class="knob" data-type="pan" effect="decay">
                         </div>
                     </div>
                 </div>
                 <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Sustain</h4>
+                        <h4>SUSTAIN</h4>
                         <div id="sustainKnob" class="knob" data-type="pan" effect="sustain">
                         </div>
                     </div>
                 </div>
                 <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Release</h4>
+                        <h4>RELEASE</h4>
                         <div id="releaseKnob" class="knob" data-type="pan" effect="release">
                         </div>
                     </div>
                 </div>
                 <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Filter</h4>
+                        <h4>FILTER</h4>
                         <div id="filterKnob" class="knob" data-type="pan" effect="filter">
                         </div>
                     </div>
                 </div>
                 <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Resonance</h4>
+                        <h4>RES</h4>
                         <div id="resonanceKnob" class="knob" data-type="pan" effect="res">
                         </div>
                     </div>
@@ -94,36 +94,39 @@
                     </div>
                 </div>
                 <div class="ui column">
-                    <div class="ui left floated compact inverted segment">
-                        <div class="ui toggle checkbox">
-                            <input type="checkbox">
-                            <label></label>
+                    <div class="oscillatorKnob">
+                        <h4>DEPTH</h4>
+                        <div id="modDepthKnob" class="knob" data-type="pan" effect="depth">
                         </div>
-                        Filter Power
                     </div>
                 </div>
                 <div class="ui column">
+                    <div class="ui left floated compact inverted segment">
+                        <div class="ui toggle checkbox">
+                            <input type="checkbox">
+                        </div>
+                        FILTER POW
+                    </div>
+                </div>
+                    <div class="ui column">
+                        <button class="ui custom button wave" value="sine">SINE</button>
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button wave" value="sawtooth">SAW</button>
 
-                </div>
-                <div class="ui column">
-                    <button class="ui custom button wave" value="sine">Sine</button>
-                </div>
-                <div class="ui column">
-                    <button class="ui custom button wave" value="sawtooth">Saw</button>
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button wave" value="square">SQUARE</button>
 
-                </div>
-                <div class="ui column">
-                    <button class="ui custom button wave" value="square">Square</button>
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button wave" value="triangle">TRIANGLE</button>
 
-                </div>
-                <div class="ui column">
-                    <button class="ui custom button wave" value="triangle">Triangle</button>
+                    </div>
+                    <div class="ui column">
+                        <button class="ui playOsc button" id="playOsc">PLAY</button>
 
-                </div>
-                <div class="ui column">
-                    <button class="ui playOsc button" id="playOsc">Play</button>
-
-                </div>
+                    </div>
             </div>
         </div>
         <div class="ui eight wide column playbackGrid">
@@ -131,25 +134,25 @@
                 <div class="ui column">
                     <button class="ui labeled icon button playbackButton" id="savePattern">
                         <i class="download icon"></i>
-                        <label>Save Pattern</label>
+                        <label>SAVE PATTERN</label>
                     </button>
                 </div>
                 <div class="ui column">
                     <button class="ui labeled icon button playbackButton" id="stopButton">
                         <i class="stop icon"></i>
-                        <label>Stop Pattern</label>
+                        <label>STOP PATTERN</label>
                     </button>
                 </div>
                 <div class="ui column">
                     <button class="ui labeled icon button playbackButton" id="playButton">
                         <i class="play icon"></i>
-                        <label>Play Pattern</label>
+                        <label>PLAY PATTERN</label>
                     </button>
                 </div>
             </div>
             <div class="ui center aligned equal width grid">
                 <div class="ui column">
-                    <h4>Tempo</h4>
+                    <h4>TEMPO</h4>
                     <div id="tempoSlider">
                         <div id="tempo-handle" class="ui-slider-handle"></div>
                     </div>
@@ -157,12 +160,21 @@
             </div>
             <div class="ui center aligned equal width grid">
                 <div class="ui column">
-                    <h4>Upload Pattern</h4>
+                    <h4>UPLOAD PATTERN</h4>
                     <input type="file" name="pattern" id="uploadPattern"/>
-                    <button id="uploadButton">Upload Pattern</button>
+                    <button class="ui labeled icon button playbackButton" id="uploadButton">
+                        <i class="upload icon"></i>
+                        <label>UPLOAD PATTERN</label>
+                    </button>
                 </div>
             </div>
             <div class="ui center aligned equal width grid">
+                <div class="ui column">
+                    <button class="ui labeled icon button playbackButton" id="resetButton">
+                        <i class="undo alternate icon"></i>
+                        <label>RESET PATTERN</label>
+                    </button>
+                </div>
                 <div class="ui column">
                     <center>
                         <div id="visualSound">
@@ -177,7 +189,7 @@
             <div class="ui fluid search selection dropdown" id="kitsDropdown">
                 <input type="hidden" name="drum">
                 <i class="dropdown icon"></i>
-                <div class="default text">Kits</div>
+                <div class="default text">KITS</div>
                 <div class="menu" id="kits">
                 </div>
             </div>
@@ -239,7 +251,7 @@
             </div>
         </div>
         <div class="ui column optionColumn">
-            <button class="ui button optionButton" value="kick">Kick</button>
+            <button class="ui button optionButton" value="kick">KICK</button>
         </div>
         <div class="ui fifteen wide column">
             <div class="ui center aligned sixteen column grid sequencer" value="kick">
@@ -294,7 +306,7 @@
             </div>
         </div>
         <div class="ui column optionColumn">
-            <button class="ui button optionButton" value="snare">Snare</button>
+            <button class="ui button optionButton" value="snare">SNARE</button>
         </div>
         <div class="ui fifteen wide column">
             <div class="ui center aligned sixteen column grid sequencer" value="snare">
@@ -349,7 +361,7 @@
             </div>
         </div>
         <div class="ui column optionColumn">
-            <button class="ui button optionButton" value="hihat">Open</button>
+            <button class="ui button optionButton" value="hihat">OPEN</button>
         </div>
         <div class="ui fifteen wide column">
             <div class="ui center aligned sixteen column grid sequencer" value="hihat">
@@ -404,7 +416,7 @@
             </div>
         </div>
         <div class="ui column optionColumn">
-            <button class="ui button optionButton" value="clap">Clap</button>
+            <button class="ui button optionButton" value="clap">CLAP</button>
         </div>
         <div class="ui fifteen wide column">
             <div class="ui center aligned sixteen column grid sequencer" value="clap">
@@ -459,7 +471,7 @@
             </div>
         </div>
         <div class="ui column optionColumn">
-            <button class="ui button optionButton" value="closed">Closed</button>
+            <button class="ui button optionButton" value="closed">CLOSED</button>
         </div>
         <div class="ui fifteen wide column">
             <div class="ui center aligned sixteen column grid sequencer" value="closed">
@@ -514,7 +526,7 @@
             </div>
         </div>
         <div class="ui column optionColumn">
-            <button class="ui button optionButton" value="percone">Perc 1</button>
+            <button class="ui button optionButton" value="percone">PERC 1</button>
         </div>
         <div class="ui fifteen wide column">
             <div class="ui center aligned sixteen column grid sequencer" value="percone">
@@ -569,7 +581,7 @@
             </div>
         </div>
         <div class="ui column optionColumn">
-            <button class="ui button optionButton" value="perctwo">Perc 2</button>
+            <button class="ui button optionButton" value="perctwo">PERC 2</button>
         </div>
         <div class="ui fifteen wide column">
             <div class="ui center aligned sixteen column grid sequencer" value="perctwo">
@@ -624,7 +636,7 @@
             </div>
         </div>
         <div class="ui column optionColumn">
-            <button class="ui button optionButton" value="oscillator" disabled>Osc</button>
+            <button class="ui button optionButtonOsc" value="oscillator">OSC</button>
         </div>
         <div class="ui fifteen wide column">
             <div class="ui center aligned sixteen column grid sequencer" value="oscillator">

@@ -6,7 +6,6 @@ let closed = new Array(16).fill(0);
 let percones = new Array(16).fill(0);
 let perctwos = new Array(16).fill(0);
 let oscillators = new Array(16).fill(0);
-let buttons = new Array(16).fill(1);
 let buttonValues = $(".led-blue");
 let index = 0;
 let kits;
@@ -99,7 +98,8 @@ let drumEffects = {
         "release": 0,
         "res": 25,
         "filter": 20,
-        "mod": 0
+        "mod": 0,
+        "depth": 0
     },
     "bpm": 120
 };
@@ -155,6 +155,14 @@ function setup() {
     bpFilter.freq(drumEffects.oscillator.filter);
     bpFilter.res(drumEffects.oscillator.res);
 
+    mod = new p5.Oscillator();
+    mod.setType("sine");
+    mod.freq(oscillatorParams.mod);
+    mod.amp(oscillatorParams.depth);
+    mod.start();
+    mod.disconnect();
+    oscillator.freq(mod);
+
     oscillator.disconnect();
     bpFilter.process(oscillator);
     oscillator.amp(oscillatorEnvelope);
@@ -181,9 +189,14 @@ function setup() {
 $("#playOsc").click(function () {
     getAudioContext().resume();
     let freq = parseInt(drumEffects.oscillator.freq);
+    let modFreq = parseInt(drumEffects.oscillator.mod);
     let filterFreq = parseInt(drumEffects.oscillator.filter);
     let filterRes = parseInt(drumEffects.oscillator.res);
+    let depth = parseInt(drumEffects.oscillator.depth);
     oscillator.freq(freq);
+    mod.freq(modFreq);
+    mod.amp(depth);
+    oscillator.freq(mod);
     bpFilter.freq(filterFreq);
     bpFilter.res(filterRes);
     oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
@@ -265,9 +278,14 @@ function playOsc() {
     if (oscillators[index] === 1) {
         getAudioContext().resume();
         let freq = parseInt(drumEffects.oscillator.freq);
+        let modFreq = parseInt(drumEffects.oscillator.mod);
         let filterFreq = parseInt(drumEffects.oscillator.filter);
         let filterRes = parseInt(drumEffects.oscillator.res);
+        let depth = parseInt(drumEffects.oscillator.depth);
         oscillator.freq(freq);
+        mod.freq(modFreq);
+        mod.amp(depth);
+        oscillator.freq(mod);
         bpFilter.freq(filterFreq);
         bpFilter.res(filterRes);
         oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
@@ -278,6 +296,12 @@ function playOsc() {
 function cycleButton() {
     $(".led-blue").removeClass("on");
     $(buttonValues[index]).addClass("on");
+    $(".sequencerButton").removeClass('cycling');
+    $(".sequencerButton").each(function () {
+        if (parseInt($(this).attr('index')) === index) {
+            $(this).addClass('cycling');
+        }
+    });
     index++;
     if (index === 16) {
         index = 0;
@@ -600,9 +624,50 @@ function knobInit() {
         classPrefix: "knob"
 
     });
+    $("#modKnob").knob({
+        bgColor: "black",
+        fgColor: "silver",
+        type: "vol",
+        tooltip: true,
+        turnWith: null,
+        arc: 240,
+        steps: 400,
+        offset: 0,
+        min: 0.000001,
+        max: 260,
+        range: "auto",
+        invertRange: false,
+        round: true,
+        fineTuneFactor: 1,
+        value: 0,
+        resetValue: 1,
+        classPrefix: "knob"
+
+    });
+
+    $("#modDepthKnob").knob({
+        bgColor: "black",
+        fgColor: "silver",
+        type: "vol",
+        tooltip: true,
+        turnWith: null,
+        arc: 240,
+        steps: 400,
+        offset: 0,
+        min: -150,
+        max: 150,
+        range: "auto",
+        invertRange: false,
+        round: true,
+        fineTuneFactor: 1,
+        value: 0,
+        resetValue: 1,
+        classPrefix: "knob"
+
+    });
 }
 
-$("#frequencyKnob, #filterKnob, #resonanceKnob").knob().on('turn', function () {
+$("#frequencyKnob, #filterKnob, #resonanceKnob, #modKnob, #modDepthKnob").knob().on('turn', function () {
     let effect = $(this).attr('effect');
     let knobValue = this.innerText;
     drumEffects.oscillator[effect] = parseInt(knobValue);
@@ -721,3 +786,16 @@ function activateDrums() {
     });
 
 }
+
+$("#resetButton").click(function () {
+    kicks = new Array(16).fill(0);
+    claps = new Array(16).fill(0);
+    hihats = new Array(16).fill(0);
+    snares = new Array(16).fill(0);
+    closed = new Array(16).fill(0);
+    percones = new Array(16).fill(0);
+    perctwos = new Array(16).fill(0);
+    oscillators = new Array(16).fill(0);
+
+    activateDrums();
+});
