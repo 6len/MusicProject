@@ -1,52 +1,9 @@
 body {
     margin-right: 70px !important;
     margin-left: 70px !important;
+    background-color: lightblue !important;
 }
 
-.sequencerButton {
-    color: white;
-    background-color: #93B5C6;
-    border-radius: 10px;
-    border-color: #000000;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: bottom;
-}
-
-.sequencerButton:hover {
-    color: white;
-    background-image: linear-gradient(#93B5C6, #7b97a7);
-    border-radius: 10px;
-    border-color: #000000;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-}
-
-.sequencerButton.active {
-    background-color: #F0CF65;
-}
-
-.sequencerButton.active:hover {
-    background-color: #4535b4;
-}
-
-.sequencerButton.cycle {
-    background-color: green;
-}
-
-.playbackButton {
-    background-color: #DDEDAA;
-    border-radius: 10px;
-    border-color: #000000;
-    display: inline-block;
-    width: 40px;
-    height: 40px;
-    cursor: pointer;
-}
 
 .playbackButton:hover {
     background-color: #becc92 !important;
@@ -60,9 +17,9 @@ body {
     border: 1px solid black;
     padding: 10px;
     border-radius: 20px;
-    -moz-box-shadow:    inset 0 0 20px #000000;
+    -moz-box-shadow: inset 0 0 20px #000000;
     -webkit-box-shadow: inset 0 0 20px #000000;
-    box-shadow:         inset 0 0 20px #000000;
+    box-shadow: inset 0 0 20px #000000;
     float: right;
 }
 
@@ -74,23 +31,28 @@ body {
     padding: 50px;
     position: relative;
     display: inline-block;
-    -moz-box-shadow:    inset 0 0 50px #000000;
+    -moz-box-shadow: inset 0 0 50px #000000;
     -webkit-box-shadow: inset 0 0 50px #000000;
-    box-shadow:         inset 0 0 50px #000000;
+    box-shadow: inset 0 0 50px #000000;
 }
 
 .optionButton {
-    color: black;
-    background-color: #F0CF65;
-    border-radius: 10px;
-    border-color: black;
     width: 80px;
-    height: 40px;
-    cursor: pointer;
-    display: inline-block;
-    vertical-align: bottom;
+    height: 50px;
+    background-color: #DDEDAA !important;
+    border-color: black;
 }
 
+.optionButtonOsc {
+    width: 80px;
+    height: 50px;
+    background-color: #DDEDAA !important;
+    border-color: black;
+}
+
+.optionButton:hover {
+    background-color: #becc92 !important;;
+}
 
 #visualSound {
     display: inline-block;
@@ -108,9 +70,7 @@ body {
 }
 
 #tempoSlider {
-    margin-top: 10px;
     background-color: #503dff;
-    width: 200px;
 }
 
 #pitchSlider {
@@ -146,39 +106,23 @@ body {
 }
 
 .led-blue {
-    float: left;
-    margin: 15.3px;
-    width: 12px;
-    height: 12px;
-    background-color: #4AB;
+    width: 13px;
+    height: 13px;
+    background-color: rgba(92, 233, 255, 0);
     border-radius: 50%;
     box-shadow: #000 0 -1px 7px 1px, inset #006 0 -1px 9px, #06F 0 2px 14px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
 }
 
 .led-blue.on {
-    background-color: blue;
-    box-shadow: #000 0 -1px 7px 1px, inset #006 0 -1px 9px, #d022ff 0 2px 14px;
+    background-color: #67f3ff;
+    box-shadow: #000 0 -1px 7px 1px, inset #006 0 -1px 9px, #7995ff 0 2px 14px;
 }
 
 #kitsDropdown {
     margin-top: 10px;
-}
-
-
-.oscillatorContainer {
-    background-color: #D7816A;
-    color: black;
-    border-radius: 20px;
-    border: 1px solid black;
-    float: left;
-    padding: 10px;
-    -moz-box-shadow:    inset 0 0 20px #000000;
-    -webkit-box-shadow: inset 0 0 20px #000000;
-    box-shadow:         inset 0 0 20px #000000;
-}
-.knobRow {
-    margin-top: 5px;
-    display: flex;
 }
 
 .oscillatorKnob {
@@ -188,7 +132,9 @@ body {
 
 .knob {
     width: 50px;
-    margin: 10px;
+    margin-right: auto;
+    margin-left: auto;
+    display: block;
 }
 
 .custom {
@@ -206,9 +152,9 @@ body {
     border-radius: 20px;
     padding: 10px;
     float: left;
-    -moz-box-shadow:    inset 0 0 20px #000000;
+    -moz-box-shadow: inset 0 0 20px #000000;
     -webkit-box-shadow: inset 0 0 20px #000000;
-    box-shadow:         inset 0 0 20px #000000;
+    box-shadow: inset 0 0 20px #000000;
     padding: 10px;
 }
 
@@ -229,7 +175,61 @@ body {
     background-color: black;
 }
 
-.coreContainer {
+
+#knobColumn {
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
     background-color: white !important;
+}
+
+#sequencerGrid {
     border: 1px solid black;
+    margin-top: 20px;
+    background-color: white !important;
+}
+
+.sequencerButton {
+    width: 100%;
+    height: 50px;
+    background-color: whitesmoke;
+    border-color: black;
+    position: relative;
+}
+
+.sequencerButton:hover {
+    background-color: lightblue;
+}
+
+.sequencerButton.active {
+    background-color: gold !important;
+}
+
+.buttonColumn {
+    margin-top: -14px;
+    margin-bottom: -14px;
+    position: fixed;
+    height: 100%;
+}
+
+.optionColumn {
+    margin-top: -14px;
+    position: fixed;
+    height: 100%;
+}
+
+.playbackGrid {
+    border: 1px solid black;
+    background-color: white !important;
+}
+
+.sequencerButton.cycling {
+    background-color: pink;
+}
+
+.dmTitle {
+    font-family: 'Geostar';
+    font-size: 40px;
+    font-weight: bold;
+
 }

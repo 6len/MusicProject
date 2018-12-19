@@ -1,5 +1,7 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Drum Blaster</title>
     <link rel="shortcut icon"
           href="https://www.clipartmax.com/png/middle/274-2744152_snare-drum-clipart-marching-band-icon-png.png"
@@ -7,6 +9,7 @@
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Geostar" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="script/jquery.knob.js"></script>
@@ -17,279 +20,712 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/13.3.11/Tone.js"></script>
 </head>
 <body>
-<div class="drumMachine" id="drumMachine">
-    <div class="ui stackable grid container">
-        <div class="six wide column">
-            <div class="playbackContainer">
-                <h2>Playback Options</h2>
-                <button class="playbackButton" id="savePattern">
-                    <i class="download icon"></i>
-                </button>
-                <button class="playbackButton" id="stopButton">
-                    <i class="stop icon"></i>
-                </button>
-                <button class="playbackButton" id="playButton">
-                    <i class="play icon"></i>
-                </button>
-                <h4>Tempo</h4>
-                <div id="tempoSlider">
-                    <div id="tempo-handle" class="ui-slider-handle"></div>
-                </div>
-                <h4>Upload Pattern</h4>
-                <input type="file" name="pattern" id="uploadPattern"/>
-                <button id="uploadButton">Upload Pattern</button>
+<div class="ui container">
+    <div class="ui inverted top fixed menu">
+        <div class="item">
+            <b>DB-40</b>
+        </div>
+        <div class="right menu">
+            <div class="item">
+                <a href="https://github.com/foxglen/MusicProject"/>
+                Github
+                <i class="github icon">
+                </i>
+                </a>
             </div>
         </div>
-        <div class="six wide column">
-            <div class="oscillatorContainer">
-                <h2 class="oscillatorHeader">Oscillator Options</h2>
-                <div class="knobRow">
+    </div>
+
+    <div class="ui four column grid">
+        <div class="column">
+            <p class="dmTitle">DB-40</p>
+        </div>
+    </div>
+    <div class="ui four column grid">
+        <div class="ui eight wide column">
+            <div class="ui center aligned five column grid" id="knobColumn">
+                <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Pitch</h4>
+                        <h4>PITCH</h4>
                         <div id="frequencyKnob" class="knob" data-type="pan" effect="freq">
                         </div>
                     </div>
+                </div>
+                <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Attack</h4>
+                        <h4>ATTACK</h4>
                         <div id="attackKnob" class="knob" data-type="pan" effect="attack">
                         </div>
                     </div>
+                </div>
+                <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Decay</h4>
+                        <h4>DECAY</h4>
                         <div id="decayKnob" class="knob" data-type="pan" effect="decay">
                         </div>
                     </div>
+                </div>
+                <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Sustain</h4>
+                        <h4>SUSTAIN</h4>
                         <div id="sustainKnob" class="knob" data-type="pan" effect="sustain">
                         </div>
                     </div>
+                </div>
+                <div class="ui column">
                     <div class="oscillatorKnob">
-                        <h4>Release</h4>
+                        <h4>RELEASE</h4>
                         <div id="releaseKnob" class="knob" data-type="pan" effect="release">
                         </div>
                     </div>
                 </div>
-                <div class="knobRow">
-                    <div class="oscillatorKnob">
-                        <h4>Filter</h4>
-                        <div id="filterKnob" class="knob" data-type="pan" effect="filter">
+                <div class="ui five column row">
+                    <div class="ui column">
+                        <div class="oscillatorKnob">
+                            <h4>FILTER</h4>
+                            <div id="filterKnob" class="knob" data-type="pan" effect="filter">
+                            </div>
                         </div>
                     </div>
-                    <div class="oscillatorKnob">
-                        <h4>Resonance</h4>
-                        <div id="resonanceKnob" class="knob" data-type="pan" effect="res">
+                    <div class="ui column">
+                        <div class="oscillatorKnob">
+                            <h4>RES</h4>
+                            <div id="resonanceKnob" class="knob" data-type="pan" effect="res">
+                            </div>
                         </div>
                     </div>
-                    <div class="oscillatorKnob">
-                        <h4>MOD</h4>
-                        <div id="modKnob" class="knob" data-type="pan" effect="mod">
+                    <div class="ui column">
+                        <div class="oscillatorKnob">
+                            <h4>MOD</h4>
+                            <div id="modKnob" class="knob" data-type="pan" effect="mod">
+                            </div>
                         </div>
                     </div>
-                    <div class="ui left floated compact inverted segment">
-                        <div class="ui toggle checkbox">
-                            <input type="checkbox">
-                            <label></label>
+                    <div class="ui column">
+                        <div class="oscillatorKnob">
+                            <h4>DEPTH</h4>
+                            <div id="modDepthKnob" class="knob" data-type="pan" effect="depth">
+                            </div>
                         </div>
-                        Filter Power
+                    </div>
+                    <div class="ui column">
+                        <div class="ui left floated compact inverted segment">
+                            <div class="ui toggle checkbox">
+                                <input type="checkbox">
+                            </div>
+                            FILTER POW
+                        </div>
                     </div>
                 </div>
-                <div class="ui buttons oscillatorButtons"
-                     style="float: left; display: inline-block; margin-left: 10px;">
-                    <button class="ui custom button wave" value="sine">Sine</button>
-                    <button class="ui custom button wave" value="sawtooth">Saw</button>
-                    <button class="ui custom button wave" value="square">Square</button>
-                    <button class="ui custom button wave" value="triangle">Triangle</button>
-                    <button class="ui playOsc button" id="playOsc">Play</button>
+                <div class="ui five column row">
+                    <div class="ui column">
+                        <h4>MOD WAVES</h4>
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button modWave" value="sine">SINE</button>
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button modWave" value="sawtooth">SAW</button>
+
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button modWave" value="square">SQUARE</button>
+
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button modWave" value="triangle">TRIANGLE</button>
+
+                    </div>
+                </div>
+                <div class="ui six column row">
+                    <div class="ui column">
+                        <h4>OSCILLATOR WAVES</h4>
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button wave" value="sine">SINE</button>
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button wave" value="sawtooth">SAW</button>
+
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button wave" value="square">SQUARE</button>
+
+                    </div>
+                    <div class="ui column">
+                        <button class="ui custom button wave" value="triangle">TRIANGLE</button>
+
+                    </div>
+                    <div class="ui column">
+                        <button class="ui playOsc button" id="playOsc">PLAY</button>
+
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="four wide column">
-            <div id="visualSound">
+        <div class="ui eight wide column playbackGrid">
+            <div class="ui center aligned equal width grid">
+                <div class="ui column">
+                    <button class="ui labeled icon button playbackButton" id="savePattern">
+                        <i class="download icon"></i>
+                        <label>SAVE PATTERN</label>
+                    </button>
+                </div>
+                <div class="ui column">
+                    <button class="ui labeled icon button playbackButton" id="stopButton">
+                        <i class="stop icon"></i>
+                        <label>STOP PATTERN</label>
+                    </button>
+                </div>
+                <div class="ui column">
+                    <button class="ui labeled icon button playbackButton" id="playButton">
+                        <i class="play icon"></i>
+                        <label>PLAY PATTERN</label>
+                    </button>
+                </div>
+            </div>
+            <div class="ui center aligned equal width grid">
+                <div class="ui column">
+                    <h4>TEMPO</h4>
+                    <div id="tempoSlider">
+                        <div id="tempo-handle" class="ui-slider-handle"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui center aligned equal width grid">
+                <div class="ui column">
+                    <h4>UPLOAD PATTERN</h4>
+                    <input type="file" name="pattern" id="uploadPattern"/>
+                    <button class="ui labeled icon button playbackButton" id="uploadButton">
+                        <i class="upload icon"></i>
+                        <label>UPLOAD PATTERN</label>
+                    </button>
+                </div>
+            </div>
+            <div class="ui center aligned equal width grid">
+                <div class="ui column">
+                    <button class="ui labeled icon button playbackButton" id="resetButton">
+                        <i class="undo alternate icon"></i>
+                        <label>RESET PATTERN</label>
+                    </button>
+                </div>
+                <div class="ui column">
+                    <center>
+                        <div id="visualSound">
+                        </div>
+                    </center>
+                </div>
             </div>
         </div>
     </div>
-    <div class="sequenceContainer">
-        <div class="ui fluid search selection dropdown" id="kitsDropdown">
-            <input type="hidden" name="drum">
-            <i class="dropdown icon"></i>
-            <div class="default text">Kits</div>
-            <div class="menu" id="kits">
+    <div class="ui column grid">
+        <div class="ui column">
+            <div class="ui fluid search selection dropdown" id="kitsDropdown">
+                <input type="hidden" name="drum">
+                <i class="dropdown icon"></i>
+                <div class="default text">KITS</div>
+                <div class="menu" id="kits">
+                </div>
             </div>
         </div>
-        <div class="steps">
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
-            <div class="led-blue"></div>
+    </div>
+    <div class="ui column grid" id="sequencerGrid">
+        <div class="ui column optionColumn">
         </div>
-        <div class="sequencer" value="kick">
-            <button class="optionButton" value="kick">Kick</button>
-            <button class="sequencerButton" index="0"></button>
-            <button class="sequencerButton" index="1"></button>
-            <button class="sequencerButton" index="2"></button>
-            <button class="sequencerButton" index="3"></button>
-            <button class="sequencerButton" index="4"></button>
-            <button class="sequencerButton" index="5"></button>
-            <button class="sequencerButton" index="6"></button>
-            <button class="sequencerButton" index="7"></button>
-            <button class="sequencerButton" index="8"></button>
-            <button class="sequencerButton" index="9"></button>
-            <button class="sequencerButton" index="10"></button>
-            <button class="sequencerButton" index="11"></button>
-            <button class="sequencerButton" index="12"></button>
-            <button class="sequencerButton" index="13"></button>
-            <button class="sequencerButton" index="14"></button>
-            <button class="sequencerButton" index="15"></button>
+        <div class="ui fifteen wide column">
+            <div class="ui center aligned sixteen column grid" value="kick">
+                <div class="column ledColumn">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+                <div class="column">
+                    <div class="led-blue"></div>
+                </div>
+            </div>
         </div>
-        <div class="sequencer" value="snare">
-            <button class="optionButton" value="snare">Snare</button>
-            <button class="sequencerButton" index="0"></button>
-            <button class="sequencerButton" index="1"></button>
-            <button class="sequencerButton" index="2"></button>
-            <button class="sequencerButton" index="3"></button>
-            <button class="sequencerButton" index="4"></button>
-            <button class="sequencerButton" index="5"></button>
-            <button class="sequencerButton" index="6"></button>
-            <button class="sequencerButton" index="7"></button>
-            <button class="sequencerButton" index="8"></button>
-            <button class="sequencerButton" index="9"></button>
-            <button class="sequencerButton" index="10"></button>
-            <button class="sequencerButton" index="11"></button>
-            <button class="sequencerButton" index="12"></button>
-            <button class="sequencerButton" index="13"></button>
-            <button class="sequencerButton" index="14"></button>
-            <button class="sequencerButton" index="15"></button>
+        <div class="ui column optionColumn">
+            <button class="ui button optionButton" value="kick">KICK</button>
         </div>
-        <div class="sequencer" value="hihat">
-            <button class="optionButton" value="hihat">HiHat</button>
-            <button class="sequencerButton" index="0"></button>
-            <button class="sequencerButton" index="1"></button>
-            <button class="sequencerButton" index="2"></button>
-            <button class="sequencerButton" index="3"></button>
-            <button class="sequencerButton" index="4"></button>
-            <button class="sequencerButton" index="5"></button>
-            <button class="sequencerButton" index="6"></button>
-            <button class="sequencerButton" index="7"></button>
-            <button class="sequencerButton" index="8"></button>
-            <button class="sequencerButton" index="9"></button>
-            <button class="sequencerButton" index="10"></button>
-            <button class="sequencerButton" index="11"></button>
-            <button class="sequencerButton" index="12"></button>
-            <button class="sequencerButton" index="13"></button>
-            <button class="sequencerButton" index="14"></button>
-            <button class="sequencerButton" index="15"></button>
+        <div class="ui fifteen wide column">
+            <div class="ui center aligned sixteen column grid sequencer" value="kick">
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="0"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="1"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="2"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="3"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="4"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="5"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="6"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="7"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="8"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="9"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="10"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="11"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="12"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="13"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="14"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="15"></button>
+                </div>
+            </div>
         </div>
-        <div class="sequencer" value="clap">
-            <button class="optionButton" value="clap">Clap</button>
-            <button class="sequencerButton" index="0"></button>
-            <button class="sequencerButton" index="1"></button>
-            <button class="sequencerButton" index="2"></button>
-            <button class="sequencerButton" index="3"></button>
-            <button class="sequencerButton" index="4"></button>
-            <button class="sequencerButton" index="5"></button>
-            <button class="sequencerButton" index="6"></button>
-            <button class="sequencerButton" index="7"></button>
-            <button class="sequencerButton" index="8"></button>
-            <button class="sequencerButton" index="9"></button>
-            <button class="sequencerButton" index="10"></button>
-            <button class="sequencerButton" index="11"></button>
-            <button class="sequencerButton" index="12"></button>
-            <button class="sequencerButton" index="13"></button>
-            <button class="sequencerButton" index="14"></button>
-            <button class="sequencerButton" index="15"></button>
+        <div class="ui column optionColumn">
+            <button class="ui button optionButton" value="snare">SNARE</button>
         </div>
-        <div class="sequencer" value="closed">
-            <button class="optionButton" value="closed">Closed</button>
-            <button class="sequencerButton" index="0"></button>
-            <button class="sequencerButton" index="1"></button>
-            <button class="sequencerButton" index="2"></button>
-            <button class="sequencerButton" index="3"></button>
-            <button class="sequencerButton" index="4"></button>
-            <button class="sequencerButton" index="5"></button>
-            <button class="sequencerButton" index="6"></button>
-            <button class="sequencerButton" index="7"></button>
-            <button class="sequencerButton" index="8"></button>
-            <button class="sequencerButton" index="9"></button>
-            <button class="sequencerButton" index="10"></button>
-            <button class="sequencerButton" index="11"></button>
-            <button class="sequencerButton" index="12"></button>
-            <button class="sequencerButton" index="13"></button>
-            <button class="sequencerButton" index="14"></button>
-            <button class="sequencerButton" index="15"></button>
+        <div class="ui fifteen wide column">
+            <div class="ui center aligned sixteen column grid sequencer" value="snare">
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="0"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="1"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="2"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="3"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="4"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="5"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="6"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="7"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="8"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="9"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="10"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="11"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="12"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="13"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="14"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="15"></button>
+                </div>
+            </div>
         </div>
-        <div class="sequencer" value="percone">
-            <button class="optionButton" value="percone">Perc 1</button>
-            <button class="sequencerButton" index="0"></button>
-            <button class="sequencerButton" index="1"></button>
-            <button class="sequencerButton" index="2"></button>
-            <button class="sequencerButton" index="3"></button>
-            <button class="sequencerButton" index="4"></button>
-            <button class="sequencerButton" index="5"></button>
-            <button class="sequencerButton" index="6"></button>
-            <button class="sequencerButton" index="7"></button>
-            <button class="sequencerButton" index="8"></button>
-            <button class="sequencerButton" index="9"></button>
-            <button class="sequencerButton" index="10"></button>
-            <button class="sequencerButton" index="11"></button>
-            <button class="sequencerButton" index="12"></button>
-            <button class="sequencerButton" index="13"></button>
-            <button class="sequencerButton" index="14"></button>
-            <button class="sequencerButton" index="15"></button>
+        <div class="ui column optionColumn">
+            <button class="ui button optionButton" value="hihat">OPEN</button>
         </div>
-        <div class="sequencer" value="perctwo">
-            <button class="optionButton" value="perctwo">Perc 2</button>
-            <button class="sequencerButton" index="0"></button>
-            <button class="sequencerButton" index="1"></button>
-            <button class="sequencerButton" index="2"></button>
-            <button class="sequencerButton" index="3"></button>
-            <button class="sequencerButton" index="4"></button>
-            <button class="sequencerButton" index="5"></button>
-            <button class="sequencerButton" index="6"></button>
-            <button class="sequencerButton" index="7"></button>
-            <button class="sequencerButton" index="8"></button>
-            <button class="sequencerButton" index="9"></button>
-            <button class="sequencerButton" index="10"></button>
-            <button class="sequencerButton" index="11"></button>
-            <button class="sequencerButton" index="12"></button>
-            <button class="sequencerButton" index="13"></button>
-            <button class="sequencerButton" index="14"></button>
-            <button class="sequencerButton" index="15"></button>
+        <div class="ui fifteen wide column">
+            <div class="ui center aligned sixteen column grid sequencer" value="hihat">
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="0"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="1"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="2"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="3"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="4"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="5"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="6"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="7"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="8"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="9"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="10"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="11"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="12"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="13"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="14"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="15"></button>
+                </div>
+            </div>
         </div>
-        <div class="sequencer" value="oscillator">
-            <button class="optionButton" value="oscillator" disabled>Osc</button>
-            <button class="sequencerButton" index="0"></button>
-            <button class="sequencerButton" index="1"></button>
-            <button class="sequencerButton" index="2"></button>
-            <button class="sequencerButton" index="3"></button>
-            <button class="sequencerButton" index="4"></button>
-            <button class="sequencerButton" index="5"></button>
-            <button class="sequencerButton" index="6"></button>
-            <button class="sequencerButton" index="7"></button>
-            <button class="sequencerButton" index="8"></button>
-            <button class="sequencerButton" index="9"></button>
-            <button class="sequencerButton" index="10"></button>
-            <button class="sequencerButton" index="11"></button>
-            <button class="sequencerButton" index="12"></button>
-            <button class="sequencerButton" index="13"></button>
-            <button class="sequencerButton" index="14"></button>
-            <button class="sequencerButton" index="15"></button>
+        <div class="ui column optionColumn">
+            <button class="ui button optionButton" value="clap">CLAP</button>
+        </div>
+        <div class="ui fifteen wide column">
+            <div class="ui center aligned sixteen column grid sequencer" value="clap">
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="0"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="1"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="2"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="3"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="4"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="5"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="6"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="7"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="8"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="9"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="10"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="11"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="12"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="13"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="14"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="15"></button>
+                </div>
+            </div>
+        </div>
+        <div class="ui column optionColumn">
+            <button class="ui button optionButton" value="closed">CLOSED</button>
+        </div>
+        <div class="ui fifteen wide column">
+            <div class="ui center aligned sixteen column grid sequencer" value="closed">
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="0"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="1"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="2"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="3"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="4"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="5"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="6"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="7"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="8"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="9"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="10"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="11"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="12"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="13"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="14"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="15"></button>
+                </div>
+            </div>
+        </div>
+        <div class="ui column optionColumn">
+            <button class="ui button optionButton" value="percone">PERC 1</button>
+        </div>
+        <div class="ui fifteen wide column">
+            <div class="ui center aligned sixteen column grid sequencer" value="percone">
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="0"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="1"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="2"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="3"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="4"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="5"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="6"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="7"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="8"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="9"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="10"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="11"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="12"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="13"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="14"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="15"></button>
+                </div>
+            </div>
+        </div>
+        <div class="ui column optionColumn">
+            <button class="ui button optionButton" value="perctwo">PERC 2</button>
+        </div>
+        <div class="ui fifteen wide column">
+            <div class="ui center aligned sixteen column grid sequencer" value="perctwo">
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="0"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="1"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="2"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="3"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="4"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="5"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="6"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="7"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="8"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="9"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="10"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="11"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="12"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="13"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="14"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="15"></button>
+                </div>
+            </div>
+        </div>
+        <div class="ui column optionColumn">
+            <button class="ui button optionButtonOsc" value="oscillator">OSC</button>
+        </div>
+        <div class="ui fifteen wide column">
+            <div class="ui center aligned sixteen column grid sequencer" value="oscillator">
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="0"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="1"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="2"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="3"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="4"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="5"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="6"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="7"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="8"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="9"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="10"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="11"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="12"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="13"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="14"></button>
+                </div>
+                <div class="column buttonColumn">
+                    <button class="sequencerButton" index="15"></button>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-
 <div class="ui modal" id="optionsModal">
     <div class="header" id="optionsModalHeader"></div>
     <div class="content" id="optionsModalcontent">
@@ -321,7 +757,7 @@
         </div>
     </div>
 </div>
-
+</body>
 </body>
 </html>
 <script src="script/index.js"></script>
