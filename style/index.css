@@ -60,7 +60,7 @@ body {
 }
 
 #pitch-handle, #tempo-handle, #volume-handle, #delay-feedback-handle, #delay-time-handle,
-#reverb-decay-handle, #reverb-time-handle {
+#reverb-decay-handle, #reverb-time-handle, #swing-handle {
     width: 3em;
     height: 1.6em;
     top: 50%;
@@ -97,6 +97,10 @@ body {
 
 #reverbDecaySlider {
     background-color: darkcyan;
+}
+
+#swingSlider {
+    background-color: #cd737f;
 }
 
 
@@ -232,4 +236,16 @@ body {
     font-size: 40px;
     font-weight: bold;
 
+}
+
+.geoMenu {
+    font-family: 'Geostar';
+}
+
+.wave.active {
+    background-color: #7fcb89 !important;
+}
+
+.modWave.active {
+    background-color: #7fcb89 !important;
 }

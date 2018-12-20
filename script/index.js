@@ -20,6 +20,7 @@ let highPassFilterOn = false;
 
 knobInit();
 
+//--Loops at the correct BPM
 let tonePlayer = new Tone.Loop(function (time) {
     playKick();
     playHat();
@@ -30,9 +31,9 @@ let tonePlayer = new Tone.Loop(function (time) {
     playPerctwo();
     playOsc();
     cycleButton();
+    }, "16n");
 
-    console.log(index);
-}, "16n");
+//--Master object for drum machine
 let drumEffects = {
     "pitches": {
         "clap": 1,
@@ -99,7 +100,7 @@ let drumEffects = {
         "decay": 0,
         "sustain": 0,
         "release": 0,
-        "res": 25,
+        "res": 1,
         "filter": 20,
         "mod": 0,
         "depth": 0,
@@ -350,6 +351,8 @@ $("#playButton").click(function () {
     }
     getAudioContext().resume();
     tonePlayer.start(0);
+    //Tone.Transport.swing = 1;
+    //Tone.Transport.swingSubdivision = "16n";
     Tone.Transport.start();
 });
 
@@ -695,6 +698,8 @@ $("#attackKnob, #decayKnob, #sustainKnob, #releaseKnob").knob().on('turn', funct
 });
 
 $(".wave").click(function () {
+    $(".wave").removeClass('active');
+    $(this).addClass('active');
     let wave = $(this).attr('value');
     drumEffects.oscillator.wave = wave;
     oscillator.setType(drumEffects.oscillator.wave);
@@ -702,6 +707,8 @@ $(".wave").click(function () {
 });
 
 $(".modWave").click(function () {
+    $(".modWave").removeClass('active');
+    $(this).addClass('active');
     let wave = $(this).attr('value');
     drumEffects.oscillator.modwave = wave;
     mod.setType(drumEffects.oscillator.modwave);
