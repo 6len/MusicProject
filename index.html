@@ -82,14 +82,14 @@
                 <div class="ui five column row">
                     <div class="ui column">
                         <div class="oscillatorKnob">
-                            <h4>FILTER</h4>
+                            <h4>LP FILTER</h4>
                             <div id="filterKnob" class="knob" data-type="pan" effect="filter">
                             </div>
                         </div>
                     </div>
                     <div class="ui column">
                         <div class="oscillatorKnob">
-                            <h4>RES</h4>
+                            <h4>LP RES</h4>
                             <div id="resonanceKnob" class="knob" data-type="pan" effect="res">
                             </div>
                         </div>
@@ -110,12 +110,37 @@
                     </div>
                     <div class="ui column">
                         <div class="ui left floated compact inverted segment">
-                            <div class="ui toggle checkbox">
+                            <div class="ui toggle checkbox" id="lpPow">
                                 <input type="checkbox">
                             </div>
-                            FILTER POW
+                            LP POW
                         </div>
                     </div>
+                </div>
+                <div class="ui three column row">
+                    <div class="ui column">
+                        <div class="oscillatorKnob">
+                            <h4>HP FILTER</h4>
+                            <div id="hpFilterKnob" class="knob" data-type="pan" effect="hpFilter">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui column">
+                        <div class="oscillatorKnob">
+                            <h4>HP RES</h4>
+                            <div id="hpResonanceKnob" class="knob" data-type="pan" effect="hpRes">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui column">
+                        <div class="ui left floated compact inverted segment">
+                            <div class="ui toggle checkbox" id="hpPow">
+                                <input type="checkbox">
+                            </div>
+                            HP POW
+                        </div>
+                    </div>
+
                 </div>
                 <div class="ui five column row">
                     <div class="ui column">
@@ -178,6 +203,12 @@
                     </button>
                 </div>
                 <div class="ui column">
+                    <button class="ui labeled icon button playbackButton" id="pauseButton">
+                        <i class="pause icon"></i>
+                        <label>PAUSE PATTERN</label>
+                    </button>
+                </div>
+                <div class="ui column">
                     <button class="ui labeled icon button playbackButton" id="playButton">
                         <i class="play icon"></i>
                         <label>PLAY PATTERN</label>
@@ -195,7 +226,7 @@
             <div class="ui center aligned equal width grid">
                 <div class="ui column">
                     <h4>UPLOAD PATTERN</h4>
-                    <input type="file" name="pattern" id="uploadPattern"/>
+                    <input type="file" name="pattern" id="uploadPattern" class="ui button"/>
                     <button class="ui labeled icon button playbackButton" id="uploadButton">
                         <i class="upload icon"></i>
                         <label>UPLOAD PATTERN</label>
@@ -230,6 +261,20 @@
         </div>
     </div>
     <div class="ui column grid" id="sequencerGrid">
+        <div class="ui center aligned equal width row">
+            <div class="ui column">
+                <button class="ui button patternlist selectedPattern" value="one">PATTERN ONE</button>
+            </div>
+            <div class="ui column">
+                <button class="ui button patternlist" value="two">PATTERN TWO</button>
+            </div>
+            <div class="ui column">
+                <button class="ui button patternlist" value="three">PATTERN THREE</button>
+            </div>
+            <div class="ui column">
+                <button class="ui button patternlist" value="four">PATTERN FOUR</button>
+            </div>
+        </div>
         <div class="ui column optionColumn">
         </div>
         <div class="ui fifteen wide column">

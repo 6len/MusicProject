@@ -249,3 +249,7 @@ body {
 .modWave.active {
     background-color: #7fcb89 !important;
 }
+
+.patternlist.selectedPattern {
+    background-color: #7fcb89 !important;
+}

@@ -6,6 +6,7 @@ let closed = new Array(16).fill(0);
 let percones = new Array(16).fill(0);
 let perctwos = new Array(16).fill(0);
 let oscillators = new Array(16).fill(0);
+let pattern = 'one';
 let buttonValues = $(".led-blue");
 let index = 0;
 let kits;
@@ -31,8 +32,50 @@ let tonePlayer = new Tone.Loop(function (time) {
     playPerctwo();
     playOsc();
     cycleButton();
-    }, "16n");
+}, "16n");
 
+let drumPatterns = {
+    "one": {
+        "kick": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "snare": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "clap": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "hihat": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "closed": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "percone": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "perctwo": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "oscillator": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "two": {
+        "kick": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "snare": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "clap": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "hihat": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "closed": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "percone": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "perctwo": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "oscillator": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "three": {
+        "kick": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "snare": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "clap": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "hihat": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "closed": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "percone": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "perctwo": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "oscillator": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    },
+    "four": {
+        "kick": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "snare": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "clap": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "hihat": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "closed": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "percone": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "perctwo": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        "oscillator": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    }
+};
 //--Master object for drum machine
 let drumEffects = {
     "pitches": {
@@ -104,7 +147,9 @@ let drumEffects = {
         "filter": 20,
         "mod": 0,
         "depth": 0,
-        "modwave" : "sine"
+        "modwave": "sine",
+        "hpFilter": 20,
+        "hpRes": 1
     },
     "bpm": 120
 };
@@ -160,6 +205,10 @@ function setup() {
     filter.freq(drumEffects.oscillator.filter);
     filter.res(drumEffects.oscillator.res);
 
+    hpFilter = new p5.HighPass();
+    hpFilter.freq(drumEffects.oscillator.hpFilter);
+    hpFilter.res(drumEffects.oscillator.hpRes);
+
     mod = new p5.Oscillator();
     mod.setType(oscillatorParams.modwave);
     mod.freq(oscillatorParams.mod);
@@ -170,9 +219,11 @@ function setup() {
 
     oscillator.disconnect();
     filter.process(oscillator);
+    hpFilter.process(oscillator);
     oscillator.amp(oscillatorEnvelope);
     oscillator.start();
     filter.toggle();
+    hpFilter.toggle();
 
     kickDelay = new p5.Delay();
     clapDelay = new p5.Delay();
@@ -197,6 +248,8 @@ $("#playOsc").click(function () {
     let modFreq = parseInt(drumEffects.oscillator.mod);
     let filterFreq = parseInt(drumEffects.oscillator.filter);
     let filterRes = parseInt(drumEffects.oscillator.res);
+    let hpFilterFreq = parseInt(drumEffects.oscillator.hpFilter);
+    let hpFilterRes = parseInt(drumEffects.oscillator.hpRes);
     let depth = parseInt(drumEffects.oscillator.depth);
     oscillator.freq(freq);
     mod.setType(drumEffects.oscillator.modwave);
@@ -205,6 +258,8 @@ $("#playOsc").click(function () {
     oscillator.freq(mod);
     filter.freq(filterFreq);
     filter.res(filterRes);
+    hpFilter.freq(hpFilterFreq);
+    hpFilter.res(hpFilterRes);
     oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
     oscillatorEnvelope.play();
 });
@@ -287,6 +342,8 @@ function playOsc() {
         let modFreq = parseInt(drumEffects.oscillator.mod);
         let filterFreq = parseInt(drumEffects.oscillator.filter);
         let filterRes = parseInt(drumEffects.oscillator.res);
+        let hpFilterFreq = parseInt(drumEffects.oscillator.hpFilter);
+        let hpFilterRes = parseInt(drumEffects.oscillator.hpRes);
         let depth = parseInt(drumEffects.oscillator.depth);
         oscillator.freq(freq);
         mod.setType(drumEffects.oscillator.modwave);
@@ -295,6 +352,8 @@ function playOsc() {
         oscillator.freq(mod);
         filter.freq(filterFreq);
         filter.res(filterRes);
+        hpFilter.freq(hpFilterFreq);
+        hpFilter.res(hpFilterRes);
         oscillatorEnvelope.setADSR(oscillatorParams.attack, oscillatorParams.decay, oscillatorParams.sustain, oscillatorParams.release);
         oscillatorEnvelope.play();
     }
@@ -323,24 +382,33 @@ function changeSound(button) {
     $(button).hasClass("active") ? $(button).removeClass("active") : $(button).addClass("active");
     if (kitValue === "kick") {
         (kicks[index] === 1) ? kicks[index] = 0 : kicks[index] = 1;
+        drumPatterns[pattern].kick = kicks;
     } else if (kitValue === "clap") {
         (claps[index] === 1) ? claps[index] = 0 : claps[index] = 1;
+        drumPatterns[pattern].clap = claps;
     } else if (kitValue === "snare") {
         (snares[index] === 1) ? snares[index] = 0 : snares[index] = 1;
+        drumPatterns[pattern].snare = snares;
     } else if (kitValue === "hihat") {
         (hihats[index] === 1) ? hihats[index] = 0 : hihats[index] = 1;
+        drumPatterns[pattern].hihat = hihats;
     } else if (kitValue === "closed") {
         (closed[index] === 1) ? closed[index] = 0 : closed[index] = 1;
+        drumPatterns[pattern].closed = closed;
     } else if (kitValue === "percone") {
         (percones[index] === 1) ? percones[index] = 0 : percones[index] = 1;
+        drumPatterns[pattern].percone = percones;
     } else if (kitValue === "perctwo") {
         (perctwos[index] === 1) ? perctwos[index] = 0 : perctwos[index] = 1;
+        drumPatterns[pattern].perctwo = perctwos;
     } else if (kitValue === "oscillator") {
         (oscillators[index] === 1) ? oscillators[index] = 0 : oscillators[index] = 1;
+        drumPatterns[pattern].oscillator = oscillators;
     } else {
         $(button).hasClass("active") ? $(button).removeClass("active") : $(button).addClass("active");
         alert("Please select a drum");
     }
+    console.log(drumPatterns);
 }
 
 $("#playButton").click(function () {
@@ -357,6 +425,13 @@ $("#playButton").click(function () {
 });
 
 $("#stopButton").click(function () {
+    $('#playButton').removeClass('active');
+    $('.sequencerButton').removeClass('cycling');
+    index = 0;
+    tonePlayer.stop();
+});
+
+$("#pauseButton").click(function () {
     $('#playButton').removeClass('active');
     tonePlayer.stop();
 });
@@ -401,7 +476,7 @@ function draw() {
     // add a note about what's happening
     text('Modulator Frequency: ' + drumEffects.oscillator.mod.toFixed(3) + ' Hz', 20, 20);
     text('Modulator Depth: ' + drumEffects.oscillator.depth.toFixed(3), 20, 40);
-    text('Oscillator Frequency: ' + drumEffects.oscillator.freq + ' Hz', width/2, 20);
+    text('Oscillator Frequency: ' + drumEffects.oscillator.freq + ' Hz', width / 2, 20);
 
 }
 
@@ -599,7 +674,7 @@ function knobInit() {
 
     });
 
-    $("#filterKnob").knob({
+    $("#filterKnob,#hpFilterKnob").knob({
         bgColor: "black",
         fgColor: "silver",
         type: "vol",
@@ -620,7 +695,7 @@ function knobInit() {
 
     });
 
-    $("#resonanceKnob").knob({
+    $("#resonanceKnob, #hpResonanceKnob").knob({
         bgColor: "black",
         fgColor: "silver",
         type: "vol",
@@ -683,7 +758,7 @@ function knobInit() {
     });
 }
 
-$("#frequencyKnob, #filterKnob, #resonanceKnob, #modKnob, #modDepthKnob").knob().on('turn', function () {
+$("#frequencyKnob, #filterKnob, #resonanceKnob, #modKnob, #modDepthKnob, #hpFilterKnob, #hpResonanceKnob").knob().on('turn', function () {
     let effect = $(this).attr('effect');
     let knobValue = this.innerText;
     drumEffects.oscillator[effect] = parseInt(knobValue);
@@ -715,9 +790,15 @@ $(".modWave").click(function () {
     oscillatorEffects = drumEffects.oscillator;
 });
 
-$('.ui.checkbox').checkbox({
+$('#lpPow').checkbox({
     onChange: (function () {
         filter.toggle();
+    })
+});
+
+$('#hpPow').checkbox({
+    onChange: (function () {
+        hpFilter.toggle();
     })
 });
 
@@ -766,7 +847,7 @@ $("#uploadButton").click(function () {
 
 function processFile(file) {
     drumPatternImports = file.drumPattern;
-    console.log(drumPatternImports);
+
     kicks = drumPatternImports.kick;
     snares = drumPatternImports.snare;
     hihats = drumPatternImports.hihat;
@@ -826,6 +907,42 @@ $("#resetButton").click(function () {
 
     $(".sequencerButton").removeClass('active');
 });
+
+$(".patternlist").click(function () {
+    $(".patternlist").removeClass("selectedPattern");
+    $(this).addClass("selectedPattern");
+    swapPattern($(this).attr('value'));
+});
+
+function swapPattern(patternNumber) {
+    pattern = patternNumber;
+    kicks = drumPatterns[patternNumber].kick;
+    snares = drumPatterns[patternNumber].snare;
+    hihats = drumPatterns[patternNumber].hihat;
+    claps = drumPatterns[patternNumber].clap;
+    closed = drumPatterns[patternNumber].closed;
+    percones = drumPatterns[patternNumber].percone;
+    perctwos = drumPatterns[patternNumber].perctwo;
+    oscillators = drumPatterns[patternNumber].oscillator;
+
+    refreshPattern(patternNumber);
+}
+
+function refreshPattern(patternNumber) {
+    let lightIndex = 0;
+    $(".sequencerButton").removeClass('active');
+    $('.sequencerButton').each(function () {
+        let sequenceValue = $(this).parent().parent().attr('value');
+        if (drumPatterns[patternNumber][sequenceValue][lightIndex] === 1) {
+            $(this).addClass('active');
+        }
+        if (lightIndex === 15) {
+            lightIndex = 0;
+        } else {
+            lightIndex++;
+        }
+    });
+}
 
 
 
