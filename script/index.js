@@ -455,7 +455,7 @@ function playKick() {
 
 function playClap() {
     if (claps[index] === 1) {
-        clapDelay.process(clapSound, drumPatterns[pattern].drumEffects.delay.time["clap"], drumPatterns[pattern].delay.feedback["clap"], 2300);
+        clapDelay.process(clapSound, drumPatterns[pattern].drumEffects.delay.time["clap"], drumPatterns[pattern].drumEffects.delay.feedback["clap"], 2300);
         clapReverb.process(clapSound, drumPatterns[pattern].drumEffects.reverb.time["clap"], drumPatterns[pattern].drumEffects.reverb.decay["clap"]);
         clapSound.rate(drumPatterns[pattern].drumEffects.pitches['clap']);
         clapSound.amp(drumPatterns[pattern].drumEffects.volumes['clap']);
