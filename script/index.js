@@ -563,7 +563,7 @@ function cycleButton() {
             recording=false;
             $("#stopButton").click();
             save(saveSound, 'pattern.wav');
-            $("#downloadRow").slideUp(1000);
+            $("#downloadRow").slideUp(3500);
         }
     }
 }
