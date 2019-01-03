@@ -253,3 +253,7 @@ body {
 .patternlist.selectedPattern {
     background-color: #7fcb89 !important;
 }
+
+#downloadRow{
+    display: none;
+}

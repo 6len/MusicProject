@@ -13,6 +13,8 @@ let kits;
 let part;
 let pitch = 0;
 let BPM = 120;
+let played=0;
+let recording=false;
 Tone.Transport.bpm.value = BPM;
 
 let lowPassFilterOn = false;
@@ -418,6 +420,9 @@ function setup() {
     closedReverb = new p5.Reverb();
     perconeReverb = new p5.Reverb();
     perctwoReverb = new p5.Reverb();
+
+    recorder = new p5.SoundRecorder();
+    saveSound = new p5.SoundFile();
 }
 
 $("#playOsc").click(function () {
@@ -547,8 +552,19 @@ function cycleButton() {
         }
     });
     index++;
+    played++;
     if (index === 16) {
         index = 0;
+    }
+    if (recording === true) {
+        downloadProgressBar.progress('set percent', (played/17)*100);
+        if(played === 17) {
+            recorder.stop();
+            recording=false;
+            $("#stopButton").click();
+            save(saveSound, 'pattern.wav');
+            $("#downloadRow").slideUp(1000);
+        }
     }
 }
 
@@ -599,6 +615,7 @@ $("#playButton").click(function () {
     tonePlayer.start(0);
     //Tone.Transport.swing = 1;
     //Tone.Transport.swingSubdivision = "16n";
+    played = 0;
     Tone.Transport.start();
 });
 
@@ -1107,6 +1124,22 @@ function refreshPattern(patternNumber) {
         }
     });
 }
+
+$("#saveWav").click(function() {
+    $('#downloadRow').slideDown();
+    $("#stopButton").click();
+    recording=true;
+    recorder.record(saveSound);
+    $("#playButton").click();
+});
+
+let downloadProgressBar = $("#downloadProgress").progress({
+    text : {
+        active  : 'Preparing your download',
+        success : 'Download Ready!'
+    },
+    percent: 0
+});
 
 
 

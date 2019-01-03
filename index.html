@@ -191,12 +191,6 @@
         <div class="ui eight wide column playbackGrid">
             <div class="ui center aligned equal width grid">
                 <div class="ui column">
-                    <button class="ui labeled icon button playbackButton" id="savePattern">
-                        <i class="download icon"></i>
-                        <label>SAVE PATTERN</label>
-                    </button>
-                </div>
-                <div class="ui column">
                     <button class="ui labeled icon button playbackButton" id="stopButton">
                         <i class="stop icon"></i>
                         <label>STOP PATTERN</label>
@@ -213,6 +207,30 @@
                         <i class="play icon"></i>
                         <label>PLAY PATTERN</label>
                     </button>
+                </div>
+            </div>
+            <div class="ui center aligned equal width grid">
+                <div class="ui column">
+                    <button class="ui labeled icon button playbackButton" id="savePattern">
+                        <i class="download icon"></i>
+                        <label>SAVE PATTERN</label>
+                    </button>
+                </div>
+                <div class="ui column">
+                    <button class="ui labeled icon button playbackButton" id="saveWav">
+                        <i class="download icon"></i>
+                        <label>SAVE WAV</label>
+                    </button>
+                </div>
+            </div>
+            <div class="ui center aligned equal width grid" id="downloadRow">
+                <div class="ui column">
+                    <div class="ui progress" id="downloadProgress">
+                        <div class="bar">
+                            <div class="progress"></div>
+                        </div>
+                        <div class="label">Preparing your download</div>
+                    </div>
                 </div>
             </div>
             <div class="ui center aligned equal width grid">
