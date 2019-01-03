@@ -1086,6 +1086,15 @@ $("#resetButton").click(function () {
     perctwos = new Array(16).fill(0);
     oscillators = new Array(16).fill(0);
 
+    drumPatterns[pattern].kick = kicks;
+    drumPatterns[pattern].clap = claps;
+    drumPatterns[pattern].hihat = hihats;
+    drumPatterns[pattern].snare = snares;
+    drumPatterns[pattern].closed = closed;
+    drumPatterns[pattern].percone = percones;
+    drumPatterns[pattern].perctwo = perctwos;
+    drumPatterns[pattern].oscillator = oscillators;
+
     $(".sequencerButton").removeClass('active');
 });
 
