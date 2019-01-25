@@ -1,0 +1,527 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title DB-40
+    link(rel='shortcut icon', href='https://www.clipartmax.com/png/middle/274-2744152_snare-drum-clipart-marching-band-icon-png.png', type='image/x-icon')
+    link(rel='stylesheet', href='stylesheets/index.css')
+    link(rel='stylesheet', href='//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css')
+    link(href='https://fonts.googleapis.com/css?family=Geostar', rel='stylesheet')
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+    script(src='https://code.jquery.com/ui/1.12.1/jquery-ui.js')
+    script(src='javascripts/jquery.knob.js')
+    script(src='p5/p5.js')
+    script(src='p5/addons/p5.dom.js')
+    script(src='p5/addons/p5.sound.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.js')
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/tone/13.3.11/Tone.js')
+  body
+    .ui.container
+      .ui.inverted.top.fixed.menu
+        .item
+          b.geoMenu DB-40
+        .right.menu
+          .item
+            a(href='https://github.com/foxglen/MusicProject')
+              | Github
+              i.github.icon
+      .ui.four.column.grid
+        .column
+          p.dmTitle DB-40
+      .ui.four.column.grid
+        .ui.eight.wide.column
+          #knobColumn.ui.center.aligned.five.column.grid
+            .ui.column
+              .oscillatorKnob
+                h4 PITCH
+                #frequencyKnob.knob(data-type='pan', effect='freq')
+            .ui.column
+              .oscillatorKnob
+                h4 ATTACK
+                #attackKnob.knob(data-type='pan', effect='attack')
+            .ui.column
+              .oscillatorKnob
+                h4 DECAY
+                #decayKnob.knob(data-type='pan', effect='decay')
+            .ui.column
+              .oscillatorKnob
+                h4 SUSTAIN
+                #sustainKnob.knob(data-type='pan', effect='sustain')
+            .ui.column
+              .oscillatorKnob
+                h4 RELEASE
+                #releaseKnob.knob(data-type='pan', effect='release')
+            .ui.five.column.row
+              .ui.column
+                .oscillatorKnob
+                  h4 LP FILTER
+                  #filterKnob.knob(data-type='pan', effect='filter')
+              .ui.column
+                .oscillatorKnob
+                  h4 LP RES
+                  #resonanceKnob.knob(data-type='pan', effect='res')
+              .ui.column
+                .oscillatorKnob
+                  h4 MOD
+                  #modKnob.knob(data-type='pan', effect='mod')
+              .ui.column
+                .oscillatorKnob
+                  h4 DEPTH
+                  #modDepthKnob.knob(data-type='pan', effect='depth')
+              .ui.column
+                .ui.left.floated.compact.inverted.segment
+                  #lpPow.ui.toggle.checkbox
+                    input(type='checkbox')
+                  |                             LP POW
+            .ui.three.column.row
+              .ui.column
+                .oscillatorKnob
+                  h4 HP FILTER
+                  #hpFilterKnob.knob(data-type='pan', effect='hpFilter')
+              .ui.column
+                .oscillatorKnob
+                  h4 HP RES
+                  #hpResonanceKnob.knob(data-type='pan', effect='hpRes')
+              .ui.column
+                .ui.left.floated.compact.inverted.segment
+                  #hpPow.ui.toggle.checkbox
+                    input(type='checkbox')
+                  |                             HP POW
+            .ui.five.column.row
+              .ui.column
+                h4 MOD WAVES
+              .ui.column
+                button.ui.custom.button.modWave.active(value='sine') SINE
+              .ui.column
+                button.ui.custom.button.modWave(value='sawtooth') SAW
+              .ui.column
+                button.ui.custom.button.modWave(value='square') SQUARE
+              .ui.column
+                button.ui.custom.button.modWave(value='triangle') TRIANGLE
+            .ui.six.column.row
+              .ui.column
+                h4 OSCILLATOR WAVES
+              .ui.column
+                button.ui.custom.button.wave.active(value='sine') SINE
+              .ui.column
+                button.ui.custom.button.wave(value='sawtooth') SAW
+              .ui.column
+                button.ui.custom.button.wave(value='square') SQUARE
+              .ui.column
+                button.ui.custom.button.wave(value='triangle') TRIANGLE
+              .ui.column
+                button#playOsc.ui.playOsc.button PLAY
+        .ui.eight.wide.column.playbackGrid
+          .ui.center.aligned.equal.width.grid
+            .ui.column
+              button#stopButton.ui.labeled.icon.button.playbackButton
+                i.stop.icon
+                label STOP PATTERN
+            .ui.column
+              button#pauseButton.ui.labeled.icon.button.playbackButton
+                i.pause.icon
+                label PAUSE PATTERN
+            .ui.column
+              button#playButton.ui.labeled.icon.button.playbackButton
+                i.play.icon
+                label PLAY PATTERN
+          .ui.center.aligned.equal.width.grid
+            .ui.column
+              button#savePattern.ui.labeled.icon.button.playbackButton
+                i.download.icon
+                label SAVE PATTERN
+            .ui.column
+              button#saveWav.ui.labeled.icon.button.playbackButton
+                i.download.icon
+                label SAVE WAV
+          #downloadRow.ui.center.aligned.equal.width.grid
+            .ui.column
+              #downloadProgress.ui.progress
+                .bar
+                  .progress
+                .label Preparing your download
+          .ui.center.aligned.equal.width.grid
+            .ui.column
+              h4 TEMPO
+              #tempoSlider
+                #tempo-handle.ui-slider-handle
+          .ui.center.aligned.equal.width.grid
+            .ui.column
+              h4 UPLOAD PATTERN
+              input#uploadPattern.ui.button(type='file', name='pattern')
+              button#uploadButton.ui.labeled.icon.button.playbackButton
+                i.upload.icon
+                label UPLOAD PATTERN
+          .ui.center.aligned.equal.width.grid
+            .ui.column
+              button#resetButton.ui.labeled.icon.button.playbackButton
+                i.undo.alternate.icon
+                label RESET PATTERN
+            .ui.column
+              center
+                #visualSound
+      .ui.column.grid
+        .ui.column
+          #kitsDropdown.ui.fluid.search.selection.dropdown
+            input(type='hidden', name='drum')
+            i.dropdown.icon
+            .default.text KITS
+            #kits.menu
+      #sequencerGrid.ui.column.grid
+        .ui.center.aligned.equal.width.row
+          .ui.column
+            button.ui.button.patternlist.selectedPattern(value='one') PATTERN ONE
+          .ui.column
+            button.ui.button.patternlist(value='two') PATTERN TWO
+          .ui.column
+            button.ui.button.patternlist(value='three') PATTERN THREE
+          .ui.column
+            button.ui.button.patternlist(value='four') PATTERN FOUR
+        .ui.column.optionColumn
+        .ui.fifteen.wide.column
+          .ui.center.aligned.sixteen.column.grid(value='kick')
+            .column.ledColumn
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+            .column
+              .led-blue
+        .ui.column.optionColumn
+          button.ui.button.optionButton(value='kick') KICK
+        .ui.fifteen.wide.column
+          .ui.center.aligned.sixteen.column.grid.sequencer(value='kick')
+            .column.buttonColumn
+              button.sequencerButton(index='0')
+            .column.buttonColumn
+              button.sequencerButton(index='1')
+            .column.buttonColumn
+              button.sequencerButton(index='2')
+            .column.buttonColumn
+              button.sequencerButton(index='3')
+            .column.buttonColumn
+              button.sequencerButton(index='4')
+            .column.buttonColumn
+              button.sequencerButton(index='5')
+            .column.buttonColumn
+              button.sequencerButton(index='6')
+            .column.buttonColumn
+              button.sequencerButton(index='7')
+            .column.buttonColumn
+              button.sequencerButton(index='8')
+            .column.buttonColumn
+              button.sequencerButton(index='9')
+            .column.buttonColumn
+              button.sequencerButton(index='10')
+            .column.buttonColumn
+              button.sequencerButton(index='11')
+            .column.buttonColumn
+              button.sequencerButton(index='12')
+            .column.buttonColumn
+              button.sequencerButton(index='13')
+            .column.buttonColumn
+              button.sequencerButton(index='14')
+            .column.buttonColumn
+              button.sequencerButton(index='15')
+        .ui.column.optionColumn
+          button.ui.button.optionButton(value='snare') SNARE
+        .ui.fifteen.wide.column
+          .ui.center.aligned.sixteen.column.grid.sequencer(value='snare')
+            .column.buttonColumn
+              button.sequencerButton(index='0')
+            .column.buttonColumn
+              button.sequencerButton(index='1')
+            .column.buttonColumn
+              button.sequencerButton(index='2')
+            .column.buttonColumn
+              button.sequencerButton(index='3')
+            .column.buttonColumn
+              button.sequencerButton(index='4')
+            .column.buttonColumn
+              button.sequencerButton(index='5')
+            .column.buttonColumn
+              button.sequencerButton(index='6')
+            .column.buttonColumn
+              button.sequencerButton(index='7')
+            .column.buttonColumn
+              button.sequencerButton(index='8')
+            .column.buttonColumn
+              button.sequencerButton(index='9')
+            .column.buttonColumn
+              button.sequencerButton(index='10')
+            .column.buttonColumn
+              button.sequencerButton(index='11')
+            .column.buttonColumn
+              button.sequencerButton(index='12')
+            .column.buttonColumn
+              button.sequencerButton(index='13')
+            .column.buttonColumn
+              button.sequencerButton(index='14')
+            .column.buttonColumn
+              button.sequencerButton(index='15')
+        .ui.column.optionColumn
+          button.ui.button.optionButton(value='hihat') OPEN
+        .ui.fifteen.wide.column
+          .ui.center.aligned.sixteen.column.grid.sequencer(value='hihat')
+            .column.buttonColumn
+              button.sequencerButton(index='0')
+            .column.buttonColumn
+              button.sequencerButton(index='1')
+            .column.buttonColumn
+              button.sequencerButton(index='2')
+            .column.buttonColumn
+              button.sequencerButton(index='3')
+            .column.buttonColumn
+              button.sequencerButton(index='4')
+            .column.buttonColumn
+              button.sequencerButton(index='5')
+            .column.buttonColumn
+              button.sequencerButton(index='6')
+            .column.buttonColumn
+              button.sequencerButton(index='7')
+            .column.buttonColumn
+              button.sequencerButton(index='8')
+            .column.buttonColumn
+              button.sequencerButton(index='9')
+            .column.buttonColumn
+              button.sequencerButton(index='10')
+            .column.buttonColumn
+              button.sequencerButton(index='11')
+            .column.buttonColumn
+              button.sequencerButton(index='12')
+            .column.buttonColumn
+              button.sequencerButton(index='13')
+            .column.buttonColumn
+              button.sequencerButton(index='14')
+            .column.buttonColumn
+              button.sequencerButton(index='15')
+        .ui.column.optionColumn
+          button.ui.button.optionButton(value='clap') CLAP
+        .ui.fifteen.wide.column
+          .ui.center.aligned.sixteen.column.grid.sequencer(value='clap')
+            .column.buttonColumn
+              button.sequencerButton(index='0')
+            .column.buttonColumn
+              button.sequencerButton(index='1')
+            .column.buttonColumn
+              button.sequencerButton(index='2')
+            .column.buttonColumn
+              button.sequencerButton(index='3')
+            .column.buttonColumn
+              button.sequencerButton(index='4')
+            .column.buttonColumn
+              button.sequencerButton(index='5')
+            .column.buttonColumn
+              button.sequencerButton(index='6')
+            .column.buttonColumn
+              button.sequencerButton(index='7')
+            .column.buttonColumn
+              button.sequencerButton(index='8')
+            .column.buttonColumn
+              button.sequencerButton(index='9')
+            .column.buttonColumn
+              button.sequencerButton(index='10')
+            .column.buttonColumn
+              button.sequencerButton(index='11')
+            .column.buttonColumn
+              button.sequencerButton(index='12')
+            .column.buttonColumn
+              button.sequencerButton(index='13')
+            .column.buttonColumn
+              button.sequencerButton(index='14')
+            .column.buttonColumn
+              button.sequencerButton(index='15')
+        .ui.column.optionColumn
+          button.ui.button.optionButton(value='closed') CLOSED
+        .ui.fifteen.wide.column
+          .ui.center.aligned.sixteen.column.grid.sequencer(value='closed')
+            .column.buttonColumn
+              button.sequencerButton(index='0')
+            .column.buttonColumn
+              button.sequencerButton(index='1')
+            .column.buttonColumn
+              button.sequencerButton(index='2')
+            .column.buttonColumn
+              button.sequencerButton(index='3')
+            .column.buttonColumn
+              button.sequencerButton(index='4')
+            .column.buttonColumn
+              button.sequencerButton(index='5')
+            .column.buttonColumn
+              button.sequencerButton(index='6')
+            .column.buttonColumn
+              button.sequencerButton(index='7')
+            .column.buttonColumn
+              button.sequencerButton(index='8')
+            .column.buttonColumn
+              button.sequencerButton(index='9')
+            .column.buttonColumn
+              button.sequencerButton(index='10')
+            .column.buttonColumn
+              button.sequencerButton(index='11')
+            .column.buttonColumn
+              button.sequencerButton(index='12')
+            .column.buttonColumn
+              button.sequencerButton(index='13')
+            .column.buttonColumn
+              button.sequencerButton(index='14')
+            .column.buttonColumn
+              button.sequencerButton(index='15')
+        .ui.column.optionColumn
+          button.ui.button.optionButton(value='percone') PERC 1
+        .ui.fifteen.wide.column
+          .ui.center.aligned.sixteen.column.grid.sequencer(value='percone')
+            .column.buttonColumn
+              button.sequencerButton(index='0')
+            .column.buttonColumn
+              button.sequencerButton(index='1')
+            .column.buttonColumn
+              button.sequencerButton(index='2')
+            .column.buttonColumn
+              button.sequencerButton(index='3')
+            .column.buttonColumn
+              button.sequencerButton(index='4')
+            .column.buttonColumn
+              button.sequencerButton(index='5')
+            .column.buttonColumn
+              button.sequencerButton(index='6')
+            .column.buttonColumn
+              button.sequencerButton(index='7')
+            .column.buttonColumn
+              button.sequencerButton(index='8')
+            .column.buttonColumn
+              button.sequencerButton(index='9')
+            .column.buttonColumn
+              button.sequencerButton(index='10')
+            .column.buttonColumn
+              button.sequencerButton(index='11')
+            .column.buttonColumn
+              button.sequencerButton(index='12')
+            .column.buttonColumn
+              button.sequencerButton(index='13')
+            .column.buttonColumn
+              button.sequencerButton(index='14')
+            .column.buttonColumn
+              button.sequencerButton(index='15')
+        .ui.column.optionColumn
+          button.ui.button.optionButton(value='perctwo') PERC 2
+        .ui.fifteen.wide.column
+          .ui.center.aligned.sixteen.column.grid.sequencer(value='perctwo')
+            .column.buttonColumn
+              button.sequencerButton(index='0')
+            .column.buttonColumn
+              button.sequencerButton(index='1')
+            .column.buttonColumn
+              button.sequencerButton(index='2')
+            .column.buttonColumn
+              button.sequencerButton(index='3')
+            .column.buttonColumn
+              button.sequencerButton(index='4')
+            .column.buttonColumn
+              button.sequencerButton(index='5')
+            .column.buttonColumn
+              button.sequencerButton(index='6')
+            .column.buttonColumn
+              button.sequencerButton(index='7')
+            .column.buttonColumn
+              button.sequencerButton(index='8')
+            .column.buttonColumn
+              button.sequencerButton(index='9')
+            .column.buttonColumn
+              button.sequencerButton(index='10')
+            .column.buttonColumn
+              button.sequencerButton(index='11')
+            .column.buttonColumn
+              button.sequencerButton(index='12')
+            .column.buttonColumn
+              button.sequencerButton(index='13')
+            .column.buttonColumn
+              button.sequencerButton(index='14')
+            .column.buttonColumn
+              button.sequencerButton(index='15')
+        .ui.column.optionColumn
+          button.ui.button.optionButtonOsc(value='oscillator') OSC
+        .ui.fifteen.wide.column
+          .ui.center.aligned.sixteen.column.grid.sequencer(value='oscillator')
+            .column.buttonColumn
+              button.sequencerButton(index='0')
+            .column.buttonColumn
+              button.sequencerButton(index='1')
+            .column.buttonColumn
+              button.sequencerButton(index='2')
+            .column.buttonColumn
+              button.sequencerButton(index='3')
+            .column.buttonColumn
+              button.sequencerButton(index='4')
+            .column.buttonColumn
+              button.sequencerButton(index='5')
+            .column.buttonColumn
+              button.sequencerButton(index='6')
+            .column.buttonColumn
+              button.sequencerButton(index='7')
+            .column.buttonColumn
+              button.sequencerButton(index='8')
+            .column.buttonColumn
+              button.sequencerButton(index='9')
+            .column.buttonColumn
+              button.sequencerButton(index='10')
+            .column.buttonColumn
+              button.sequencerButton(index='11')
+            .column.buttonColumn
+              button.sequencerButton(index='12')
+            .column.buttonColumn
+              button.sequencerButton(index='13')
+            .column.buttonColumn
+              button.sequencerButton(index='14')
+            .column.buttonColumn
+              button.sequencerButton(index='15')
+    #optionsModal.ui.modal
+      #optionsModalHeader.header
+      #optionsModalcontent.content
+        h3 Pitch
+        #pitchSlider
+          #pitch-handle.ui-slider-handle
+        h3 Volume
+        #volumeSlider
+          #volume-handle.ui-slider-handle
+        h3 Delay
+        h4 Delay Time
+        #delayTimeSlider
+          #delay-time-handle.ui-slider-handle
+        h4 Delay Feedback
+        #delayFeedbackSlider
+          #delay-feedback-handle.ui-slider-handle
+        h3 Reverb
+        h4 Reverb Time
+        #reverbTimeSlider
+          #reverb-time-handle.ui-slider-handle
+        h4 Reverb Decay Rate
+        #reverbDecaySlider
+          #reverb-decay-handle.ui-slider-handle
+    script(src='javascripts/index.js')
