@@ -1,3 +1,11 @@
+/*
+ ██████╗ ██╗      ██████╗ ██████╗  █████╗ ██╗     ███████╗
+██╔════╝ ██║     ██╔═══██╗██╔══██╗██╔══██╗██║     ██╔════╝
+██║  ███╗██║     ██║   ██║██████╔╝███████║██║     ███████╗
+██║   ██║██║     ██║   ██║██╔══██╗██╔══██║██║     ╚════██║
+╚██████╔╝███████╗╚██████╔╝██████╔╝██║  ██║███████╗███████║
+ ╚═════╝ ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝
+ --------------------------------------------*/
 let kicks = new Array(16).fill(0);
 let claps = new Array(16).fill(0);
 let hihats = new Array(16).fill(0);
@@ -19,10 +27,11 @@ Tone.Transport.bpm.value = BPM;
 
 let lowPassFilterOn = false;
 let highPassFilterOn = false;
-
+//----------------------------------------------
 knobInit();
 
-//--Loops at the correct BPM
+
+//Using a tone.js loop rather than a p5.js loop to keep tempo. Tempo in p5.js is bugged.
 let tonePlayer = new Tone.Loop(function (time) {
     playKick();
     playHat();
@@ -35,6 +44,8 @@ let tonePlayer = new Tone.Loop(function (time) {
     cycleButton();
 }, "16n");
 
+//Defines the master object, helps keep track of all the settings for DB-40.
+//This object is also saved and uploaded when using the save and upload functions
 let drumPatterns = {
     "one": {
         "kick": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -334,8 +345,11 @@ let drumPatterns = {
     "bpm": 120
 };
 
+//Define our sound variables
 let oscillatorEffects = drumPatterns.oscillator;
 let kickSound, clapSound, hihatSound, snareSound, closedSound, perconeSound, perctwoSound;
+
+//Retrieve the drumkits and prep p5.js on document readt
 $(document).ready(function () {
     $.getJSON("drumkits/drumkits.json", function (data) {
         let drumKits = data.drumkits;
@@ -349,12 +363,14 @@ $(document).ready(function () {
     });
 });
 
+//Fills out kits dropdown list from our JSON file. This makes it easy to add new drumkits! Just add another object to our JSON object
 function addDropdownItem(item) {
     $("#kits").append("<div class='item' data-value='" + item + "'>" + item + "</div>");
 }
 
 let sound;
 
+//p5.js Preload function
 function preload() {
     snareSound = loadSound("SoundSamples/KORG-ER-1/SD-ER1-Japanese70s.wav");
     hihatSound = loadSound("SoundSamples/KORG-ER-1/HH-ER1-Beatbox.wav");
@@ -365,6 +381,7 @@ function preload() {
     perctwoSound = loadSound("SoundSamples/KORG-ER-1/TOM-ER-MicroTom1.wav");
 }
 
+//p5.js Setup function
 function setup() {
     //Canvas creation for sound analysis
     let soundCanvas = createCanvas(400, 120);
@@ -425,6 +442,7 @@ function setup() {
     saveSound = new p5.SoundFile();
 }
 
+//Plays the oscillator on click
 $("#playOsc").click(function () {
     getAudioContext().resume();
     let freq = parseInt(drumPatterns.oscillator.freq);
@@ -447,7 +465,14 @@ $("#playOsc").click(function () {
     oscillatorEnvelope.play();
 });
 
-
+/*
+██████╗ ██╗      █████╗ ██╗   ██╗    ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
+██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝    ██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
+██████╔╝██║     ███████║ ╚████╔╝     █████╗  ██║   ██║██╔██╗ ██║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗
+██╔═══╝ ██║     ██╔══██║  ╚██╔╝      ██╔══╝  ██║   ██║██║╚██╗██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║
+██║     ███████╗██║  ██║   ██║       ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
+╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝       ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+--------------------------------------------*/
 function playKick() {
     if (kicks[index] === 1) {
         kickDelay.process(kickSound, drumPatterns[pattern].drumEffects.delay.time["kick"], drumPatterns[pattern].drumEffects.delay.feedback["kick"], 2300);
@@ -541,7 +566,9 @@ function playOsc() {
         oscillatorEnvelope.play();
     }
 }
-
+//-----------------------------------------
+//Changes appearance of pattern based on what is currently playing
+//Also handles some of the recording for saving the sound file. Quality of the sound file may vary between computers.
 function cycleButton() {
     $(".led-blue").removeClass("on");
     $(buttonValues[index]).addClass("on");
@@ -568,7 +595,7 @@ function cycleButton() {
     }
 }
 
-
+//Changes the sound to be active when sequencer button is clicked
 function changeSound(button) {
     let index = button.getAttribute("index");
     let kitValue = $(button).parent('div').parent('div').attr('value');
@@ -605,6 +632,7 @@ function changeSound(button) {
     console.log(drumPatterns);
 }
 
+//Plays the pattern
 $("#playButton").click(function () {
     if ($(this).hasClass('active')) {
         $(this).removeClass('active');
@@ -619,6 +647,7 @@ $("#playButton").click(function () {
     Tone.Transport.start();
 });
 
+//Stops the pattern
 $("#stopButton").click(function () {
     $('#playButton').removeClass('active');
     $('.sequencerButton').removeClass('cycling');
@@ -626,16 +655,18 @@ $("#stopButton").click(function () {
     tonePlayer.stop();
 });
 
+//Pauses the pattern
 $("#pauseButton").click(function () {
     $('#playButton').removeClass('active');
     tonePlayer.stop();
 });
 
-
+//Calls when sequencerButton is clicked
 $(".sequencerButton").click(function () {
     changeSound(this);
 });
 
+//Kit changing function, sets the new sounds.
 $("#kitsDropdown").change(function () {
     let kitValue = $("#kitsDropdown").dropdown('get value');
     kickSound = loadSound(kits[kitValue].kick);
@@ -647,11 +678,12 @@ $("#kitsDropdown").change(function () {
     perctwoSound = loadSound(kits[kitValue].perctwo);
 });
 
-
+//Instantiate semantic dropdown
 $('.ui.dropdown')
     .dropdown()
 ;
 
+//P5 draw function, draws the analyzer
 function draw() {
     background(0);
 
@@ -675,6 +707,7 @@ function draw() {
 
 }
 
+//Brings up the options for each drum individually
 $(".optionButton").click(function () {
     let drumOptions = $(this).attr('value');
     $("#optionsModalHeader").text((drumOptions + ' options').toUpperCase());
@@ -805,6 +838,7 @@ $("#tempoSlider").slider({
     }
 });
 
+//Initializes all knobs for the oscillator section
 function knobInit() {
     $("#frequencyKnob").knob({
         bgColor: "black",
