@@ -1,0 +1,59 @@
+{
+  "drumkits": {
+    "ELECTRIBE": {
+      "snare": "SoundSamples/KORG-ER-1/SD-ER1-Japanese70s.wav",
+      "hihat": "SoundSamples/KORG-ER-1/HH-ER1-Beatbox.wav",
+      "kick": "SoundSamples/KORG-ER-1/BD-ER1-Hotmix95.wav",
+      "clap": "SoundSamples/KORG-ER-1/CLPZ-ER1-ClapNeat.wav",
+      "closed": "SoundSamples/KORG-ER-1/Closed-Hi-Hat-1.wav",
+      "percone" :"SoundSamples/KORG-ER-1/CYM-ER1-CrashCymbal1.wav",
+      "perctwo" : "SoundSamples/KORG-ER-1/TOM-ER-MicroTom1.wav"
+    },
+    "ANALOG": {
+      "kick": "SoundSamples/Johnny_Samples/Jkick.wav",
+      "snare": "SoundSamples/Johnny_Samples/ASnare.wav",
+      "hihat": "SoundSamples/Johnny_Samples/Bleep.wav",
+      "clap": "SoundSamples/Johnny_Samples/SciFi.wav",
+      "closed": "SoundSamples/Johnny_Samples/HatA.wav",
+      "percone" :"SoundSamples/Johnny_Samples/ElectroTom.wav",
+      "perctwo" : "SoundSamples/Johnny_Samples/ChordChill.wav"
+    },
+    "HOUSE": {
+      "kick": "SoundSamples/909/909_kick_01.wav",
+      "snare": "SoundSamples/909/909_snare_01.wav",
+      "clap": "SoundSamples/909/909_clap.wav",
+      "hihat": "SoundSamples/909/909_openhat_01.wav",
+      "closed": "SoundSamples/909/909_closedhat_01.wav",
+      "percone": "SoundSamples/909/909_rimshot.wav",
+      "perctwo": "SoundSamples/909/909_tom_01.wav"
+    },
+    "CHILL": {
+      "kick": "SoundSamples/Chill/DR660 Bassdrum Linndrumesque.wav",
+      "snare": "SoundSamples/Chill/DR660 Snare Big.wav",
+      "clap": "SoundSamples/Chill/DR660 Clap 1.wav",
+      "closed": "SoundSamples/Chill/DR660 CR78 Closed Hat 2.wav",
+      "hihat": "SoundSamples/Chill/DR660 CR78 Open Hat.wav",
+      "percone": "SoundSamples/Chill/DR660 Mid Tom.wav",
+      "perctwo": "SoundSamples/Chill/DR660 Conga.wav"
+    },
+     "808": {
+       "kick": "SoundSamples/808/808_kick_01.wav",
+       "snare": "SoundSamples/808/808_snare_01.wav",
+       "clap": "SoundSamples/808/808_clap.wav",
+       "closed": "SoundSamples/808/808_closedhat_01.wav",
+       "hihat": "SoundSamples/808/808_openhat_01.wav",
+       "percone": "SoundSamples/808/808_tom_01.wav",
+       "perctwo": "SoundSamples/808/808_rimshot.wav"
+     },
+    "DDM": {
+      "kick" : "SoundSamples/DDM/KickDDM.wav",
+      "snare" : "SoundSamples/DDM/SnareDDM.wav",
+      "clap" : "SoundSamples/DDM/ClapDDM.wav",
+      "closed" : "SoundSamples/DDM/ClosedDDM.wav",
+      "hihat" : "SoundSamples/DDM/OpenDDM.wav",
+      "percone" : "SoundSamples/DDM/TomDDM.wav",
+      "perctwo" : "SoundSamples/DDM/SideStickDDM.wav"
+    }
+
+  }
+}
