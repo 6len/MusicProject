@@ -1,3 +1,11 @@
+/*
+ ██████╗ ██╗      ██████╗ ██████╗  █████╗ ██╗     ███████╗
+██╔════╝ ██║     ██╔═══██╗██╔══██╗██╔══██╗██║     ██╔════╝
+██║  ███╗██║     ██║   ██║██████╔╝███████║██║     ███████╗
+██║   ██║██║     ██║   ██║██╔══██╗██╔══██║██║     ╚════██║
+╚██████╔╝███████╗╚██████╔╝██████╔╝██║  ██║███████╗███████║
+ ╚═════╝ ╚══════╝ ╚═════╝ ╚═════╝ ╚═╝  ╚═╝╚══════╝╚══════╝
+ --------------------------------------------*/
 let kicks = new Array(16).fill(0);
 let claps = new Array(16).fill(0);
 let hihats = new Array(16).fill(0);
@@ -19,10 +27,11 @@ Tone.Transport.bpm.value = BPM;
 
 let lowPassFilterOn = false;
 let highPassFilterOn = false;
-
+//----------------------------------------------
 knobInit();
 
-//--Loops at the correct BPM
+
+//Using a tone.js loop rather than a p5.js loop to keep tempo. Tempo in p5.js is bugged.
 let tonePlayer = new Tone.Loop(function (time) {
     playKick();
     playHat();
@@ -35,6 +44,8 @@ let tonePlayer = new Tone.Loop(function (time) {
     cycleButton();
 }, "16n");
 
+//Defines the master object, helps keep track of all the settings for DB-40.
+//This object is also saved and uploaded when using the save and upload functions
 let drumPatterns = {
     "one": {
         "kick": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -334,8 +345,11 @@ let drumPatterns = {
     "bpm": 120
 };
 
+//Define our sound variables
 let oscillatorEffects = drumPatterns.oscillator;
 let kickSound, clapSound, hihatSound, snareSound, closedSound, perconeSound, perctwoSound;
+
+//Retrieve the drumkits and prep p5.js on document readt
 $(document).ready(function () {
     $.getJSON("drumkits/drumkits.json", function (data) {
         let drumKits = data.drumkits;
@@ -349,12 +363,14 @@ $(document).ready(function () {
     });
 });
 
+//Fills out kits dropdown list from our JSON file. This makes it easy to add new drumkits! Just add another object to our JSON object
 function addDropdownItem(item) {
     $("#kits").append("<div class='item' data-value='" + item + "'>" + item + "</div>");
 }
 
 let sound;
 
+//p5.js Preload function
 function preload() {
     snareSound = loadSound("SoundSamples/KORG-ER-1/SD-ER1-Japanese70s.wav");
     hihatSound = loadSound("SoundSamples/KORG-ER-1/HH-ER1-Beatbox.wav");
@@ -365,6 +381,7 @@ function preload() {
     perctwoSound = loadSound("SoundSamples/KORG-ER-1/TOM-ER-MicroTom1.wav");
 }
 
+//p5.js Setup function
 function setup() {
     //Canvas creation for sound analysis
     let soundCanvas = createCanvas(400, 120);
@@ -425,6 +442,7 @@ function setup() {
     saveSound = new p5.SoundFile();
 }
 
+//Plays the oscillator on click
 $("#playOsc").click(function () {
     getAudioContext().resume();
     let freq = parseInt(drumPatterns.oscillator.freq);
@@ -447,73 +465,52 @@ $("#playOsc").click(function () {
     oscillatorEnvelope.play();
 });
 
-
+/*
+██████╗ ██╗      █████╗ ██╗   ██╗    ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
+██╔══██╗██║     ██╔══██╗╚██╗ ██╔╝    ██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
+██████╔╝██║     ███████║ ╚████╔╝     █████╗  ██║   ██║██╔██╗ ██║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗
+██╔═══╝ ██║     ██╔══██║  ╚██╔╝      ██╔══╝  ██║   ██║██║╚██╗██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║
+██║     ███████╗██║  ██║   ██║       ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
+╚═╝     ╚══════╝╚═╝  ╚═╝   ╚═╝       ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+--------------------------------------------*/
 function playKick() {
     if (kicks[index] === 1) {
-        kickDelay.process(kickSound, drumPatterns[pattern].drumEffects.delay.time["kick"], drumPatterns[pattern].drumEffects.delay.feedback["kick"], 2300);
-        kickReverb.process(kickSound, drumPatterns[pattern].drumEffects.reverb.time["kick"], drumPatterns[pattern].drumEffects.reverb.decay["kick"]);
-        kickSound.rate(drumPatterns[pattern].drumEffects.pitches['kick']);
-        kickSound.amp(drumPatterns[pattern].drumEffects.volumes['kick']);
         kickSound.play();
     }
 }
 
 function playClap() {
     if (claps[index] === 1) {
-        clapDelay.process(clapSound, drumPatterns[pattern].drumEffects.delay.time["clap"], drumPatterns[pattern].drumEffects.delay.feedback["clap"], 2300);
-        clapReverb.process(clapSound, drumPatterns[pattern].drumEffects.reverb.time["clap"], drumPatterns[pattern].drumEffects.reverb.decay["clap"]);
-        clapSound.rate(drumPatterns[pattern].drumEffects.pitches['clap']);
-        clapSound.amp(drumPatterns[pattern].drumEffects.volumes['clap']);
         clapSound.play();
     }
 }
 
 function playHat() {
     if (hihats[index] === 1) {
-        hatDelay.process(hihatSound, drumPatterns[pattern].drumEffects.delay.time["hihat"], drumPatterns[pattern].drumEffects.delay.feedback["hihat"], 2300);
-        hatReverb.process(hihatSound, drumPatterns[pattern].drumEffects.reverb.time["hihat"], drumPatterns[pattern].drumEffects.reverb.decay["hihat"]);
-        hihatSound.rate(drumPatterns[pattern].drumEffects.pitches['hihat']);
-        hihatSound.amp(drumPatterns[pattern].drumEffects.volumes['hihat']);
         hihatSound.play();
     }
 }
 
 function playSnare() {
     if (snares[index] === 1) {
-        snareDelay.process(snareSound, drumPatterns[pattern].drumEffects.delay.time["snare"], drumPatterns[pattern].drumEffects.delay.feedback["snare"], 2300);
-        snareReverb.process(snareSound, drumPatterns[pattern].drumEffects.reverb.time["snare"], drumPatterns[pattern].drumEffects.reverb.decay["snare"]);
-        snareSound.rate(drumPatterns[pattern].drumEffects.pitches['snare']);
-        snareSound.amp(drumPatterns[pattern].drumEffects.volumes['snare']);
         snareSound.play();
     }
 }
 
 function playClosed() {
     if (closed[index] === 1) {
-        closedDelay.process(closedSound, drumPatterns[pattern].drumEffects.delay.time["closed"], drumPatterns[pattern].drumEffects.delay.feedback["closed"], 2300);
-        closedReverb.process(closedSound, drumPatterns[pattern].drumEffects.reverb.time["closed"], drumPatterns[pattern].drumEffects.reverb.decay["closed"]);
-        closedSound.rate(drumPatterns[pattern].drumEffects.pitches['closed']);
-        closedSound.amp(drumPatterns[pattern].drumEffects.volumes['closed']);
         closedSound.play();
     }
 }
 
 function playPercone() {
     if (percones[index] === 1) {
-        perconeDelay.process(perconeSound, drumPatterns[pattern].drumEffects.delay.time["percone"], drumPatterns[pattern].drumEffects.delay.feedback["percone"], 2300);
-        perconeReverb.process(perconeSound, drumPatterns[pattern].drumEffects.reverb.time["percone"], drumPatterns[pattern].drumEffects.reverb.decay["percone"]);
-        perconeSound.rate(drumPatterns[pattern].drumEffects.pitches['percone']);
-        perconeSound.amp(drumPatterns[pattern].drumEffects.volumes['percone']);
         perconeSound.play();
     }
 }
 
 function playPerctwo() {
     if (perctwos[index] === 1) {
-        perctwoDelay.process(perctwoSound, drumPatterns[pattern].drumEffects.delay.time["perctwo"], drumPatterns[pattern].drumEffects.delay.feedback["perctwo"], 2300);
-        perctwoReverb.process(perctwoSound, drumPatterns[pattern].drumEffects.reverb.time["perctwo"], drumPatterns[pattern].drumEffects.reverb.decay["perctwo"]);
-        perctwoSound.rate(drumPatterns[pattern].drumEffects.pitches['perctwo']);
-        perctwoSound.amp(drumPatterns[pattern].drumEffects.volumes['perctwo']);
         perctwoSound.play();
     }
 }
@@ -541,7 +538,9 @@ function playOsc() {
         oscillatorEnvelope.play();
     }
 }
-
+//-----------------------------------------
+//Changes appearance of pattern based on what is currently playing
+//Also handles some of the recording for saving the sound file. Quality of the sound file may vary between computers.
 function cycleButton() {
     $(".led-blue").removeClass("on");
     $(buttonValues[index]).addClass("on");
@@ -568,7 +567,7 @@ function cycleButton() {
     }
 }
 
-
+//Changes the sound to be active when sequencer button is clicked
 function changeSound(button) {
     let index = button.getAttribute("index");
     let kitValue = $(button).parent('div').parent('div').attr('value');
@@ -605,6 +604,7 @@ function changeSound(button) {
     console.log(drumPatterns);
 }
 
+//Plays the pattern
 $("#playButton").click(function () {
     if ($(this).hasClass('active')) {
         $(this).removeClass('active');
@@ -619,6 +619,7 @@ $("#playButton").click(function () {
     Tone.Transport.start();
 });
 
+//Stops the pattern
 $("#stopButton").click(function () {
     $('#playButton').removeClass('active');
     $('.sequencerButton').removeClass('cycling');
@@ -626,16 +627,18 @@ $("#stopButton").click(function () {
     tonePlayer.stop();
 });
 
+//Pauses the pattern
 $("#pauseButton").click(function () {
     $('#playButton').removeClass('active');
     tonePlayer.stop();
 });
 
-
+//Calls when sequencerButton is clicked
 $(".sequencerButton").click(function () {
     changeSound(this);
 });
 
+//Kit changing function, sets the new sounds.
 $("#kitsDropdown").change(function () {
     let kitValue = $("#kitsDropdown").dropdown('get value');
     kickSound = loadSound(kits[kitValue].kick);
@@ -647,11 +650,12 @@ $("#kitsDropdown").change(function () {
     perctwoSound = loadSound(kits[kitValue].perctwo);
 });
 
-
+//Instantiate semantic dropdown
 $('.ui.dropdown')
     .dropdown()
 ;
 
+//P5 draw function, draws the analyzer
 function draw() {
     background(0);
 
@@ -675,6 +679,7 @@ function draw() {
 
 }
 
+//Brings up the options for each drum individually
 $(".optionButton").click(function () {
     let drumOptions = $(this).attr('value');
     $("#optionsModalHeader").text((drumOptions + ' options').toUpperCase());
@@ -693,6 +698,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             pitchHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.pitches[drumOptions] = ui.value / 100;
+            processPitches(drumOptions);
         }
     });
 
@@ -710,6 +716,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             volumeHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.volumes[drumOptions] = ui.value / 100;
+            processVolumes(drumOptions);
         }
     });
 
@@ -731,6 +738,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             delayTimeHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.delay.time[drumOptions] = ui.value / 100;
+            processDelays(drumOptions);
         }
     });
 
@@ -746,6 +754,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             delayFeedbackHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.delay.feedback[drumOptions] = ui.value / 100;
+            processDelays(drumOptions);
         }
     });
 
@@ -764,6 +773,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             reverbTimeHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.reverb.time[drumOptions] = ui.value / 100;
+            processReverbs(drumOptions);
         }
     });
 
@@ -782,6 +792,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             reverbDecayHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.reverb.decay[drumOptions] = ui.value / 100;
+            processReverbs(drumOptions);
         }
     });
 
@@ -1134,21 +1145,90 @@ function refreshPattern(patternNumber) {
     });
 }
 
-$("#saveWav").click(function() {
+$("#saveWav").click(function () {
     $('#downloadRow').slideDown();
     $("#stopButton").click();
-    recording=true;
+    recording = true;
     recorder.record(saveSound);
     $("#playButton").click();
 });
 
 let downloadProgressBar = $("#downloadProgress").progress({
-    text : {
-        active  : 'Preparing your download',
-        success : 'Download Ready!'
+    text: {
+        active: 'Preparing your download',
+        success: 'Download Ready!'
     },
     percent: 0
 });
 
+function processPitches(drum) {
+    if (drum === "kick") {
+        kickSound.rate(drumPatterns[pattern].drumEffects.pitches['kick']);
+    } else if (drum === "snare") {
+        snareSound.rate(drumPatterns[pattern].drumEffects.pitches['snare']);
+    } else if (drum === "hihat") {
+        hihatSound.rate(drumPatterns[pattern].drumEffects.pitches['hihat']);
+    } else if (drum === "closed") {
+        closedSound.rate(drumPatterns[pattern].drumEffects.pitches['closed']);
+    } else if (drum === "clap") {
+        clapSound.rate(drumPatterns[pattern].drumEffects.pitches['clap']);
+    } else if (drum === "percone") {
+        perconeSound.rate(drumPatterns[pattern].drumEffects.pitches['percone']);
+    } else if (drum === "perctwo") {
+        perctwoSound.amp(drumPatterns[pattern].drumEffects.volumes['perctwo']);
+    }
+}
 
+function processVolumes(drum) {
+    if (drum === "kick") {
+        kickSound.amp(drumPatterns[pattern].drumEffects.volumes['kick']);
+    } else if (drum === "snare") {
+        snareSound.amp(drumPatterns[pattern].drumEffects.volumes['snare']);
+    } else if (drum === "hihat") {
+        hihatSound.amp(drumPatterns[pattern].drumEffects.volumes['hihat']);
+    } else if (drum === "closed") {
+        closedSound.amp(drumPatterns[pattern].drumEffects.volumes['closed']);
+    } else if (drum === "clap") {
+        clapSound.amp(drumPatterns[pattern].drumEffects.volumes['clap']);
+    } else if (drum === "percone") {
+        perconeSound.amp(drumPatterns[pattern].drumEffects.volumes['percone']);
+    } else if (drum === "perctwo") {
+        perctwoSound.rate(drumPatterns[pattern].drumEffects.pitches['perctwo']);
+    }
+}
 
+function processDelays(drum) {
+    if (drum === "kick") {
+        kickDelay.process(kickSound, drumPatterns[pattern].drumEffects.delay.time["kick"], drumPatterns[pattern].drumEffects.delay.feedback["kick"], 2300);
+    } else if (drum === "snare") {
+        snareDelay.process(snareSound, drumPatterns[pattern].drumEffects.delay.time["snare"], drumPatterns[pattern].drumEffects.delay.feedback["snare"], 2300);
+    } else if (drum === "hihat") {
+        hatDelay.process(hihatSound, drumPatterns[pattern].drumEffects.delay.time["hihat"], drumPatterns[pattern].drumEffects.delay.feedback["hihat"], 2300);
+    } else if (drum === "closed") {
+        closedDelay.process(closedSound, drumPatterns[pattern].drumEffects.delay.time["closed"], drumPatterns[pattern].drumEffects.delay.feedback["closed"], 2300);
+    } else if (drum === "clap") {
+        clapDelay.process(clapSound, drumPatterns[pattern].drumEffects.delay.time["clap"], drumPatterns[pattern].drumEffects.delay.feedback["clap"], 2300);
+    } else if (drum === "percone") {
+        perconeDelay.process(perconeSound, drumPatterns[pattern].drumEffects.delay.time["percone"], drumPatterns[pattern].drumEffects.delay.feedback["percone"], 2300);
+    } else if (drum === "perctwo") {
+        perctwoDelay.process(perctwoSound, drumPatterns[pattern].drumEffects.delay.time["perctwo"], drumPatterns[pattern].drumEffects.delay.feedback["perctwo"], 2300);
+    }
+}
+
+function processReverbs(drum) {
+    if (drum === "kick") {
+        kickReverb.process(kickSound, drumPatterns[pattern].drumEffects.reverb.time["kick"], drumPatterns[pattern].drumEffects.reverb.decay["kick"]);
+    } else if (drum === "snare") {
+        snareReverb.process(snareSound, drumPatterns[pattern].drumEffects.reverb.time["snare"], drumPatterns[pattern].drumEffects.reverb.decay["snare"]);
+    } else if (drum === "hihat") {
+        hatReverb.process(hihatSound, drumPatterns[pattern].drumEffects.reverb.time["hihat"], drumPatterns[pattern].drumEffects.reverb.decay["hihat"]);
+    } else if (drum === "closed") {
+        closedReverb.process(closedSound, drumPatterns[pattern].drumEffects.reverb.time["closed"], drumPatterns[pattern].drumEffects.reverb.decay["closed"]);
+    } else if (drum === "clap") {
+        clapReverb.process(clapSound, drumPatterns[pattern].drumEffects.reverb.time["clap"], drumPatterns[pattern].drumEffects.reverb.decay["clap"]);
+    } else if (drum === "percone") {
+        perconeReverb.process(perconeSound, drumPatterns[pattern].drumEffects.reverb.time["percone"], drumPatterns[pattern].drumEffects.reverb.decay["percone"]);
+    } else if (drum === "perctwo") {
+        perctwoReverb.process(perctwoSound, drumPatterns[pattern].drumEffects.reverb.time["perctwo"], drumPatterns[pattern].drumEffects.reverb.decay["perctwo"]);
+    }
+}

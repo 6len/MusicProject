@@ -475,70 +475,42 @@ $("#playOsc").click(function () {
 --------------------------------------------*/
 function playKick() {
     if (kicks[index] === 1) {
-        kickDelay.process(kickSound, drumPatterns[pattern].drumEffects.delay.time["kick"], drumPatterns[pattern].drumEffects.delay.feedback["kick"], 2300);
-        kickReverb.process(kickSound, drumPatterns[pattern].drumEffects.reverb.time["kick"], drumPatterns[pattern].drumEffects.reverb.decay["kick"]);
-        kickSound.rate(drumPatterns[pattern].drumEffects.pitches['kick']);
-        kickSound.amp(drumPatterns[pattern].drumEffects.volumes['kick']);
         kickSound.play();
     }
 }
 
 function playClap() {
     if (claps[index] === 1) {
-        clapDelay.process(clapSound, drumPatterns[pattern].drumEffects.delay.time["clap"], drumPatterns[pattern].drumEffects.delay.feedback["clap"], 2300);
-        clapReverb.process(clapSound, drumPatterns[pattern].drumEffects.reverb.time["clap"], drumPatterns[pattern].drumEffects.reverb.decay["clap"]);
-        clapSound.rate(drumPatterns[pattern].drumEffects.pitches['clap']);
-        clapSound.amp(drumPatterns[pattern].drumEffects.volumes['clap']);
         clapSound.play();
     }
 }
 
 function playHat() {
     if (hihats[index] === 1) {
-        hatDelay.process(hihatSound, drumPatterns[pattern].drumEffects.delay.time["hihat"], drumPatterns[pattern].drumEffects.delay.feedback["hihat"], 2300);
-        hatReverb.process(hihatSound, drumPatterns[pattern].drumEffects.reverb.time["hihat"], drumPatterns[pattern].drumEffects.reverb.decay["hihat"]);
-        hihatSound.rate(drumPatterns[pattern].drumEffects.pitches['hihat']);
-        hihatSound.amp(drumPatterns[pattern].drumEffects.volumes['hihat']);
         hihatSound.play();
     }
 }
 
 function playSnare() {
     if (snares[index] === 1) {
-        snareDelay.process(snareSound, drumPatterns[pattern].drumEffects.delay.time["snare"], drumPatterns[pattern].drumEffects.delay.feedback["snare"], 2300);
-        snareReverb.process(snareSound, drumPatterns[pattern].drumEffects.reverb.time["snare"], drumPatterns[pattern].drumEffects.reverb.decay["snare"]);
-        snareSound.rate(drumPatterns[pattern].drumEffects.pitches['snare']);
-        snareSound.amp(drumPatterns[pattern].drumEffects.volumes['snare']);
         snareSound.play();
     }
 }
 
 function playClosed() {
     if (closed[index] === 1) {
-        closedDelay.process(closedSound, drumPatterns[pattern].drumEffects.delay.time["closed"], drumPatterns[pattern].drumEffects.delay.feedback["closed"], 2300);
-        closedReverb.process(closedSound, drumPatterns[pattern].drumEffects.reverb.time["closed"], drumPatterns[pattern].drumEffects.reverb.decay["closed"]);
-        closedSound.rate(drumPatterns[pattern].drumEffects.pitches['closed']);
-        closedSound.amp(drumPatterns[pattern].drumEffects.volumes['closed']);
         closedSound.play();
     }
 }
 
 function playPercone() {
     if (percones[index] === 1) {
-        perconeDelay.process(perconeSound, drumPatterns[pattern].drumEffects.delay.time["percone"], drumPatterns[pattern].drumEffects.delay.feedback["percone"], 2300);
-        perconeReverb.process(perconeSound, drumPatterns[pattern].drumEffects.reverb.time["percone"], drumPatterns[pattern].drumEffects.reverb.decay["percone"]);
-        perconeSound.rate(drumPatterns[pattern].drumEffects.pitches['percone']);
-        perconeSound.amp(drumPatterns[pattern].drumEffects.volumes['percone']);
         perconeSound.play();
     }
 }
 
 function playPerctwo() {
     if (perctwos[index] === 1) {
-        perctwoDelay.process(perctwoSound, drumPatterns[pattern].drumEffects.delay.time["perctwo"], drumPatterns[pattern].drumEffects.delay.feedback["perctwo"], 2300);
-        perctwoReverb.process(perctwoSound, drumPatterns[pattern].drumEffects.reverb.time["perctwo"], drumPatterns[pattern].drumEffects.reverb.decay["perctwo"]);
-        perctwoSound.rate(drumPatterns[pattern].drumEffects.pitches['perctwo']);
-        perctwoSound.amp(drumPatterns[pattern].drumEffects.volumes['perctwo']);
         perctwoSound.play();
     }
 }
@@ -726,6 +698,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             pitchHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.pitches[drumOptions] = ui.value / 100;
+            processPitches(drumOptions);
         }
     });
 
@@ -743,6 +716,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             volumeHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.volumes[drumOptions] = ui.value / 100;
+            processVolumes(drumOptions);
         }
     });
 
@@ -764,6 +738,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             delayTimeHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.delay.time[drumOptions] = ui.value / 100;
+            processDelays(drumOptions);
         }
     });
 
@@ -779,6 +754,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             delayFeedbackHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.delay.feedback[drumOptions] = ui.value / 100;
+            processDelays(drumOptions);
         }
     });
 
@@ -797,6 +773,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             reverbTimeHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.reverb.time[drumOptions] = ui.value / 100;
+            processReverbs(drumOptions);
         }
     });
 
@@ -815,6 +792,7 @@ $(".optionButton").click(function () {
         slide: function (event, ui) {
             reverbDecayHandle.text(ui.value / 100);
             drumPatterns[pattern].drumEffects.reverb.decay[drumOptions] = ui.value / 100;
+            processReverbs(drumOptions);
         }
     });
 
@@ -838,7 +816,6 @@ $("#tempoSlider").slider({
     }
 });
 
-//Initializes all knobs for the oscillator section
 function knobInit() {
     $("#frequencyKnob").knob({
         bgColor: "black",
@@ -1168,21 +1145,90 @@ function refreshPattern(patternNumber) {
     });
 }
 
-$("#saveWav").click(function() {
+$("#saveWav").click(function () {
     $('#downloadRow').slideDown();
     $("#stopButton").click();
-    recording=true;
+    recording = true;
     recorder.record(saveSound);
     $("#playButton").click();
 });
 
 let downloadProgressBar = $("#downloadProgress").progress({
-    text : {
-        active  : 'Preparing your download',
-        success : 'Download Ready!'
+    text: {
+        active: 'Preparing your download',
+        success: 'Download Ready!'
     },
     percent: 0
 });
 
+function processPitches(drum) {
+    if (drum === "kick") {
+        kickSound.rate(drumPatterns[pattern].drumEffects.pitches['kick']);
+    } else if (drum === "snare") {
+        snareSound.rate(drumPatterns[pattern].drumEffects.pitches['snare']);
+    } else if (drum === "hihat") {
+        hihatSound.rate(drumPatterns[pattern].drumEffects.pitches['hihat']);
+    } else if (drum === "closed") {
+        closedSound.rate(drumPatterns[pattern].drumEffects.pitches['closed']);
+    } else if (drum === "clap") {
+        clapSound.rate(drumPatterns[pattern].drumEffects.pitches['clap']);
+    } else if (drum === "percone") {
+        perconeSound.rate(drumPatterns[pattern].drumEffects.pitches['percone']);
+    } else if (drum === "perctwo") {
+        perctwoSound.amp(drumPatterns[pattern].drumEffects.volumes['perctwo']);
+    }
+}
 
+function processVolumes(drum) {
+    if (drum === "kick") {
+        kickSound.amp(drumPatterns[pattern].drumEffects.volumes['kick']);
+    } else if (drum === "snare") {
+        snareSound.amp(drumPatterns[pattern].drumEffects.volumes['snare']);
+    } else if (drum === "hihat") {
+        hihatSound.amp(drumPatterns[pattern].drumEffects.volumes['hihat']);
+    } else if (drum === "closed") {
+        closedSound.amp(drumPatterns[pattern].drumEffects.volumes['closed']);
+    } else if (drum === "clap") {
+        clapSound.amp(drumPatterns[pattern].drumEffects.volumes['clap']);
+    } else if (drum === "percone") {
+        perconeSound.amp(drumPatterns[pattern].drumEffects.volumes['percone']);
+    } else if (drum === "perctwo") {
+        perctwoSound.rate(drumPatterns[pattern].drumEffects.pitches['perctwo']);
+    }
+}
 
+function processDelays(drum) {
+    if (drum === "kick") {
+        kickDelay.process(kickSound, drumPatterns[pattern].drumEffects.delay.time["kick"], drumPatterns[pattern].drumEffects.delay.feedback["kick"], 2300);
+    } else if (drum === "snare") {
+        snareDelay.process(snareSound, drumPatterns[pattern].drumEffects.delay.time["snare"], drumPatterns[pattern].drumEffects.delay.feedback["snare"], 2300);
+    } else if (drum === "hihat") {
+        hatDelay.process(hihatSound, drumPatterns[pattern].drumEffects.delay.time["hihat"], drumPatterns[pattern].drumEffects.delay.feedback["hihat"], 2300);
+    } else if (drum === "closed") {
+        closedDelay.process(closedSound, drumPatterns[pattern].drumEffects.delay.time["closed"], drumPatterns[pattern].drumEffects.delay.feedback["closed"], 2300);
+    } else if (drum === "clap") {
+        clapDelay.process(clapSound, drumPatterns[pattern].drumEffects.delay.time["clap"], drumPatterns[pattern].drumEffects.delay.feedback["clap"], 2300);
+    } else if (drum === "percone") {
+        perconeDelay.process(perconeSound, drumPatterns[pattern].drumEffects.delay.time["percone"], drumPatterns[pattern].drumEffects.delay.feedback["percone"], 2300);
+    } else if (drum === "perctwo") {
+        perctwoDelay.process(perctwoSound, drumPatterns[pattern].drumEffects.delay.time["perctwo"], drumPatterns[pattern].drumEffects.delay.feedback["perctwo"], 2300);
+    }
+}
+
+function processReverbs(drum) {
+    if (drum === "kick") {
+        kickReverb.process(kickSound, drumPatterns[pattern].drumEffects.reverb.time["kick"], drumPatterns[pattern].drumEffects.reverb.decay["kick"]);
+    } else if (drum === "snare") {
+        snareReverb.process(snareSound, drumPatterns[pattern].drumEffects.reverb.time["snare"], drumPatterns[pattern].drumEffects.reverb.decay["snare"]);
+    } else if (drum === "hihat") {
+        hatReverb.process(hihatSound, drumPatterns[pattern].drumEffects.reverb.time["hihat"], drumPatterns[pattern].drumEffects.reverb.decay["hihat"]);
+    } else if (drum === "closed") {
+        closedReverb.process(closedSound, drumPatterns[pattern].drumEffects.reverb.time["closed"], drumPatterns[pattern].drumEffects.reverb.decay["closed"]);
+    } else if (drum === "clap") {
+        clapReverb.process(clapSound, drumPatterns[pattern].drumEffects.reverb.time["clap"], drumPatterns[pattern].drumEffects.reverb.decay["clap"]);
+    } else if (drum === "percone") {
+        perconeReverb.process(perconeSound, drumPatterns[pattern].drumEffects.reverb.time["percone"], drumPatterns[pattern].drumEffects.reverb.decay["percone"]);
+    } else if (drum === "perctwo") {
+        perctwoReverb.process(perctwoSound, drumPatterns[pattern].drumEffects.reverb.time["perctwo"], drumPatterns[pattern].drumEffects.reverb.decay["perctwo"]);
+    }
+}
