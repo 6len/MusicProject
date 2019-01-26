@@ -36,15 +36,15 @@
       "percone": "SoundSamples/Chill/DR660 Mid Tom.wav",
       "perctwo": "SoundSamples/Chill/DR660 Conga.wav"
     },
-     "808": {
-       "kick": "SoundSamples/808/808_kick_01.wav",
-       "snare": "SoundSamples/808/808_snare_01.wav",
-       "clap": "SoundSamples/808/808_clap.wav",
-       "closed": "SoundSamples/808/808_closedhat_01.wav",
-       "hihat": "SoundSamples/808/808_openhat_01.wav",
-       "percone": "SoundSamples/808/808_tom_01.wav",
-       "perctwo": "SoundSamples/808/808_rimshot.wav"
-     },
+    "808": {
+      "kick": "SoundSamples/808/808_kick_01.wav",
+      "snare": "SoundSamples/808/808_snare_01.wav",
+      "clap": "SoundSamples/808/808_clap.wav",
+      "closed": "SoundSamples/808/808_closedhat_01.wav",
+      "hihat": "SoundSamples/808/808_openhat_01.wav",
+      "percone": "SoundSamples/808/808_tom_01.wav",
+      "perctwo": "SoundSamples/808/808_rimshot.wav"
+    },
     "DDM": {
       "kick" : "SoundSamples/DDM/KickDDM.wav",
       "snare" : "SoundSamples/DDM/SnareDDM.wav",
@@ -53,6 +53,27 @@
       "hihat" : "SoundSamples/DDM/OpenDDM.wav",
       "percone" : "SoundSamples/DDM/TomDDM.wav",
       "perctwo" : "SoundSamples/DDM/SideStickDDM.wav"
+    },
+
+    "DX200": {
+      "kick" : "SoundSamples/Yamaha-DX200drumsSAMPLEpack/BD-dx200-SP1200esqueKick.wav",
+      "snare" : "SoundSamples/Yamaha-DX200drumsSAMPLEpack/SD-dx200-SP1200ishSnare.wav",
+      "clap" : "SoundSamples/Yamaha-DX200drumsSAMPLEpack/CLAP-dx200-Clapzzz.wav",
+      "closed" : "SoundSamples/Yamaha-DX200drumsSAMPLEpack/HAT-dx200-RhythmBoxHatCLOSED.wav",
+      "hihat" : "SoundSamples/Yamaha-DX200drumsSAMPLEpack/HAT-dx200-RhythmBoxHatOPEN.wav",
+      "percone" : "SoundSamples/Yamaha-DX200drumsSAMPLEpack/PERC-dx200-Shaker.wav",
+      "perctwo" : "SoundSamples/Yamaha-DX200drumsSAMPLEpack/RS-dx200-ShortStick.wav"
+    },
+
+    "Casio": {
+      "kick" : "SoundSamples/CASIOMT70-Drumsamplezzz/CasioMT70-Bassdrum.wav",
+      "snare" : "SoundSamples/CASIOMT70-Drumsamplezzz/CasioMT70-Snaredrum.wav",
+      "clap" : "SoundSamples/CASIOMT70-Drumsamplezzz/CasioMT70-Snare+Clave.wav",
+      "closed" : "SoundSamples/CASIOMT70-Drumsamplezzz/CasioMT70-ClosedHihat.wav",
+      "hihat" : "SoundSamples/CASIOMT70-Drumsamplezzz/CasioMT70-OpenHihat.wav",
+      "percone" : "SoundSamples/CASIOMT70-Drumsamplezzz/VibraphoneMid-MT70.wav",
+      "perctwo" : "SoundSamples/CASIOMT70-Drumsamplezzz/VibraphoneHi-MT70.wav"
+
     }
 
   }
